@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <style>
+    html, body, #map { margin: 0; padding: 0; height: 100%; width: 100%; background: #05051a; overflow: hidden; }
+    .marker {
+      width: 14px; height: 14px; border-radius: 50%;
+      border: 2px solid #fff; box-shadow: 0 0 0 3px rgba(0,0,128,0.25);
+      cursor: pointer;
+    }
+    .marker.active { width: 18px; height: 18px; box-shadow: 0 0 0 5px rgba(248,230,0,0.45); }
+    .plane {
+      position: absolute; width: 32px; height: 32px; pointer-events: none; z-index: 5;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.45));
+      display: none;
+    }
+    .user-ring {
+      width: 48px; height: 48px; border-radius: 50%;
+      border: 2px dashed rgba(130,209,241,0.9);
+      background: rgba(130,209,241,0.18);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .user-dot { width: 10px; height: 10px; border-radius: 50%; background: #82D1F1; border: 2px solid #fff; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <svg class="plane" id="plane" viewBox="0 0 64 64">
+    <path fill="#F8E600" stroke="#0032A0" stroke-width="2"
+      d="M58 30 L38 34 L28 52 L22 50 L28 36 L10 38 L6 34 L28 28 L22 12 L28 10 L38 26 Z"/>
+  </svg>
+  <script>
+    const map = new maplibregl.Map({
+      container: 'map',
+      style: {
+        version: 8,
+        sources: {
+          satellite: {
+            type: 'raster',
+            tiles: [
+              'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+            ],
+            tileSize: 256,
+            attribution: 'esri'
+          }
+        },
+        layers: [{ id: 'satellite', type: 'raster', source: 'satellite' }]
+      },
+      center: [115, 5],
+      zoom: 1.6,
+      pitch: 0,
+      bearing: 0,
+      maxPitch: 85,
+      attributionControl: false
+    });
+
+    try { map.setProjection({ type: 'globe' }); } catch (e) {}
+
+    map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-right');
+
+    map.on('style.load', () => {
+      try {
+        map.setFog({
+          color: 'rgb(186, 210, 235)',
+          'high-color': 'rgb(36, 92, 223)',
+          'horizon-blend': 0.02,
+          'space-color': 'rgb(5, 5, 26)',
+          'star-intensity': 0.85
+        });
+      } catch (e) {}
+      try {
+        map.setLight({
+          anchor: 'viewport',
+          intensity: 0.35,
+          position: [1.5, 90, 80]
+        });
+      } catch (e) {}
+    });
+
+    let markers = [];
+    let selectedId = null;
+    let lastPlaces = [];
+    let userMarker = null;
+    const plane = document.getElementById('plane');
+
+    function clearMarkers() {
+      markers.forEach((m) => m.remove());
+      markers = [];
+    }
+
+    function post(type, payload) {
+      const msg = JSON.stringify({ type, payload });
+      if (window.ReactNativeWebView) window.ReactNativeWebView.postMessage(msg);
+      else window.parent.postMessage(msg, '*');
+    }
+
+    function setPlaces(places) {
+      lastPlaces = places || [];
+      clearMarkers();
+      lastPlaces.forEach((p) => {
+        const el = document.createElement('div');
+        el.className = 'marker' + (p.id === selectedId ? ' active' : '');
+        el.style.background = p.color || '#82D1F1';
+        el.title = p.location;
+        el.addEventListener('click', (e) => {
+          e.stopPropagation();
+          selectedId = p.id;
+          setPlaces(lastPlaces);
+          post('select', { id: p.id });
+        });
+        const m = new maplibregl.Marker({ element: el }).setLngLat([p.lng, p.lat]).addTo(map);
+        markers.push(m);
+      });
+    }
+
+    function setUser(loc) {
+      if (!loc) return;
+      if (userMarker) userMarker.remove();
+      const el = document.createElement('div');
+      el.className = 'user-ring';
+      el.innerHTML = '<div class="user-dot"></div>';
+      userMarker = new maplibregl.Marker({ element: el }).setLngLat([loc.lng, loc.lat]).addTo(map);
+    }
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    function flyPlane(from, to, color) {
+      plane.style.display = 'block';
+      if (color) plane.querySelector('path').setAttribute('fill', color);
+      const start = performance.now();
+      const dist = Math.hypot(to.lng - from.lng, to.lat - from.lat);
+      const dur = Math.min(5200, Math.max(2200, dist * 35));
+      const arc = Math.min(18, 3 + dist * 0.12);
+
+      map.flyTo({
+        center: [(from.lng + to.lng) / 2, (from.lat + to.lat) / 2],
+        zoom: dist > 40 ? 1.8 : 3.2,
+        pitch: 35,
+        duration: 800
+      });
+
+      function frame(now) {
+        const t = Math.min(1, (now - start) / dur);
+        const ease = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
+        const lng = lerp(from.lng, to.lng, ease);
+        const lat = lerp(from.lat, to.lat, ease) + Math.sin(Math.PI * ease) * arc;
+        const p = map.project([lng, lat]);
+        const angle = Math.atan2(to.lat - from.lat, to.lng - from.lng) * 180 / Math.PI;
+        plane.style.left = (p.x - 16) + 'px';
+        plane.style.top = (p.y - 16) + 'px';
+        plane.style.transform = 'rotate(' + angle + 'deg)';
+        map.easeTo({ center: [lng, lat], duration: 0 });
+        if (t < 1) requestAnimationFrame(frame);
+        else {
+          map.flyTo({
+            center: [to.lng, to.lat],
+            zoom: 5.8,
+            pitch: 55,
+            bearing: -12,
+            duration: 1200,
+            padding: { top: 48, bottom: 48, left: 48, right: 48 }
+          });
+          setTimeout(() => { plane.style.display = 'none'; post('planeDone', {}); }, 400);
+        }
+      }
+      requestAnimationFrame(frame);
+    }
+
+    function focusPlace(p) {
+      selectedId = p.id;
+      setPlaces(lastPlaces);
+      map.flyTo({
+        center: [p.lng, p.lat],
+        zoom: 5.8,
+        pitch: 55,
+        bearing: -12,
+        duration: 1400,
+        padding: { top: 48, bottom: 48, left: 48, right: 48 }
+      });
+    }
+
+    function handleMessage(raw) {
+      let data = raw;
+      if (typeof raw === 'string') {
+        try { data = JSON.parse(raw); } catch (e) { return; }
+      }
+      if (!data || !data.type) return;
+      if (data.type === 'setPlaces') setPlaces(data.payload || []);
+      if (data.type === 'setUser') setUser(data.payload);
+      if (data.type === 'flyPlane') flyPlane(data.payload.from, data.payload.to, data.payload.color);
+      if (data.type === 'focus') {
+        // When a plane is flying, skip extra focus — plane ends centered
+        if (plane.style.display === 'block') {
+          selectedId = data.payload.place.id;
+          setPlaces(lastPlaces);
+        } else {
+          focusPlace(data.payload.place);
+        }
+      }
+      if (data.type === 'resetView') {
+        selectedId = null;
+        map.flyTo({ center: [115, 5], zoom: 1.6, pitch: 0, bearing: 0, duration: 1000, padding: { top: 0, bottom: 0, left: 0, right: 0 } });
+      }
+    }
+
+    document.addEventListener('message', (e) => handleMessage(e.data));
+    window.addEventListener('message', (e) => handleMessage(e.data));
+
+    map.on('load', () => {
+      try { map.setProjection({ type: 'globe' }); } catch (e) {}
+      post('ready', {});
+    });
+  </script>
+</body>
+</html>
