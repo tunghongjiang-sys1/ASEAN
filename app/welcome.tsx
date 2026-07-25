@@ -207,7 +207,6 @@ export default function WelcomeScreen() {
                 label={compact ? 'guest' : 'continue as guest'}
                 variant="secondary"
                 onPress={loginAsGuest}
-                style={{ marginTop: 10 }}
               />
             </>
           ) : (
@@ -222,25 +221,21 @@ export default function WelcomeScreen() {
                     label={compact ? 'notes' : 'open notes'}
                     variant="ghost"
                     onPress={() => router.push('/notes')}
-                    style={{ marginTop: 10 }}
                   />
                   <Button
                     label={compact ? 'ai' : 'ai travel desk'}
                     variant="ghost"
                     onPress={() => router.push('/chat')}
-                    style={{ marginTop: 10 }}
                   />
                   <Button
                     label={compact ? 'globe' : 'back to globe'}
                     variant="asean"
                     onPress={() => router.push('/globe')}
-                    style={{ marginTop: 10 }}
                   />
                   <Button
                     label={compact ? 'logout' : 'log out'}
                     variant="ghost"
                     onPress={logout}
-                    style={{ marginTop: 10 }}
                   />
                 </>
               ) : null}
@@ -283,7 +278,7 @@ const styles = StyleSheet.create({
     color: colors.muted,
     fontSize: 12,
   },
-  actions: { marginTop: 24 },
+  actions: { marginTop: 24, gap: 10 },
   input: {
     backgroundColor: colors.pureWhite,
     borderRadius: 14,
@@ -291,12 +286,11 @@ const styles = StyleSheet.create({
     borderColor: colors.line,
     paddingHorizontal: 14,
     paddingVertical: 12,
-    marginBottom: 8,
     fontFamily: 'DMSans_400Regular',
     fontSize: 15,
     color: colors.ink,
   },
-  historyBlock: { gap: 6, marginBottom: 4 },
+  historyBlock: { gap: 6 },
   historyLabel: { color: colors.muted, fontSize: 12 },
   historyRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   historyChip: {

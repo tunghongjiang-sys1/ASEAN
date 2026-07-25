@@ -8,7 +8,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "build:web": "expo export -p web --output-dir dist",
-    "build": "expo export -p web --output-dir dist"
+    "build": "npm run build:web && node -e \"const fs=require('fs');fs.copyFileSync('dist/index.html','dist/404.html')\""
   },
   "dependencies": {
     "@expo-google-fonts/dm-sans": "^0.4.2",
