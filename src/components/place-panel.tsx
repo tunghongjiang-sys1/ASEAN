@@ -23,7 +23,7 @@ type Props = {
 
 export function PlacePanel({ place, onClose }: Props) {
   const router = useRouter();
-  const { addNote, removeNote, hasNote } = useApp();
+  const { addNote, removeNote, hasNote, userLocation } = useApp();
   const [flights, setFlights] = useState<FlightInfo[]>([]);
   const [loadingFlights, setLoadingFlights] = useState(true);
   const saved = hasNote(place.id);
@@ -40,8 +40,8 @@ export function PlacePanel({ place, onClose }: Props) {
   );
   const infoLinks = useMemo(() => getPlaceLinks(detailed), [detailed]);
   const flightLinks = useMemo(
-    () => getFlightSearchLinks(detailed.airport),
-    [detailed.airport]
+    () => getFlightSearchLinks(detailed.airport, 'SIN', userLocation?.label),
+    [detailed.airport, userLocation?.label]
   );
 
   useEffect(() => {

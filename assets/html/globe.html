@@ -149,7 +149,23 @@
         const lng = lerp(from.lng, to.lng, ease);
         const lat = lerp(from.lat, to.lat, ease) + Math.sin(Math.PI * ease) * arc;
         const p = map.project([lng, lat]);
-        const angle = Math.atan2(to.lat - from.lat, to.lng - from.lng) * 180 / Math.PI;
+
+        // Tilt the plane along the direction of travel on screen so its
+        // heading matches the location it's flying toward — works correctly
+        // even when the map is pitched/rotated.
+        let angle = 0;
+        if (t < 1) {
+          const tNext = Math.min(1, t + 0.025);
+          const easeNext = tNext < 0.5 ? 2 * tNext * tNext : -1 + (4 - 2 * tNext) * tNext;
+          const nextLng = lerp(from.lng, to.lng, easeNext);
+          const nextLat = lerp(from.lat, to.lat, easeNext) + Math.sin(Math.PI * easeNext) * arc;
+          const pNext = map.project([nextLng, nextLat]);
+          angle = Math.atan2(pNext.y - p.y, pNext.x - p.x) * 180 / Math.PI;
+        } else {
+          const pTarget = map.project([to.lng, to.lat]);
+          angle = Math.atan2(pTarget.y - p.y, pTarget.x - p.x) * 180 / Math.PI;
+        }
+
         plane.style.left = (p.x - 16) + 'px';
         plane.style.top = (p.y - 16) + 'px';
         plane.style.transform = 'rotate(' + angle + 'deg)';

@@ -145,13 +145,23 @@ export function getPlaceLinks(place: Place): PlaceLink[] {
   ];
 }
 
-export function getFlightSearchLinks(airport: string, from = 'SIN'): PlaceLink[] {
+export function getFlightSearchLinks(
+  airport: string,
+  from = 'SIN',
+  originCityName?: string
+): PlaceLink[] {
   const to = (airport || 'DPS').toUpperCase();
   const fromCode = from.toUpperCase();
+  const fromCity = (originCityName || (fromCode === 'SIN' ? 'Singapore' : fromCode)).trim();
+  const toCity = to;
+  const routeQuery = encodeURIComponent(`${fromCity} to ${toCity} flights`);
+
   return [
     {
       label: 'google flights',
-      url: `https://www.google.com/travel/flights?q=Flights%20to%20${to}%20from%20${fromCode}`,
+      url: `https://www.google.com/travel/flights?q=${encodeURIComponent(
+        `${fromCity} ${fromCode} to ${toCity} ${to}`
+      )}`,
     },
     {
       label: 'skyscanner',
@@ -160,6 +170,10 @@ export function getFlightSearchLinks(airport: string, from = 'SIN'): PlaceLink[]
     {
       label: 'kayak',
       url: `https://www.kayak.com/flights/${fromCode}-${to}/`,
+    },
+    {
+      label: 'google search',
+      url: `https://www.google.com/search?q=${routeQuery}`,
     },
   ];
 }

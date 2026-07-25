@@ -77,7 +77,7 @@ export default function WelcomeScreen() {
             <>
               <Button
                 label={compact ? 'start' : 'start planning'}
-                onPress={() => router.push('/attractionsions')}
+                onPress={() => router.push('/attractions')}
               />
               {onboarded ? (
                 <>
