@@ -151,10 +151,10 @@ export function findMinigameForPlace(place: Place): Minigame {
     .filter((x) => x.score > 0)
     .sort((a, b) => b.score - a.score);
 
-  // Prefer a real matched game when the hint clearly fits
+  
   if (scored[0] && scored[0].score >= 2) return scored[0].g;
 
-  // Unique generated minigame for places without a dedicated match
+  
   return generateMinigameForPlace(place);
 }
 

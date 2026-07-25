@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Linking, Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { Linking, Pressable, ScrollView, StyleSheet, Text, TextInput, View, useWindowDimensions } from 'react-native';
 import { Redirect, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getPlaceById, places as allPlaces } from '../data';
@@ -15,8 +15,9 @@ export default function NotesScreen() {
   const router = useRouter();
   const { width } = useWindowDimensions();
   const compact = width < 420;
-  const { auth, onboarded, notes, removeNote, setSelectedPlaceId } = useApp();
+  const { auth, onboarded, notes, removeNote, updatenotebody, setSelectedPlaceId } = useApp();
   const [openId, setOpenId] = useState<string | null>(null);
+  const [drafts, setDrafts] = useState<Record<string, string>>({});
 
   const items = useMemo(
     () =>
@@ -101,6 +102,18 @@ export default function NotesScreen() {
                         </Pressable>
                       ))}
                     </View>
+                    <TextInput
+                      value={drafts[place.id] ?? note.body ?? ''}
+                      onChangeText={(text) => {
+                        setDrafts((d) => ({ ...d, [place.id]: text }));
+                        updatenotebody(place.id, text);
+                      }}
+                      placeholder={compact ? 'add a note about this place…' : 'type anything you want to remember about this place — packing, tips, or a journal entry.'}
+                      placeholderTextColor={colors.muted}
+                      style={styles.noteBody}
+                      multiline
+                      textAlignVertical="top"
+                    />
                     <View style={styles.actions}>
                       <Pressable
                         onPress={() => {
@@ -117,6 +130,9 @@ export default function NotesScreen() {
                     </View>
                     <Text style={styles.saved}>
                       saved {new Date(note.addedAt).toLocaleString().toLowerCase()}
+                      {note.updatedAt && note.updatedAt !== note.addedAt
+                        ? ` · edited ${new Date(note.updatedAt).toLocaleString().toLowerCase()}`
+                        : ''}
                     </Text>
                   </View>
                 ) : null}
@@ -221,5 +237,20 @@ const styles = StyleSheet.create({
     fontFamily: 'DMSans_400Regular',
     fontSize: 11,
     color: colors.muted,
+  },
+  noteBody: {
+    marginTop: 8,
+    minHeight: 72,
+    maxHeight: 180,
+    backgroundColor: colors.mist,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: colors.line,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    fontFamily: 'DMSans_400Regular',
+    fontSize: 14,
+    lineHeight: 20,
+    color: colors.ink,
   },
 });

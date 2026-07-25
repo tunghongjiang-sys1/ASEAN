@@ -5,7 +5,7 @@ export type WorldCity = {
   lng: number;
 };
 
-/** Major cities worldwide for instant typeahead; Nominatim fills rarer places. */
+ 
 export const WORLD_CITIES: WorldCity[] = [
   { name: 'Singapore', country: 'Singapore', lat: 1.3521, lng: 103.8198 },
   { name: 'Jakarta', country: 'Indonesia', lat: -6.2088, lng: 106.8456 },

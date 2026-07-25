@@ -114,7 +114,7 @@ export function parseTransports(howToGetThere: string): TransportLeg[] {
     return { mode, label: MODE_LABEL[mode], detail };
   });
 
-  // Always keep every leg — including boats — even when several modes are needed
+  
   return legs.length ? legs : [{ mode: 'other', label: 'transfer', detail: text }];
 }
 

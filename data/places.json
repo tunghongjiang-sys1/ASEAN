@@ -1,0 +1,4344 @@
+{
+  "places": [
+    {
+      "id": "indonesia-bali",
+      "country": "Indonesia",
+      "category": "Coastline/islands",
+      "location": "Bali",
+      "primaryActivities": "Surfing and beach activities",
+      "howToGetThere": "Fly SIN → Denpasar (DPS) direct (~1h45–2h); use Grab/Gojek, private driver, or scooter",
+      "paymentMethods": "Cash, cards, QRIS widely accepted",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Dress modestly away from beach; cover shoulders/knees at temples; no drugs; respect offerings and ceremonies",
+      "dressCode": "Swimwear for beach only; sarong + covered shoulders/knees at temples",
+      "accessNeeded": "Temple sarong/sash (often provided); follow local rules",
+      "navigationTips": "Use Google Maps; download offline maps; traffic heavy in south Bali",
+      "lat": -8.4095,
+      "lng": 115.1889,
+      "airport": "DPS",
+      "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&h=600&fit=crop",
+      "amenities": [
+        "cafe",
+        "restroom",
+        "parking",
+        "beach access",
+        "surf rental",
+        "local guide"
+      ],
+      "funFacts": [
+        "bali receives over six million tourists each year.",
+        "the island has thousands of temples and shrines.",
+        "ubud became a global wellness destination in the 1970s."
+      ]
+    },
+    {
+      "id": "indonesia-komodo",
+      "country": "Indonesia",
+      "category": "Coastline/islands",
+      "location": "Komodo National Park",
+      "primaryActivities": "See Komodo dragons; boat tours; diving/snorkeling",
+      "howToGetThere": "Fly SIN → DPS or Surabaya (SUB) → Labuan Bajo (LBJ); then liveaboard/day boat",
+      "paymentMethods": "Cash preferred; some cards at resorts/boats",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Keep distance from dragons; follow ranger instructions; no littering; no feeding wildlife",
+      "dressCode": "Sturdy shoes, hat, swimwear, sun protection",
+      "accessNeeded": "Park entry fee; boat booking; ranger‑guided access",
+      "navigationTips": "Boat routes arranged by operator; GPS handled by crew",
+      "lat": -8.5569,
+      "lng": 119.4327,
+      "airport": "LBJ",
+      "image": "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop",
+      "amenities": [
+        "boat dock",
+        "restroom",
+        "local guide",
+        "snorkel rental",
+        "cafe"
+      ],
+      "funFacts": [
+        "komodo dragons can run up to 20 km per hour.",
+        "the park spans both komodo and rinca islands.",
+        "pink beach gets its color from crushed coral organisms."
+      ]
+    },
+    {
+      "id": "indonesia-rajaampat",
+      "country": "Indonesia",
+      "category": "Coastline/islands",
+      "location": "Raja Ampat (West Papua)",
+      "primaryActivities": "Diving and snorkeling; island hopping",
+      "howToGetThere": "Fly SIN → Jakarta (CGK) or Makassar (UPG) → Sorong (SOQ); speedboat to Waisai/islands",
+      "paymentMethods": "Cash, cards at resorts; cash in villages",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect Papuan villages and reefs; cover up in communities; no coral touching",
+      "dressCode": "Dive/snorkel gear, reef‑safe sunscreen; cover up in villages",
+      "accessNeeded": "Dive certification for diving; boat transfer; resort/permit fees",
+      "navigationTips": "Resort/guide handles navigation; use offline maps for hikes",
+      "lat": -0.2333,
+      "lng": 130.5167,
+      "airport": "SOQ",
+      "image": "https://images.unsplash.com/photo-1559128010-7cc1d8d520e4?w=800&h=600&fit=crop",
+      "amenities": [
+        "boat dock",
+        "dive shop",
+        "restroom",
+        "resort",
+        "local guide"
+      ],
+      "funFacts": [
+        "raja ampat holds over 75 percent of the world's coral species.",
+        "the name means four kings in bahasa indonesia.",
+        "wayag viewpoint offers iconic karst island panoramas."
+      ]
+    },
+    {
+      "id": "indonesia-wakatobi",
+      "country": "Indonesia",
+      "category": "Underwater worlds",
+      "location": "Wakatobi, Southeast Sulawesi",
+      "primaryActivities": "Diving; coral reef sightseeing",
+      "howToGetThere": "Fly SIN → CGK/UPG → Kendari (KDI) or Bau‑Bau (BUW); then small plane/boat to Wakatobi (often liveaboard/resort)",
+      "paymentMethods": "Resort packages in advance; cash for extras",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Conservative local communities; modest dress on islands; respect marine protected areas",
+      "dressCode": "Swim/dive gear only on boats/sites; cover up in villages",
+      "accessNeeded": "Advanced dive planning; check medical/evac coverage",
+      "navigationTips": "Liveaboard crew handles routes",
+      "lat": -5.3167,
+      "lng": 123.5833,
+      "airport": "KDI",
+      "image": "https://images.unsplash.com/photo-1583212292455-02d70f9d8f8?w=800&h=600&fit=crop",
+      "amenities": [
+        "dive shop",
+        "boat dock",
+        "restroom",
+        "resort",
+        "local guide",
+        "cafe"
+      ],
+      "funFacts": [
+        "wakatobi is an acronym of four main islands.",
+        "the reef here is part of a unesco marine biosphere.",
+        "visibility often exceeds 30 meters for divers."
+      ]
+    },
+    {
+      "id": "indonesia-morotai",
+      "country": "Indonesia",
+      "category": "Underwater worlds",
+      "location": "Morotai, North Maluku",
+      "primaryActivities": "Diving; WWII relics; blacktip sharks",
+      "howToGetThere": "Fly SIN → CGK/UPG → Manado (MDC) → Morotai (OTI); small planes",
+      "paymentMethods": "Mostly cash; some resorts may take cards",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Conservative Muslim area; cover shoulders/knees in town; respect war graves",
+      "dressCode": "Modest sportswear; cover up in town",
+      "accessNeeded": "Dive gear (or rent); torch for wrecks; local guides",
+      "navigationTips": "Local guides essential; limited signage; offline maps",
+      "lat": 2.3194,
+      "lng": 128.4019,
+      "airport": "OTI",
+      "image": "https://picsum.photos/seed/indonesia-morotai/800/600",
+      "amenities": [
+        "boat dock",
+        "restroom",
+        "local guide",
+        "dive shop",
+        "cafe"
+      ],
+      "funFacts": [
+        "morotai was a major wwii pacific base.",
+        "blacktip reef sharks gather near village shores.",
+        "the island has pristine reefs with few tourists."
+      ]
+    },
+    {
+      "id": "indonesia-gilitrawangan",
+      "country": "Indonesia",
+      "category": "Underwater worlds",
+      "location": "Gili Trawangan, West Nusa Tenggara",
+      "primaryActivities": "Diving, snorkeling, explore Gili Islands",
+      "howToGetThere": "Fly SIN → DPS; fast boat from Serangan/Bali to Gili T (1.5–2h)",
+      "paymentMethods": "Cards/QRIS in many places; cash still important",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "More relaxed but still dress modestly off beach; no alcohol on some islands",
+      "dressCode": "Swimwear for beach; cover up in town",
+      "accessNeeded": "Boat ticket; snorkel gear (or rent)",
+      "navigationTips": "Island is tiny; walk or cycle; Google Maps works",
+      "lat": -8.3492,
+      "lng": 116.0435,
+      "airport": "DPS",
+      "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop",
+      "amenities": [
+        "boat dock",
+        "cafe",
+        "restroom",
+        "snorkel rental",
+        "bicycle rental"
+      ],
+      "funFacts": [
+        "gili trawangan bans motorized vehicles.",
+        "turtle hatchlings are released on the beaches.",
+        "the island is only three kilometers long."
+      ]
+    },
+    {
+      "id": "indonesia-kalibiru",
+      "country": "Indonesia",
+      "category": "River and wetlands",
+      "location": "Kali Biru (Blue River), Raja Ampat",
+      "primaryActivities": "Swimming, trekking",
+      "howToGetThere": "Same as Raja Ampat; day trip from Waisai or resort",
+      "paymentMethods": "Cash for local fees",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Same as Raja Ampat; respect local customs, ask before photos",
+      "dressCode": "Water shoes, modest swimwear, dry bag",
+      "accessNeeded": "Local guide/boat",
+      "navigationTips": "Usually via tour; local signs + maps.me",
+      "lat": -0.5833,
+      "lng": 130.35,
+      "airport": "SOQ",
+      "image": "https://picsum.photos/seed/indonesia-kalibiru/800/600",
+      "amenities": [
+        "local guide",
+        "restroom",
+        "boat dock",
+        "cafe",
+        "parking"
+      ],
+      "funFacts": [
+        "kali biru means blue river in bahasa indonesia.",
+        "minerals give the water an intense turquoise hue.",
+        "the river is a short day trip from waisai."
+      ]
+    },
+    {
+      "id": "indonesia-maron",
+      "country": "Indonesia",
+      "category": "River and wetlands",
+      "location": "Maron River (Pacitan, East Java)",
+      "primaryActivities": "Paddleboarding, boating, photography",
+      "howToGetThere": "Fly SIN → SUB or Yogyakarta (JOG); long drive to Pacitan",
+      "paymentMethods": "Cash preferred",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Modest sportswear; cover up when not on river",
+      "dressCode": "Long pants, covered shoulders, shoes that can get wet",
+      "accessNeeded": "Local guides for SUP/boating",
+      "navigationTips": "Use offline maps; roads narrow and winding",
+      "lat": -8.1833,
+      "lng": 111.15,
+      "airport": "JOG",
+      "image": "https://picsum.photos/seed/indonesia-maron/800/600",
+      "amenities": [
+        "boat dock",
+        "local guide",
+        "parking",
+        "cafe",
+        "restroom"
+      ],
+      "funFacts": [
+        "maron river winds through lush green tunnels.",
+        "pacitan is nicknamed the city of a thousand caves.",
+        "sup tours are popular at sunrise and sunset."
+      ]
+    },
+    {
+      "id": "indonesia-riamkanan",
+      "country": "Indonesia",
+      "category": "River and wetlands",
+      "location": "Riam Kanan Reservoir (South Kalimantan)",
+      "primaryActivities": "Boating, fishing, panoramic views",
+      "howToGetThere": "Fly SIN → CGK → Balikpapan (BPN) or Banjarmasin (BDJ); road transfer",
+      "paymentMethods": "Cash; some homestays may take transfers",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Dayak/Malay communities – ask before photos; dress modestly",
+      "dressCode": "Casual modest clothing; layers for morning/evening",
+      "accessNeeded": "Boat hire; local guides",
+      "navigationTips": "Google Maps to reservoir; offline maps helpful",
+      "lat": -3.7167,
+      "lng": 115.5167,
+      "airport": "BDJ",
+      "image": "https://picsum.photos/seed/indonesia-riamkanan/800/600",
+      "amenities": [
+        "boat dock",
+        "parking",
+        "cafe",
+        "restroom",
+        "local guide"
+      ],
+      "funFacts": [
+        "riam kanan reservoir was built in the 1970s.",
+        "the lake supports local fishing communities.",
+        "morning mist creates dramatic photo opportunities."
+      ]
+    },
+    {
+      "id": "indonesia-bromo",
+      "country": "Indonesia",
+      "category": "Mountain and wetlands",
+      "location": "Mount Bromo (East Java)",
+      "primaryActivities": "Sunrise, crater views, \"Sea of Sand\"",
+      "howToGetThere": "Fly SIN → SUB; then train/bus to Probolinggo or direct tour",
+      "paymentMethods": "Tour packages; cash for entrance fees/snacks",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Cold before sunrise; modest dress; avoid littering; don’t ride malnourished horses",
+      "dressCode": "Warm jacket, long pants, closed shoes, headlamp, mask for fumes",
+      "accessNeeded": "Jeep tour or self‑drive; entrance fee",
+      "navigationTips": "Most use guided tours; offline maps if self‑driving",
+      "lat": -7.9425,
+      "lng": 112.953,
+      "airport": "SUB",
+      "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+      "amenities": [
+        "parking",
+        "jeep rental",
+        "cafe",
+        "restroom",
+        "local guide",
+        "viewpoint"
+      ],
+      "funFacts": [
+        "bromo sits inside the massive tengger caldera.",
+        "the sea of sand surrounds the active crater.",
+        "hindu tengger people hold annual kasada offerings here."
+      ]
+    },
+    {
+      "id": "indonesia-puncakjaya",
+      "country": "Indonesia",
+      "category": "Mountain and wetlands",
+      "location": "Puncak Jaya / Carstensz Pyramid (Papua)",
+      "primaryActivities": "7 Summits trek; hiking; visiting villages",
+      "howToGetThere": "Fly SIN → CGK → Jayapura (DJJ); charter to Tiom/Wamena; multi‑week trek",
+      "paymentMethods": "Full package in advance; cash for porters/tips",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect Papuan tribes; ask before photos; follow cultural protocols; no trekking without permit/guide",
+      "dressCode": "High‑altitude gear; warm layers; long pants",
+      "accessNeeded": "Permits, experienced operator, porters",
+      "navigationTips": "Fully guided; GPS handled by expedition team",
+      "lat": -4.0783,
+      "lng": 137.1583,
+      "airport": "DJJ",
+      "image": "https://picsum.photos/seed/indonesia-puncakjaya/800/600",
+      "amenities": [
+        "local guide",
+        "camping",
+        "restroom",
+        "porter service"
+      ],
+      "funFacts": [
+        "carstensz pyramid is the highest peak in oceania.",
+        "it is one of the legendary seven summits.",
+        "the trek crosses equatorial glaciers and limestone."
+      ]
+    },
+    {
+      "id": "indonesia-semeru",
+      "country": "Indonesia",
+      "category": "Mountain and wetlands",
+      "location": "Mount Semeru (East Java)",
+      "primaryActivities": "Hike; cross Oro‑Oro Ombo; Tanjakan Cinta; summit Mahameru",
+      "howToGetThere": "Fly SIN → SUB or Malang (via connection); road to Ranupani trailhead",
+      "paymentMethods": "Cash for permits, porters, homestays",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Follow park rules; no littering; stay on trail; modest dress in villages",
+      "dressCode": "Long pants, warm layers, good boots, headlamp, sleeping bag",
+      "accessNeeded": "Guide/porter recommended; permit at trailhead",
+      "navigationTips": "Use experienced local guides; trails confusing in fog",
+      "lat": -8.108,
+      "lng": 112.9225,
+      "airport": "SUB",
+      "image": "https://picsum.photos/seed/indonesia-semeru/800/600",
+      "amenities": [
+        "local guide",
+        "camping",
+        "restroom",
+        "parking",
+        "cafe"
+      ],
+      "funFacts": [
+        "semeru is java's highest volcano at 3676 meters.",
+        "mahameru crater erupts ash clouds regularly.",
+        "trekkers pass the iconic ranu kumbolo lake."
+      ]
+    },
+    {
+      "id": "indonesia-goajomblang",
+      "country": "Indonesia",
+      "category": "Caves and underground",
+      "location": "Goa Jomblang (Gunung Kidul)",
+      "primaryActivities": "Descend to Dasar Goa; \"Cahaya Surga\" light beam; nature photography",
+      "howToGetThere": "Fly SIN → JOG; road to Gunung Kidul",
+      "paymentMethods": "Cash for entrance and guide",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Modest dress; follow guide instructions; no climbing on fragile formations",
+      "dressCode": "Long pants, covered shoulders, shoes that can get wet/muddy, change of clothes",
+      "accessNeeded": "Local guide; entrance fee",
+      "navigationTips": "Guided only; no independent access",
+      "lat": -8.0167,
+      "lng": 110.6333,
+      "airport": "JOG",
+      "image": "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&h=600&fit=crop",
+      "amenities": [
+        "local guide",
+        "restroom",
+        "parking",
+        "cafe",
+        "helmet rental"
+      ],
+      "funFacts": [
+        "cahaya surga means heaven's light in local lore.",
+        "a shaft of sunlight pierces the cave around midday.",
+        "visitors descend 60 meters on ropes and ladders."
+      ]
+    },
+    {
+      "id": "indonesia-marospangkep",
+      "country": "Indonesia",
+      "category": "Caves and underground",
+      "location": "Maros‑Pangkep Karst (near Makassar)",
+      "primaryActivities": "Cave exploration; forest trekking; ancient rock art",
+      "howToGetThere": "Fly SIN → UPG; road to Maros",
+      "paymentMethods": "Cash; some operators may take transfers",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Ask before photographing locals; respect archaeological sites (no touching paintings)",
+      "dressCode": "Long pants, covered top, sturdy shoes, hat",
+      "accessNeeded": "Local guides essential",
+      "navigationTips": "Local guides essential; limited signage",
+      "lat": -4.9833,
+      "lng": 119.5667,
+      "airport": "UPG",
+      "image": "https://picsum.photos/seed/indonesia-marospangkep/800/600",
+      "amenities": [
+        "local guide",
+        "parking",
+        "restroom",
+        "cafe"
+      ],
+      "funFacts": [
+        "prehistoric hand stencils date back 40000 years.",
+        "the karst landscape has hundreds of caves.",
+        "rammang-rammang is part of this geopark."
+      ]
+    },
+    {
+      "id": "indonesia-goarangko",
+      "country": "Indonesia",
+      "category": "Caves and underground",
+      "location": "Goa Rangko (Labuan Bajo, Flores)",
+      "primaryActivities": "Swim in natural saltwater pool; explore rock formations",
+      "howToGetThere": "From Labuan Bajo by boat/car + short trek",
+      "paymentMethods": "Cash for local fees/guides",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Swimwear + cover‑up; modest dress in villages",
+      "dressCode": "Swimwear, cover‑up, water shoes",
+      "accessNeeded": "Local guide/boat; entrance fee",
+      "navigationTips": "Usually via tour; otherwise local signs + maps.me",
+      "lat": -8.5167,
+      "lng": 119.8833,
+      "airport": "LBJ",
+      "image": "https://picsum.photos/seed/indonesia-goarangko/800/600",
+      "amenities": [
+        "boat dock",
+        "local guide",
+        "restroom",
+        "snorkel rental"
+      ],
+      "funFacts": [
+        "goa rangko has a crystal clear saltwater pool inside.",
+        "the cave opens directly to the flores sea.",
+        "swimming here feels like a hidden lagoon."
+      ]
+    },
+    {
+      "id": "indonesia-tangkubanparahu",
+      "country": "Indonesia",
+      "category": "Volcanoes and craters",
+      "location": "Mount Tangkuban Parahu (West Java)",
+      "primaryActivities": "Kawah Ratu crater; hot springs; light trekking",
+      "howToGetThere": "Fly SIN → CGK or Bandung (BDO) (limited); road to Ciwidey",
+      "paymentMethods": "Entrance + activities in cash; some resorts accept cards",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Warm layers; avoid very revealing outfits; follow park rules",
+      "dressCode": "Long pants, closed shoes, jacket",
+      "accessNeeded": "Entrance fee; optional guide",
+      "navigationTips": "Google Maps to Kawah Ratu; road signs okay",
+      "lat": -6.77,
+      "lng": 107.602,
+      "airport": "BDO",
+      "image": "https://picsum.photos/seed/indonesia-tangkubanparahu/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "cafe",
+        "local guide",
+        "souvenir shop"
+      ],
+      "funFacts": [
+        "the name means upturned boat in sundanese legend.",
+        "kawah ratu crater still emits sulfur steam.",
+        "legends tell of a prince who kicked a boat skyward."
+      ]
+    },
+    {
+      "id": "indonesia-batur",
+      "country": "Indonesia",
+      "category": "Volcanoes and craters",
+      "location": "Mount Batur (Bali)",
+      "primaryActivities": "Sunrise trek; jeep tours; hot springs; temple visits",
+      "howToGetThere": "Fly SIN → DPS; road to Kintamani/Toya Bungkah",
+      "paymentMethods": "Tour packages; cash for local fees, cafes, temple donations",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect ceremonies/offerings; temple dress rules",
+      "dressCode": "Light jacket, long pants, headlamp, temple sarong",
+      "accessNeeded": "Guided trek recommended; temple sarong",
+      "navigationTips": "Treks are guided; use maps for Kintamani area",
+      "lat": -8.2423,
+      "lng": 115.3753,
+      "airport": "DPS",
+      "image": "https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=800&h=600&fit=crop",
+      "amenities": [
+        "parking",
+        "local guide",
+        "cafe",
+        "restroom",
+        "hot spring"
+      ],
+      "funFacts": [
+        "batur caldera lake is bali's largest crater lake.",
+        "sunrise treks start around 3 am from toyabungkah.",
+        "pura ulun danu batur temple sits on the rim."
+      ]
+    },
+    {
+      "id": "indonesia-kelimutu",
+      "country": "Indonesia",
+      "category": "Volcanoes and craters",
+      "location": "Mount Kelimutu (Flores)",
+      "primaryActivities": "Sunrise at crater lakes; village visits; waterfalls; rice terraces; hot springs",
+      "howToGetThere": "Fly SIN → DPS or UPG → Maumere (MOF) or Ende (ENE); road to Moni",
+      "paymentMethods": "Cash for entrance, guides, homestays; some hotels take cards",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Modest dress; warm layer for early morning; respect villages",
+      "dressCode": "Light jacket, long pants, closed shoes",
+      "accessNeeded": "Entrance fee; optional guide",
+      "navigationTips": "Google Maps to Moni; local guides for trails",
+      "lat": -8.768,
+      "lng": 121.82,
+      "airport": "MOF",
+      "image": "https://picsum.photos/seed/indonesia-kelimutu/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "cafe",
+        "local guide",
+        "viewpoint"
+      ],
+      "funFacts": [
+        "three crater lakes change color unpredictably.",
+        "locals believe the lakes are resting places for souls.",
+        "the summit sits above 1600 meters on flores."
+      ]
+    },
+    {
+      "id": "indonesia-kelingking",
+      "country": "Indonesia",
+      "category": "Rock formation",
+      "location": "Kelingking Beach (Nusa Penida, Bali)",
+      "primaryActivities": "T‑Rex cliff viewpoint; steep descent to beach",
+      "howToGetThere": "Fast boat Bali → Nusa Penida; scooter/car to Kelingking",
+      "paymentMethods": "Boat tickets, entrance fee, rentals; QRIS/cash",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Modest when not on beach; sturdy shoes for cliff path",
+      "dressCode": "Sturdy shoes, swimwear, cover‑up",
+      "accessNeeded": "Entrance fee; be cautious on steep path",
+      "navigationTips": "Use maps.me/Google Maps; roads narrow and bumpy",
+      "lat": -8.7489,
+      "lng": 115.4547,
+      "airport": "DPS",
+      "image": "https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&h=600&fit=crop",
+      "amenities": [
+        "parking",
+        "restroom",
+        "cafe",
+        "local guide",
+        "viewpoint"
+      ],
+      "funFacts": [
+        "the cliff resembles a t-rex head from above.",
+        "the beach descent is steep and challenging.",
+        "kelingking is nusa penida's most photographed spot."
+      ]
+    },
+    {
+      "id": "indonesia-tanahlot",
+      "country": "Indonesia",
+      "category": "Rock formation",
+      "location": "Tanah Lot Temple (Bali)",
+      "primaryActivities": "Temple visit; sunset viewing",
+      "howToGetThere": "From Denpasar/Kuta/Canggu by car/scooter (~1h)",
+      "paymentMethods": "Entrance fee (cash/QRIS); offerings optional",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Sarong & sash required; cover shoulders/knees; don’t enter inner sanctum unless praying; women on period traditionally avoid",
+      "dressCode": "Sarong, covered shoulders/knees, sun protection",
+      "accessNeeded": "Entrance fee",
+      "navigationTips": "Well signposted; heavy traffic near sunset",
+      "lat": -8.6211,
+      "lng": 115.0868,
+      "airport": "DPS",
+      "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&h=600&fit=crop",
+      "amenities": [
+        "parking",
+        "restroom",
+        "cafe",
+        "souvenir shop",
+        "local guide"
+      ],
+      "funFacts": [
+        "tanah lot means land in the sea in balinese.",
+        "the temple sits on a rock formation at low tide.",
+        "it is one of bali's most iconic sunset spots."
+      ]
+    },
+    {
+      "id": "indonesia-rajaampatislands",
+      "country": "Indonesia",
+      "category": "Rock formation",
+      "location": "Raja Ampat Islands (Wayag & Piaynemo)",
+      "primaryActivities": "Diving, snorkeling, viewpoint hikes",
+      "howToGetThere": "From Waisai by speedboat; often part of dive/island‑hopping packages",
+      "paymentMethods": "Included in resort/boat packages; extra cash for local fees",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Swimwear on boat/beaches; cover up in villages",
+      "dressCode": "Swimwear, hat, sun protection, water shoes",
+      "accessNeeded": "Boat transfer; resort/guide",
+      "navigationTips": "Boat captains handle routes",
+      "lat": 0.1667,
+      "lng": 130.0833,
+      "airport": "SOQ",
+      "image": "https://images.unsplash.com/photo-1559128010-7cc1d8d520e4?w=800&h=600&fit=crop",
+      "amenities": [
+        "boat dock",
+        "viewpoint",
+        "snorkel rental",
+        "local guide",
+        "restroom"
+      ],
+      "funFacts": [
+        "piaynemo offers a heart-shaped lagoon viewpoint.",
+        "wayag's karst peaks inspired countless postcards.",
+        "these islands sit at the coral triangle center."
+      ]
+    },
+    {
+      "id": "indonesia-gunungleuser",
+      "country": "Indonesia",
+      "category": "Forest and jungles",
+      "location": "Gunung Leuser NP (Bukit Lawang, Sumatra)",
+      "primaryActivities": "Multi‑day jungle trek; wildlife (orangutans, gibbons, leaf monkeys)",
+      "howToGetThere": "Fly SIN → Medan (KNO); road to Bukit Lawang (4–5h)",
+      "paymentMethods": "Trekking operators (online/guesthouses); cash for park fees/porters",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "No feeding wildlife; no littering; stay with guide; modest dress in villages",
+      "dressCode": "Long pants, long sleeves, good boots, rain gear, leech socks",
+      "accessNeeded": "Guided trek; park permit",
+      "navigationTips": "Fully guided; offline maps for road to Bukit Lawang",
+      "lat": 3.55,
+      "lng": 98.1167,
+      "airport": "KNO",
+      "image": "https://images.unsplash.com/photo-1448375240576-d6d6a4a4c8a8?w=800&h=600&fit=crop",
+      "amenities": [
+        "local guide",
+        "restroom",
+        "cafe",
+        "camping",
+        "river crossing"
+      ],
+      "funFacts": [
+        "gunung leuser is one of the last orangutan habitats.",
+        "bukit lawang rescued orangutans since the 1970s.",
+        "the park spans over 7900 square kilometers."
+      ]
+    },
+    {
+      "id": "indonesia-tanjungputing",
+      "country": "Indonesia",
+      "category": "Forest and jungles",
+      "location": "Tanjung Puting NP (Central Kalimantan)",
+      "primaryActivities": "Orangutan boat tours (klotok); Camp Leakey",
+      "howToGetThere": "Fly SIN → CGK → Pangkalan Bun (PKN); road to Kumai jetty",
+      "paymentMethods": "Boat packages (often prepaid); cash for extras/tips",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect orangutan viewing rules (distance, no flash, no feeding); modest dress",
+      "dressCode": "Insect repellent, light rain jacket, binoculars",
+      "accessNeeded": "Klotok boat booking; guide",
+      "navigationTips": "Boat crew handle river routes",
+      "lat": -2.8333,
+      "lng": 111.7167,
+      "airport": "PKN",
+      "image": "https://picsum.photos/seed/indonesia-tanjungputing/800/600",
+      "amenities": [
+        "boat dock",
+        "local guide",
+        "restroom",
+        "camping",
+        "cafe"
+      ],
+      "funFacts": [
+        "camp leakey was founded by primatologist biruté galdikas.",
+        "klotok houseboats cruise the sekonyer river.",
+        "tanjung puting protects wild and rehabilitated orangutans."
+      ]
+    },
+    {
+      "id": "indonesia-ujungkulon",
+      "country": "Indonesia",
+      "category": "Forest and jungles",
+      "location": "Ujung Kulon NP (Banten, Java)",
+      "primaryActivities": "Trekking; Javan rhino sanctuary",
+      "howToGetThere": "Fly SIN → CGK; long road + boat to Carita/Panaitan area; controlled access",
+      "paymentMethods": "Cash for permits, boats, guides",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect local beliefs; follow guide advice",
+      "dressCode": "Long pants, covered top, sturdy shoes",
+      "accessNeeded": "Permits; guide/boat",
+      "navigationTips": "Guide/boat handle routes; offline maps",
+      "lat": -6.75,
+      "lng": 105.3667,
+      "airport": "CGK",
+      "image": "https://picsum.photos/seed/indonesia-ujungkulon/800/600",
+      "amenities": [
+        "boat dock",
+        "local guide",
+        "camping",
+        "restroom",
+        "parking"
+      ],
+      "funFacts": [
+        "ujung kulon is the last refuge of the javan rhino.",
+        "krakatoa volcano lies within the park boundaries.",
+        "it became indonesia's first national park in 1992."
+      ]
+    },
+    {
+      "id": "indonesia-alaspurwo",
+      "country": "Indonesia",
+      "category": "Forest and jungles",
+      "location": "Alas Purwo NP (East Java)",
+      "primaryActivities": "Adventure trekking; \"mystical\" forest; nearby beaches",
+      "howToGetThere": "Fly SIN → SUB or Bali; road to Banyuwangi",
+      "paymentMethods": "Cash for entrance, guides",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Some areas considered spiritually sensitive; follow guide advice",
+      "dressCode": "Long pants, covered top, sturdy shoes",
+      "accessNeeded": "Entrance fee; optional guide",
+      "navigationTips": "Google Maps to park; local guides helpful",
+      "lat": -8.5833,
+      "lng": 114.4167,
+      "airport": "SUB",
+      "image": "https://picsum.photos/seed/indonesia-alaspurwo/800/600",
+      "amenities": [
+        "local guide",
+        "parking",
+        "camping",
+        "restroom",
+        "beach access"
+      ],
+      "funFacts": [
+        "alas purwo means first forest in javanese legend.",
+        "local belief holds the forest was earth's first land.",
+        "plengkung beach is a world-class surf break."
+      ]
+    },
+    {
+      "id": "indonesia-gilimeno",
+      "country": "Indonesia",
+      "category": "Wildlife sanctuaries",
+      "location": "Gili Meno Turtle Sanctuary",
+      "primaryActivities": "Snorkeling with turtles",
+      "howToGetThere": "Fast boat Bali → Gili Meno; sanctuary on island",
+      "paymentMethods": "Cash/QRIS for boat and sanctuary fees",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect sanctuary rules (no chasing turtles)",
+      "dressCode": "Swimwear, snorkel gear",
+      "accessNeeded": "Sanctuary fee; boat ticket",
+      "navigationTips": "Small island; walk or cycle",
+      "lat": -8.3583,
+      "lng": 116.075,
+      "airport": "DPS",
+      "image": "https://picsum.photos/seed/indonesia-gilimeno/800/600",
+      "amenities": [
+        "boat dock",
+        "snorkel rental",
+        "restroom",
+        "cafe",
+        "local guide"
+      ],
+      "funFacts": [
+        "gili meno is the quietest of the three gili islands.",
+        "a turtle sanctuary protects hatchlings on the island.",
+        "snorkelers often swim alongside green sea turtles."
+      ]
+    },
+    {
+      "id": "indonesia-tangkahanelephant",
+      "country": "Indonesia",
+      "category": "Wildlife sanctuaries",
+      "location": "Tangkahan Elephant Sanctuary (Sumatra)",
+      "primaryActivities": "Bathe and interact with rescued elephants",
+      "howToGetThere": "Fly SIN → KNO; road to Gunung Leuser area",
+      "paymentMethods": "Cash for sanctuary fees, guides",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Follow sanctuary rules; no rough handling; modest dress",
+      "dressCode": "Long pants, covered top, quick‑dry clothes",
+      "accessNeeded": "Sanctuary booking; guide",
+      "navigationTips": "Local guides/transport arrange routes",
+      "lat": 3.2167,
+      "lng": 98.0667,
+      "airport": "KNO",
+      "image": "https://picsum.photos/seed/indonesia-tangkahanelephant/800/600",
+      "amenities": [
+        "local guide",
+        "restroom",
+        "cafe",
+        "parking",
+        "river access"
+      ],
+      "funFacts": [
+        "tangkahan rescued elephants from logging camps.",
+        "visitors can bathe elephants in the river.",
+        "the sanctuary sits on the edge of gunung leuser."
+      ]
+    },
+    {
+      "id": "indonesia-waykambas",
+      "country": "Indonesia",
+      "category": "Wildlife sanctuaries",
+      "location": "Way Kambas NP (Lampung, Sumatra)",
+      "primaryActivities": "Elephant Conservation Center; rhino sanctuary",
+      "howToGetThere": "Fly SIN → CGK → Lampung; road to park",
+      "paymentMethods": "Cash for entrance, activities",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Follow park and sanctuary rules; modest dress",
+      "dressCode": "Long pants, covered top, sturdy shoes",
+      "accessNeeded": "Entrance fee; guide recommended",
+      "navigationTips": "Google Maps to park; local guides",
+      "lat": -4.9167,
+      "lng": 105.75,
+      "airport": "CGK",
+      "image": "https://picsum.photos/seed/indonesia-waykambas/800/600",
+      "amenities": [
+        "local guide",
+        "parking",
+        "restroom",
+        "cafe",
+        "camping"
+      ],
+      "funFacts": [
+        "way kambas protects critically endangered sumatran rhinos.",
+        "the elephant training center dates to 1985.",
+        "the park covers lowland rainforest in lampung."
+      ]
+    },
+    {
+      "id": "indonesia-tangkoko",
+      "country": "Indonesia",
+      "category": "Wildlife sanctuaries",
+      "location": "Tangkoko Batuangus NR (North Sulawesi)",
+      "primaryActivities": "Spot tarsiers, crested black macaques",
+      "howToGetThere": "Fly SIN → CGK/UPG → Manado (MDC); road to reserve",
+      "paymentMethods": "Cash for entrance, guides",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect wildlife; no flash photography at night; follow guide",
+      "dressCode": "Long pants, covered top, good shoes, torch",
+      "accessNeeded": "Entrance fee; local guide",
+      "navigationTips": "Local guides essential; limited signage",
+      "lat": 1.4333,
+      "lng": 125.1833,
+      "airport": "MDC",
+      "image": "https://picsum.photos/seed/indonesia-tangkoko/800/600",
+      "amenities": [
+        "local guide",
+        "restroom",
+        "cafe",
+        "parking",
+        "camping"
+      ],
+      "funFacts": [
+        "tarsiers here are among the world's smallest primates.",
+        "crested black macaques are endemic to sulawesi.",
+        "night walks reveal glowing eyes in the canopy."
+      ]
+    },
+    {
+      "id": "indonesia-monkeyforest",
+      "country": "Indonesia",
+      "category": "Wildlife sanctuaries",
+      "location": "Sacred Monkey Forest Sanctuary (Ubud, Bali)",
+      "primaryActivities": "See macaques; temple complex",
+      "howToGetThere": "Fly SIN → DPS; road to Ubud",
+      "paymentMethods": "Entrance fee (cash/QRIS); donations",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Don’t feed monkeys unless allowed; secure belongings; temple dress rules",
+      "dressCode": "Covered shoulders/knees, comfortable shoes",
+      "accessNeeded": "Entrance fee",
+      "navigationTips": "Well signposted; Google Maps to Ubud",
+      "lat": -8.5184,
+      "lng": 115.2588,
+      "airport": "DPS",
+      "image": "https://picsum.photos/seed/indonesia-monkeyforest/800/600",
+      "amenities": [
+        "restroom",
+        "cafe",
+        "parking",
+        "souvenir shop",
+        "local guide"
+      ],
+      "funFacts": [
+        "over 700 long-tailed macaques live in the sanctuary.",
+        "three temples sit within the forest complex.",
+        "monkeys are considered sacred by local balinese."
+      ]
+    },
+    {
+      "id": "indonesia-tamansafari",
+      "country": "Indonesia",
+      "category": "Wildlife sanctuaries",
+      "location": "Taman Safari Indonesia (Bogor, West Java)",
+      "primaryActivities": "Drive‑through safari; animal shows",
+      "howToGetThere": "Fly SIN → CGK; road to Bogor",
+      "paymentMethods": "Cards/cash; online tickets",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Follow park rules; no feeding animals outside designated areas",
+      "dressCode": "Casual, comfortable shoes, sun protection",
+      "accessNeeded": "Park ticket",
+      "navigationTips": "Google Maps to Taman Safari; traffic near weekends",
+      "lat": -6.7167,
+      "lng": 106.95,
+      "airport": "CGK",
+      "image": "https://picsum.photos/seed/indonesia-tamansafari/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "cafe",
+        "souvenir shop",
+        "restaurant"
+      ],
+      "funFacts": [
+        "taman safari was indonesia's first drive-through zoo.",
+        "visitors feed animals from their car windows.",
+        "the park sits in the cool highlands near bogor."
+      ]
+    },
+    {
+      "id": "indonesia-borobudur",
+      "country": "Indonesia",
+      "category": "Ancient ruins",
+      "location": "Borobudur Temple (Central Java)",
+      "primaryActivities": "Temple exploration; museums; Dagi Hill; tourist villages",
+      "howToGetThere": "Fly SIN → JOG or CGK; road to Borobudur",
+      "paymentMethods": "Cards/cash; online tickets",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Shoulders/knees covered; no climbing on sacred parts; respect worshippers",
+      "dressCode": "Covered shoulders/knees; light colours preferred; sun protection",
+      "accessNeeded": "Entrance ticket; optional sunrise ticket",
+      "navigationTips": "Google Maps; signs clear; go early to avoid crowds",
+      "lat": -7.6079,
+      "lng": 110.2038,
+      "airport": "JOG",
+      "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&h=600&fit=crop",
+      "amenities": [
+        "parking",
+        "restroom",
+        "cafe",
+        "museum",
+        "local guide",
+        "souvenir shop"
+      ],
+      "funFacts": [
+        "borobudur is the world's largest buddhist temple.",
+        "it was buried under volcanic ash for centuries.",
+        "sunrise tours reveal misty views over java."
+      ]
+    },
+    {
+      "id": "indonesia-prambanan",
+      "country": "Indonesia",
+      "category": "Ancient ruins",
+      "location": "Prambanan Temple (Yogyakarta)",
+      "primaryActivities": "Main temples; Ramayana Ballet; surrounding candi",
+      "howToGetThere": "Fly SIN → JOG; road to Prambanan",
+      "paymentMethods": "Cards/cash; online tickets",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Shoulders/knees covered; respect ceremonies; don’t climb structures",
+      "dressCode": "Covered shoulders/knees; comfortable shoes",
+      "accessNeeded": "Entrance ticket; optional Ramayana Ballet ticket",
+      "navigationTips": "Google Maps; signs clear; combine with Borobudur day trip",
+      "lat": -7.752,
+      "lng": 110.4915,
+      "airport": "JOG",
+      "image": "https://picsum.photos/seed/indonesia-prambanan/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "cafe",
+        "museum",
+        "local guide"
+      ],
+      "funFacts": [
+        "prambanan is the largest hindu temple site in indonesia.",
+        "the ramayana ballet performs on full moon nights.",
+        "the main shiva temple rises 47 meters tall."
+      ]
+    },
+    {
+      "id": "indonesia-dieng",
+      "country": "Indonesia",
+      "category": "Ancient ruins",
+      "location": "Dieng Temples (Central Java)",
+      "primaryActivities": "Arjuna complex; morning frost; museum; culture festival",
+      "howToGetThere": "Fly SIN → JOG; road to Dieng Plateau",
+      "paymentMethods": "Cash/cards at hotels; cash for entrance",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Modest dress; respect rituals; careful on early‑morning paths",
+      "dressCode": "Warm layers, long pants, covered top, good shoes",
+      "accessNeeded": "Entrance fee; optional guide",
+      "navigationTips": "Google Maps to Dieng; roads winding; use offline maps",
+      "lat": -7.2,
+      "lng": 109.9167,
+      "airport": "JOG",
+      "image": "https://picsum.photos/seed/indonesia-dieng/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "cafe",
+        "local guide",
+        "viewpoint"
+      ],
+      "funFacts": [
+        "dieng plateau sits above 2000 meters elevation.",
+        "morning frost called upas dew appears in june.",
+        "eight small hindu temples date to the 8th century."
+      ]
+    },
+    {
+      "id": "indonesia-gunungpadang",
+      "country": "Indonesia",
+      "category": "Ancient ruins",
+      "location": "Gunung Padang (West Java)",
+      "primaryActivities": "Viewpoint hike; WWII bunkers; sunset; local beaches",
+      "howToGetThere": "Fly SIN → CGK; road to Cianjur/Padalarang area",
+      "paymentMethods": "Cash for entrance, local guides",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect local beliefs; some areas considered sacred",
+      "dressCode": "Long pants, covered top, sturdy shoes, sun protection",
+      "accessNeeded": "Entrance fee; local guide recommended",
+      "navigationTips": "Google Maps to site; local signs; offline maps",
+      "lat": -7.05,
+      "lng": 107.0167,
+      "airport": "CGK",
+      "image": "https://picsum.photos/seed/indonesia-gunungpadang/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "local guide",
+        "cafe",
+        "viewpoint"
+      ],
+      "funFacts": [
+        "gunung padang may be among the oldest megalithic sites.",
+        "terraced stone layers cover the mountain slope.",
+        "archaeologists debate whether it predates the pyramids."
+      ]
+    },
+    {
+      "id": "indonesia-sangiran",
+      "country": "Indonesia",
+      "category": "Ancient ruins",
+      "location": "Sangiran Early Man Site (Central Java)",
+      "primaryActivities": "Museum; fossil clusters; photography",
+      "howToGetThere": "Fly SIN → JOG or SUB; road to Sangiran",
+      "paymentMethods": "Cash/cards at museum; cash for transport",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect museum rules; no touching fossils",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Museum ticket",
+      "navigationTips": "Google Maps to Sangiran; local transport",
+      "lat": -7.25,
+      "lng": 110.9667,
+      "airport": "JOG",
+      "image": "https://picsum.photos/seed/indonesia-sangiran/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "museum",
+        "cafe",
+        "local guide"
+      ],
+      "funFacts": [
+        "sangiran yielded fossils of java man homo erectus.",
+        "it is a unesco world heritage site since 1996.",
+        "the museum displays skulls over one million years old."
+      ]
+    },
+    {
+      "id": "indonesia-badavalley",
+      "country": "Indonesia",
+      "category": "Ancient ruins",
+      "location": "Bada Valley (Central Sulawesi)",
+      "primaryActivities": "Ancient megaliths; Lore Lindu NP; tarsiers; traditional houses",
+      "howToGetThere": "Fly SIN → CGK/UPG → Palu (PLW); road to Lore Lindu",
+      "paymentMethods": "Cash for guides, homestays",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Ask before photos; respect megaliths and villages",
+      "dressCode": "Long pants, covered top, sturdy shoes",
+      "accessNeeded": "Local guide; park permit",
+      "navigationTips": "Local guides essential; offline maps",
+      "lat": -1.2833,
+      "lng": 120.1833,
+      "airport": "PLW",
+      "image": "https://picsum.photos/seed/indonesia-badavalley/800/600",
+      "amenities": [
+        "local guide",
+        "parking",
+        "restroom",
+        "cafe",
+        "camping"
+      ],
+      "funFacts": [
+        "bada valley holds mysterious stone megaliths.",
+        "statues called arca stand in remote forest clearings.",
+        "lore lindu national park surrounds the valley."
+      ]
+    },
+    {
+      "id": "indonesia-trowulan",
+      "country": "Indonesia",
+      "category": "Ancient ruins",
+      "location": "Trowulan Archaeological Site (East Java)",
+      "primaryActivities": "Majapahit Museum; candi; temple complexes",
+      "howToGetThere": "Fly SIN → SUB; road to Trowulan",
+      "paymentMethods": "Cash/cards at museum; cash for local sites",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect temple grounds; modest dress",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Museum/local site fees",
+      "navigationTips": "Google Maps to Trowulan; local transport",
+      "lat": -7.55,
+      "lng": 112.3833,
+      "airport": "SUB",
+      "image": "https://picsum.photos/seed/indonesia-trowulan/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "museum",
+        "cafe",
+        "local guide"
+      ],
+      "funFacts": [
+        "trowulan was the capital of the majapahit empire.",
+        "red brick temples scatter across the plain.",
+        "the site covers roughly 100 square kilometers."
+      ]
+    },
+    {
+      "id": "indonesia-gunungkawi",
+      "country": "Indonesia",
+      "category": "Ancient ruins",
+      "location": "Gunung Kawi (Bali)",
+      "primaryActivities": "Rock‑carved shrines; holy springs; trekking; glamping",
+      "howToGetThere": "Fly SIN → DPS; road to Gianyar area",
+      "paymentMethods": "Cash/cards at hotels; cash for entrance",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Temple dress rules; respect springs and shrines",
+      "dressCode": "Covered shoulders/kavored shoulders/knees; good walking shoes",
+      "accessNeeded": "Entrance fee; optional guide",
+      "navigationTips": "Google Maps; signs moderate",
+      "lat": -8.4233,
+      "lng": 115.3128,
+      "airport": "DPS",
+      "image": "https://picsum.photos/seed/indonesia-gunungkawi/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "cafe",
+        "local guide",
+        "temple access"
+      ],
+      "funFacts": [
+        "ten rock-cut shrines date to the 11th century.",
+        "carvings were made directly into a cliff face.",
+        "pakerisan river flows through the temple complex."
+      ]
+    },
+    {
+      "id": "indonesia-muaroajambi",
+      "country": "Indonesia",
+      "category": "Ancient ruins",
+      "location": "Muaro Jambi Temple Complex (Sumatra)",
+      "primaryActivities": "Cycle temple grounds; main candi; museum; boat ride",
+      "howToGetThere": "Fly SIN → CGK → Jambi (DJB); road to Muaro Jambi",
+      "paymentMethods": "Cash/cards at museum; cash for boats",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Modest dress; respect temple grounds",
+      "dressCode": "Casual, comfortable shoes, sun protection, hat",
+      "accessNeeded": "Museum/temple fees; bicycle/boat hire",
+      "navigationTips": "Google Maps to complex; local guides helpful",
+      "lat": -1.6167,
+      "lng": 103.6667,
+      "airport": "DJB",
+      "image": "https://picsum.photos/seed/indonesia-muaroajambi/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "museum",
+        "boat dock",
+        "bicycle rental"
+      ],
+      "funFacts": [
+        "muaro jambi is the largest ancient temple complex in sumatra.",
+        "eight main candi temples line the batanghari river.",
+        "it was a major buddhist center from the 4th century."
+      ]
+    },
+    {
+      "id": "indonesia-waerebo",
+      "country": "Indonesia",
+      "category": "Historical sites",
+      "location": "Wae Rebo Village (Flores, NTT)",
+      "primaryActivities": "Trek; Mbaru Niang cone houses; cultural experience",
+      "howToGetThere": "Fly SIN → DPS/UPG → Maumere/Ende; road + trek",
+      "paymentMethods": "Cash for homestay, guide, coffee",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect village customs; ask before photos; follow host rules",
+      "dressCode": "Long pants, covered top, sturdy shoes",
+      "accessNeeded": "Homestay/guide arrangement",
+      "navigationTips": "Local guides essential; offline maps",
+      "lat": -8.8833,
+      "lng": 120.2833,
+      "airport": "MOF",
+      "image": "https://picsum.photos/seed/indonesia-waerebo/800/600",
+      "amenities": [
+        "local guide",
+        "homestay",
+        "restroom",
+        "cafe",
+        "trekking trail"
+      ],
+      "funFacts": [
+        "wae rebo's mbaru niang houses have unique cone roofs.",
+        "the village sits above 1100 meters on flores.",
+        "a seven-kilometer trek reaches this isolated community."
+      ]
+    },
+    {
+      "id": "indonesia-kotatua",
+      "country": "Indonesia",
+      "category": "Historical sites",
+      "location": "Kota Tua (Jakarta)",
+      "primaryActivities": "History museum; Sunda Kelapa Port; local cuisine",
+      "howToGetThere": "Fly SIN → CGK; train/Grab to Kota",
+      "paymentMethods": "Cards/cash; museums take cards",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect museum rules; watch traffic; no littering",
+      "dressCode": "Casual, comfortable shoes, sun protection",
+      "accessNeeded": "Museum tickets",
+      "navigationTips": "Google Maps/Grab; heavy traffic",
+      "lat": -6.1352,
+      "lng": 106.8133,
+      "airport": "CGK",
+      "image": "https://picsum.photos/seed/indonesia-kotatua/800/600",
+      "amenities": [
+        "museum",
+        "cafe",
+        "restroom",
+        "parking",
+        "local guide",
+        "restaurant"
+      ],
+      "funFacts": [
+        "kota tua preserves dutch colonial architecture.",
+        "fatahillah square hosts weekend cultural events.",
+        "sunda kelapa port has traded since the 12th century."
+      ]
+    },
+    {
+      "id": "indonesia-tamansari",
+      "country": "Indonesia",
+      "category": "Historical sites",
+      "location": "Taman Sari Water Castle (Yogyakarta)",
+      "primaryActivities": "Photography; underground exploration; crafts",
+      "howToGetThere": "Fly SIN → JOG; Grab/tuk‑tuk to Taman Sari",
+      "paymentMethods": "Cash/cards at ticket; cash for activities",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect historical site; no climbing on fragile parts",
+      "dressCode": "Covered shoulders/knees recommended; comfortable shoes",
+      "accessNeeded": "Entrance fee",
+      "navigationTips": "Google Maps; well signposted",
+      "lat": -7.8097,
+      "lng": 110.3597,
+      "airport": "JOG",
+      "image": "https://picsum.photos/seed/indonesia-tamansari/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "cafe",
+        "local guide",
+        "souvenir shop"
+      ],
+      "funFacts": [
+        "taman sari was a royal garden of the sultan.",
+        "underground tunnels and bathing pools remain intact.",
+        "it was built in the mid 18th century."
+      ]
+    },
+    {
+      "id": "indonesia-tanatoraja",
+      "country": "Indonesia",
+      "category": "Rural countryside",
+      "location": "Tana Toraja (Sulawesi)",
+      "primaryActivities": "Cultural/historical sites; graves; markets; rituals",
+      "howToGetThere": "Fly SIN → CGK/UPG → Makassar (UPG); road to Rantepao",
+      "paymentMethods": "Cash for homestays, guides, entry",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect funeral rituals; ask before photos; modest dress",
+      "dressCode": "Long pants, covered top, respectful attire",
+      "accessNeeded": "Local guide recommended",
+      "navigationTips": "Google Maps to Rantepao; local drivers",
+      "lat": -2.9667,
+      "lng": 119.9,
+      "airport": "UPG",
+      "image": "https://picsum.photos/seed/indonesia-tanatoraja/800/600",
+      "amenities": [
+        "local guide",
+        "restroom",
+        "cafe",
+        "parking",
+        "homestay"
+      ],
+      "funFacts": [
+        "toraja funeral ceremonies can last several days.",
+        "tongkonan houses have distinctive boat-shaped roofs.",
+        "cliff graves and effigies called tau tau dot the hills."
+      ]
+    },
+    {
+      "id": "indonesia-wukirsari",
+      "country": "Indonesia",
+      "category": "Rural countryside",
+      "location": "Wukirsari Village (Yogyakarta)",
+      "primaryActivities": "Batik‑making; leather puppet; sustainable markets",
+      "howToGetThere": "Fly SIN → JOG; road to Wukirsari",
+      "paymentMethods": "Cash for workshops; some cards",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect artisans; ask before photos",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Workshop booking",
+      "navigationTips": "Google Maps; local guides",
+      "lat": -7.8333,
+      "lng": 110.4167,
+      "airport": "JOG",
+      "image": "https://picsum.photos/seed/indonesia-wukirsari/800/600",
+      "amenities": [
+        "local guide",
+        "cafe",
+        "restroom",
+        "parking",
+        "workshop"
+      ],
+      "funFacts": [
+        "wukirsari villagers teach traditional batik making.",
+        "wayang kulit puppet workshops welcome visitors.",
+        "the village promotes sustainable craft tourism."
+      ]
+    },
+    {
+      "id": "indonesia-ubudtegalalang",
+      "country": "Indonesia",
+      "category": "Rural countryside",
+      "location": "Ubud and Tegalalang (Bali)",
+      "primaryActivities": "Temples; rice paddies; waterfalls; food; art",
+      "howToGetThere": "Fly SIN → DPS; road to Ubud",
+      "paymentMethods": "Cards/cash; QRIS common",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Temple dress rules; respect ceremonies; no littering",
+      "dressCode": "Casual for town; covered shoulders/knees at temples",
+      "accessNeeded": "Google Maps/Grab; traffic near centre",
+      "navigationTips": "",
+      "lat": -8.5069,
+      "lng": 115.2625,
+      "airport": "DPS",
+      "image": "https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=800&h=600&fit=crop",
+      "amenities": [
+        "cafe",
+        "restroom",
+        "parking",
+        "local guide",
+        "souvenir shop",
+        "viewpoint"
+      ],
+      "funFacts": [
+        "tegalalang rice terraces cascade down a steep valley.",
+        "ubud became bali's cultural and arts capital.",
+        "subak irrigation system is a unesco heritage practice."
+      ]
+    },
+    {
+      "id": "indonesia-rajaampatresorts",
+      "country": "Indonesia",
+      "category": "Water communities – water housing",
+      "location": "Raja Ampat overwater resorts (Papua Paradise, Misool)",
+      "primaryActivities": "Overwater bungalows; snorkeling from deck",
+      "howToGetThere": "Fly SIN → CGK/UPG → SOQ; speedboat to resort",
+      "paymentMethods": "Resort packages; cards/cash on site",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect resort and local rules; modest in local villages",
+      "dressCode": "Swimwear on deck; cover up in villages",
+      "accessNeeded": "Resort booking; transfers",
+      "navigationTips": "Resort handles navigation",
+      "lat": -0.5167,
+      "lng": 130.2833,
+      "airport": "SOQ",
+      "image": "https://images.unsplash.com/photo-1559128010-7cc1d8d520e4?w=800&h=600&fit=crop",
+      "amenities": [
+        "resort",
+        "boat dock",
+        "dive shop",
+        "restaurant",
+        "snorkel rental",
+        "spa"
+      ],
+      "funFacts": [
+        "misool eco resort pioneered sustainable diving tourism.",
+        "overwater bungalows sit above pristine reefs.",
+        "raja ampat resorts limit guest numbers for conservation."
+      ]
+    },
+    {
+      "id": "indonesia-riauoverwater",
+      "country": "Indonesia",
+      "category": "Water communities – water housing",
+      "location": "Riau Islands overwater (Telunas, Bawah Reserve)",
+      "primaryActivities": "Overwater bungalows; family getaway; digital detox",
+      "howToGetThere": "Ferry from Singapore/Batam to Telunas/Bintan area",
+      "paymentMethods": "Resort packages; cards/cash",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect resort and local Malay culture; modest in villages",
+      "dressCode": "Swimwear on resort; cover up in villages",
+      "accessNeeded": "Resort booking; ferry",
+      "navigationTips": "Ferry/resort transfers",
+      "lat": 0.9167,
+      "lng": 104.4167,
+      "airport": "BTH",
+      "image": "https://picsum.photos/seed/indonesia-riauoverwater/800/600",
+      "amenities": [
+        "resort",
+        "boat dock",
+        "restaurant",
+        "spa",
+        "snorkel rental",
+        "restroom"
+      ],
+      "funFacts": [
+        "bawah reserve spans six islands in the riau archipelago.",
+        "telunas beach resort offers family-friendly overwater stays.",
+        "the islands are a short ferry ride from batam."
+      ]
+    },
+    {
+      "id": "indonesia-cirata",
+      "country": "Indonesia",
+      "category": "Water communities – water housing",
+      "location": "Cirata Floating Village (Jangari, West Java)",
+      "primaryActivities": "Boat tours; fish farming; floating houses life",
+      "howToGetThere": "Fly SIN → CGK; road to Cirata Reservoir",
+      "paymentMethods": "Cash for boat tours, local food",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect local community; ask before photos",
+      "dressCode": "Casual, modest clothing",
+      "accessNeeded": "Local boat tour",
+      "navigationTips": "Local guides; Google Maps to Cirata",
+      "lat": -6.9833,
+      "lng": 107.3667,
+      "airport": "CGK",
+      "image": "https://picsum.photos/seed/indonesia-cirata/800/600",
+      "amenities": [
+        "boat dock",
+        "parking",
+        "cafe",
+        "restroom",
+        "local guide"
+      ],
+      "funFacts": [
+        "cirata reservoir powers a major hydroelectric dam.",
+        "floating fish farms dot the water surface.",
+        "villagers live in houses built on the reservoir."
+      ]
+    },
+    {
+      "id": "indonesia-penglipuran",
+      "country": "Indonesia",
+      "category": "Cultural villages",
+      "location": "Penglipuran Village (Bali)",
+      "primaryActivities": "Traditional architecture; clothes; local cuisine",
+      "howToGetThere": "Fly SIN → DPS; road to Bangli",
+      "paymentMethods": "Cash/cards at homestays; QRIS",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect village rules; temple dress if visiting shrines",
+      "dressCode": "Covered shoulders/knees; comfortable shoes",
+      "accessNeeded": "Village entrance fee",
+      "navigationTips": "Google Maps; signs clear",
+      "lat": -8.4167,
+      "lng": 115.35,
+      "airport": "DPS",
+      "image": "https://picsum.photos/seed/indonesia-penglipuran/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "cafe",
+        "local guide",
+        "souvenir shop"
+      ],
+      "funFacts": [
+        "penglipuran is one of bali's cleanest traditional villages.",
+        "all houses share uniform bamboo and stone architecture.",
+        "the village won multiple national tourism awards."
+      ]
+    },
+    {
+      "id": "indonesia-waerebohistorical",
+      "country": "Indonesia",
+      "category": "Cultural villages",
+      "location": "Wae Rebo (Flores, NTT)",
+      "primaryActivities": "Trek; Mbaru Niang stay; coffee; Kain Songke",
+      "howToGetThere": "Same as Wae Rebo historical",
+      "paymentMethods": "Cash for homestay, guide, crafts",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect village customs; ask before photos",
+      "dressCode": "Long pants, covered top, sturty shoes",
+      "accessNeeded": "Homestay/guide arrangement",
+      "navigationTips": "Local guides essential; offline maps",
+      "lat": -8.8833,
+      "lng": 120.2833,
+      "airport": "MOF",
+      "image": "https://picsum.photos/seed/indonesia-waerebohistorical/800/600",
+      "amenities": [
+        "homestay",
+        "local guide",
+        "restroom",
+        "cafe",
+        "trekking trail"
+      ],
+      "funFacts": [
+        "wae rebo coffee is grown on surrounding slopes.",
+        "kain songke textiles are woven by village women.",
+        "the community maintains strict ancestral customs."
+      ]
+    },
+    {
+      "id": "indonesia-tenganan",
+      "country": "Indonesia",
+      "category": "Cultural villages",
+      "location": "Tenganan Pegrisingan (Bali)",
+      "primaryActivities": "Tenun Gringsing; perang pandan; Lontar crafts",
+      "howToGetThere": "Fly SIN → DPS; road to Karangasem",
+      "paymentMethods": "Cash/cards; QRIS",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect rituals; ask before photos; temple dress",
+      "dressCode": "Covered shoulders/knees; comfortable shoes",
+      "accessNeeded": "Village entry fee",
+      "navigationTips": "Google Maps; signs clear",
+      "lat": -8.5167,
+      "lng": 115.5667,
+      "airport": "DPS",
+      "image": "https://picsum.photos/seed/indonesia-tenganan/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "local guide",
+        "souvenir shop",
+        "cafe"
+      ],
+      "funFacts": [
+        "tenganan practices the ancient perang pandan ritual.",
+        "tenun gringsing double ikat cloth takes years to weave.",
+        "villagers follow strict rules to preserve their culture."
+      ]
+    },
+    {
+      "id": "indonesia-sukararasade",
+      "country": "Indonesia",
+      "category": "Artisan towns",
+      "location": "Sukarara and Sade Villages (Central Lombok)",
+      "primaryActivities": "Traditional weaving; ceremonial attire; textiles",
+      "howToGetThere": "Fly SIN → DPS; road to Lombok ports + ferry/drive",
+      "paymentMethods": "Cash for purchases; some cards",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect artisans; ask before photos",
+      "dressCode": "Casual, modest clothing",
+      "accessNeeded": "Local guide/transport; time to shop",
+      "navigationTips": "Local drivers; Google Maps to Lombok",
+      "lat": -8.7167,
+      "lng": 116.2833,
+      "airport": "DPS",
+      "image": "https://picsum.photos/seed/indonesia-sukararasade/800/600",
+      "amenities": [
+        "local guide",
+        "workshop",
+        "restroom",
+        "cafe",
+        "souvenir shop"
+      ],
+      "funFacts": [
+        "sukarara is famous for songket gold-thread weaving.",
+        "sade village showcases traditional sasak architecture.",
+        "women demonstrate weaving techniques to visitors."
+      ]
+    },
+    {
+      "id": "indonesia-prailirende",
+      "country": "Indonesia",
+      "category": "Artisan towns",
+      "location": "Prailiu and Rende Villages (East Sumba)",
+      "primaryActivities": "Large woven textiles; ancestral motifs",
+      "howToGetThere": "Fly SIN → DPS/CGK → Waingapu (WGP); road to villages",
+      "paymentMethods": "Cash for purchases; limited cards",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect local culture; ask before photos",
+      "dressCode": "Casual, modest clothing",
+      "accessNeeded": "Local guide/transport",
+      "navigationTips": "Local guides; offline maps",
+      "lat": -9.65,
+      "lng": 120.25,
+      "airport": "WGP",
+      "image": "https://picsum.photos/seed/indonesia-prailirende/800/600",
+      "amenities": [
+        "local guide",
+        "homestay",
+        "restroom",
+        "workshop",
+        "cafe"
+      ],
+      "funFacts": [
+        "sumba ikat textiles feature bold ancestral motifs.",
+        "prailiu and rende villages preserve ancient weaving.",
+        "large ceremonial cloths can take months to complete."
+      ]
+    },
+    {
+      "id": "indonesia-giriloyo",
+      "country": "Indonesia",
+      "category": "Artisan towns",
+      "location": "Giriloyo (Yogyakarta)",
+      "primaryActivities": "Hand‑drawn batik; pottery; leather puppet",
+      "howToGetThere": "Fly SIN → JOG; road to Giriloyo",
+      "paymentMethods": "Cash for workshops; some cards",
+      "visaEntry": "Visa‑free up to 30 days or eVOA up to 60 days (extendable)",
+      "cultureEtiquette": "Respect artisans; ask before photos",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Workshop booking",
+      "navigationTips": "Google Maps; local transport",
+      "lat": -7.8333,
+      "lng": 110.35,
+      "airport": "JOG",
+      "image": "https://picsum.photos/seed/indonesia-giriloyo/800/600",
+      "amenities": [
+        "workshop",
+        "local guide",
+        "parking",
+        "restroom",
+        "cafe"
+      ],
+      "funFacts": [
+        "giriloyo specializes in hand-drawn batik tulis.",
+        "artisans use canting tools to apply wax by hand.",
+        "the village supplies batik to yogyakarta's royal court."
+      ]
+    },
+    {
+      "id": "cambodia-kohrong",
+      "country": "Cambodia",
+      "category": "Coastline/islands",
+      "location": "Koh Rong",
+      "primaryActivities": "Beaches, snorkeling, bioluminescent plankton",
+      "howToGetThere": "Fly SIN → Phnom Penh (PNH) or Siem Reap (REP); overland + ferry to Sihanoukville then boat to Koh Rong",
+      "paymentMethods": "Cash, some cards in resorts",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Dress modestly in towns; respect monks/temples; avoid public intoxication; no drugs",
+      "dressCode": "Beachwear for beach; cover‑up in town/villages",
+      "accessNeeded": "Ferry ticket; island accommodation",
+      "navigationTips": "Use boat operators; offline maps",
+      "lat": 10.7236,
+      "lng": 103.2547,
+      "airport": "PNH",
+      "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop",
+      "amenities": [
+        "boat dock",
+        "cafe",
+        "restroom",
+        "beach access",
+        "snorkel rental",
+        "local guide"
+      ],
+      "funFacts": [
+        "koh rong has bioluminescent plankton at night.",
+        "the island has over 23 white sand beaches.",
+        "it was largely undeveloped until the early 2010s."
+      ]
+    },
+    {
+      "id": "cambodia-kohatang",
+      "country": "Cambodia",
+      "category": "Coastline/islands",
+      "location": "Koh Tang",
+      "primaryActivities": "Scuba diving; coral reefs; remote island",
+      "howToGetThere": "Fly SIN → PNH/REP; overland to Sihanoukville; arrange dive boat to Koh Tang",
+      "paymentMethods": "Mostly cash; some dive operators take cards",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect marine rules; no coral touching; follow dive safety",
+      "dressCode": "Swimwear, dive gear, cover‑up in town",
+      "accessNeeded": "Dive certification; boat booking",
+      "navigationTips": "Dive operator handles routes",
+      "lat": 10.3167,
+      "lng": 103.05,
+      "airport": "PNH",
+      "image": "https://picsum.photos/seed/cambodia-kohatang/800/600",
+      "amenities": [
+        "boat dock",
+        "dive shop",
+        "local guide",
+        "restroom"
+      ],
+      "funFacts": [
+        "koh tang is cambodia's premier dive destination.",
+        "underwater cliffs drop to deep reef systems.",
+        "the island is remote with limited facilities."
+      ]
+    },
+    {
+      "id": "cambodia-tonlesapflooded",
+      "country": "Cambodia",
+      "category": "Coastline/islands",
+      "location": "Tonlé Sap Flooded Forest",
+      "primaryActivities": "Seasonal flooded forest; bird/fish habitat",
+      "howToGetThere": "Fly SIN → PNH/REP; boat tour from Siem Reap or Kampong Chhnang",
+      "paymentMethods": "Cash for boats/guides; some cards in hotels",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect local fishing communities; ask before photos",
+      "dressCode": "Casual, modest clothing; hat, sun protection",
+      "accessNeeded": "Boat tour; guide recommended",
+      "navigationTips": "Tour boats; offline maps",
+      "lat": 13.25,
+      "lng": 103.9167,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-tonlesapflooded/800/600",
+      "amenities": [
+        "boat dock",
+        "local guide",
+        "restroom",
+        "cafe"
+      ],
+      "funFacts": [
+        "tonlé sap expands fivefold during monsoon season.",
+        "the lake reverses flow direction twice yearly.",
+        "flooded forests shelter rare waterbirds and fish."
+      ]
+    },
+    {
+      "id": "cambodia-kohrongmarine",
+      "country": "Cambodia",
+      "category": "Underwater worlds",
+      "location": "Koh Rong Marine Area",
+      "primaryActivities": "Coral reefs, tropical fish, bioluminescence",
+      "howToGetThere": "Same as Koh Rong",
+      "paymentMethods": "Cash, some cards",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Same as Koh Rong",
+      "dressCode": "Swimwear, snorkel gear",
+      "accessNeeded": "Boat/snorkel tour",
+      "navigationTips": "Boat operators",
+      "lat": 10.71,
+      "lng": 103.24,
+      "airport": "PNH",
+      "image": "https://picsum.photos/seed/cambodia-kohrongmarine/800/600",
+      "amenities": [
+        "boat dock",
+        "snorkel rental",
+        "dive shop",
+        "restroom",
+        "local guide"
+      ],
+      "funFacts": [
+        "koh rong marine area has recovering coral reefs.",
+        "tropical fish thrive in warm gulf of thailand waters.",
+        "night snorkeling reveals glowing plankton displays."
+      ]
+    },
+    {
+      "id": "cambodia-kohatangunderwater",
+      "country": "Cambodia",
+      "category": "Underwater worlds",
+      "location": "Koh Tang underwater area",
+      "primaryActivities": "Underwater cliffs, reef systems, marine life",
+      "howToGetThere": "Same as Koh Tang",
+      "paymentMethods": "Cash, limited cards",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Same as Koh Tang",
+      "dressCode": "Swimwear, dive gear",
+      "accessNeeded": "Dive boat booking",
+      "navigationTips": "Dive operator",
+      "lat": 10.3167,
+      "lng": 103.05,
+      "airport": "PNH",
+      "image": "https://picsum.photos/seed/cambodia-kohatangunderwater/800/600",
+      "amenities": [
+        "dive shop",
+        "boat dock",
+        "local guide",
+        "restroom"
+      ],
+      "funFacts": [
+        "koh tang reefs feature dramatic underwater topography.",
+        "visibility can exceed 20 meters on calm days.",
+        "the area is part of cambodia's marine conservation zone."
+      ]
+    },
+    {
+      "id": "cambodia-tonlesapfreshwater",
+      "country": "Cambodia",
+      "category": "Underwater worlds",
+      "location": "Tonlé Sap freshwater habitat",
+      "primaryActivities": "Inland fisheries; underwater habitat",
+      "howToGetThere": "Same as Tonlé Sap Flooded Forest",
+      "paymentMethods": "Cash for boats",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect fishing communities; no littering",
+      "dressCode": "Casual, modest clothing",
+      "accessNeeded": "Boat tour",
+      "navigationTips": "Tour boats",
+      "lat": 13.2,
+      "lng": 103.85,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-tonlesapfreshwater/800/600",
+      "amenities": [
+        "boat dock",
+        "local guide",
+        "restroom",
+        "cafe"
+      ],
+      "funFacts": [
+        "tonlé sap supplies half of cambodia's fish catch.",
+        "over 300 species of freshwater fish live here.",
+        "floating villages move with seasonal water levels."
+      ]
+    },
+    {
+      "id": "cambodia-sangkaeriver",
+      "country": "Cambodia",
+      "category": "River and wetlands",
+      "location": "Sangkae River",
+      "primaryActivities": "Farming, fishing, rural communities",
+      "howToGetThere": "Fly SIN → PNH/REP; road to Battambang; boat along Sangkae",
+      "paymentMethods": "Cash for boats; some cards in town",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect riverside communities; ask before photos",
+      "dressCode": "Casual, modest clothing",
+      "accessNeeded": "Local boat/guide",
+      "navigationTips": "Tuktuk/Grab to river; local guides",
+      "lat": 13.1,
+      "lng": 103.2,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-sangkaeriver/800/600",
+      "amenities": [
+        "boat dock",
+        "local guide",
+        "cafe",
+        "restroom",
+        "parking"
+      ],
+      "funFacts": [
+        "sangkae river flows through battambang province.",
+        "bamboo trains once ran along the riverbank tracks.",
+        "riverside farms grow rice and tropical fruit."
+      ]
+    },
+    {
+      "id": "cambodia-kampingpuoy",
+      "country": "Cambodia",
+      "category": "River and wetlands",
+      "location": "Kamping Puoy Reservoir",
+      "primaryActivities": "Lotus blooms, birdlife, views",
+      "howToGetThere": "Fly SIN → PNH/REP; road to Battambang area",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Quiet, respectful behaviour; no littering",
+      "dressCode": "Casual, comfortable shoes, hat",
+      "accessNeeded": "Local guide/transport",
+      "navigationTips": "Google Maps to reservoir; local drivers",
+      "lat": 13.0833,
+      "lng": 103.0833,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-kampingpuoy/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "local guide",
+        "viewpoint",
+        "cafe"
+      ],
+      "funFacts": [
+        "kamping puoy reservoir was built under the khmer rouge.",
+        "lotus blooms cover the water in rainy season.",
+        "the reservoir supports local irrigation and fishing."
+      ]
+    },
+    {
+      "id": "cambodia-prektoal",
+      "country": "Cambodia",
+      "category": "River and wetlands",
+      "location": "Prek Toal Bird Sanctuary",
+      "primaryActivities": "Birdwatching; waterbirds",
+      "howToGetThere": "Fly SIN → REP; boat tour on Tonlé Sap",
+      "paymentMethods": "Cash for tours",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect sanctuary rules; no disturbance to birds",
+      "dressCode": "Casual, modest clothing, hat",
+      "accessNeeded": "Boat tour; guide",
+      "navigationTips": "Tour boats",
+      "lat": 13.1667,
+      "lng": 103.6667,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-prektoal/800/600",
+      "amenities": [
+        "boat dock",
+        "local guide",
+        "restroom",
+        "viewpoint"
+      ],
+      "funFacts": [
+        "prek toal is the largest waterbird colony in southeast asia.",
+        "spot-billed pelicans nest in the flooded forest.",
+        "the sanctuary sits at tonlé sap's northwest corner."
+      ]
+    },
+    {
+      "id": "cambodia-cardamommountains",
+      "country": "Cambodia",
+      "category": "Mountain and wetlands",
+      "location": "Cardamom Mountains",
+      "primaryActivities": "Rainforest, rivers, waterfalls, biodiversity",
+      "howToGetThere": "Fly SIN → PNH; road to Koh Kong/Pursat; trekking",
+      "paymentMethods": "Cash for guides/homestays",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect local communities; no littering; follow guide",
+      "dressCode": "Long pants, covered top, sturdy shoes",
+      "accessNeeded": "Guide/permits for some areas",
+      "navigationTips": "Local guides; offline maps",
+      "lat": 11.5833,
+      "lng": 103.75,
+      "airport": "PNH",
+      "image": "https://images.unsplash.com/photo-1448375240576-d6d6a4a4c8a8?w=800&h=600&fit=crop",
+      "amenities": [
+        "local guide",
+        "camping",
+        "restroom",
+        "trekking trail",
+        "river access"
+      ],
+      "funFacts": [
+        "cardamom mountains are mainland southeast asia's largest rainforest.",
+        "clouded leopards and elephants roam the remote peaks.",
+        "the range spans over 4.4 million hectares."
+      ]
+    },
+    {
+      "id": "cambodia-samlautusearea",
+      "country": "Cambodia",
+      "category": "Mountain and wetlands",
+      "location": "Samlaut Multiple Use Area",
+      "primaryActivities": "Rainforest, wildlife, ecotourism",
+      "howToGetThere": "Fly SIN → PNH; road to Battambang; then local transport",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect protected area rules",
+      "dressCode": "Long pants, covered top, good shoes",
+      "accessNeeded": "Local guide recommended",
+      "navigationTips": "Local guides; offline maps",
+      "lat": 12.9167,
+      "lng": 102.5833,
+      "airport": "PNH",
+      "image": "https://picsum.photos/seed/cambodia-samlautusearea/800/600",
+      "amenities": [
+        "local guide",
+        "parking",
+        "restroom",
+        "camping",
+        "trekking trail"
+      ],
+      "funFacts": [
+        "samlaut protects endangered wild elephants.",
+        "the area supports community-based ecotourism.",
+        "battambang province manages this multiple use zone."
+      ]
+    },
+    {
+      "id": "cambodia-phnomsampeou",
+      "country": "Cambodia",
+      "category": "Mountain and wetlands",
+      "location": "Phnom Sampeou",
+      "primaryActivities": "Limestone hill; wetlands, rice fields",
+      "howToGetThere": "Fly SIN → PNH; road to Battambang",
+      "paymentMethods": "Cash for entrance",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect memorial sites; quiet behaviour",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Entrance fee",
+      "navigationTips": "Google Maps; local tuktuk",
+      "lat": 13.05,
+      "lng": 103.0333,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-phnomsampeou/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "local guide",
+        "viewpoint",
+        "cafe"
+      ],
+      "funFacts": [
+        "phnom sampeou means ship mountain in khmer.",
+        "millions of bats exit caves at dusk each evening.",
+        "a memorial marks khmer rouge killing cave victims."
+      ]
+    },
+    {
+      "id": "cambodia-phnomsampeoucaves",
+      "country": "Cambodia",
+      "category": "Caves and underground",
+      "location": "Phnom Sampeou Caves",
+      "primaryActivities": "Bat caves; Killing Caves memorial",
+      "howToGetThere": "Same as Phnom Sampeou",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect memorial; no loud behaviour",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Entrance fee",
+      "navigationTips": "Google Maps; local tuktuk",
+      "lat": 13.05,
+      "lng": 103.0333,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-phnomsampeoucaves/800/600",
+      "amenities": [
+        "local guide",
+        "restroom",
+        "parking",
+        "viewpoint"
+      ],
+      "funFacts": [
+        "killing caves hold bones of khmer rouge victims.",
+        "bats swarm out in ribbon-like streams at sunset.",
+        "golden buddha statues sit inside limestone chambers."
+      ]
+    },
+    {
+      "id": "cambodia-pkaslacave",
+      "country": "Cambodia",
+      "category": "Caves and underground",
+      "location": "Pkasla Cave",
+      "primaryActivities": "Limestone cave; chambers",
+      "howToGetThere": "Fly SIN → PNH/REP; road to location",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Follow guide; no touching formations",
+      "dressCode": "Long pants, covered top, sturdy shoes",
+      "accessNeeded": "Local guide",
+      "navigationTips": "Local guides essential",
+      "lat": 12.5,
+      "lng": 103,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-pkaslacave/800/600",
+      "amenities": [
+        "local guide",
+        "restroom",
+        "parking",
+        "helmet rental"
+      ],
+      "funFacts": [
+        "pkasla cave features large limestone chambers.",
+        "stalactites and stalagmites fill the underground halls.",
+        "local guides know hidden passages and formations."
+      ]
+    },
+    {
+      "id": "cambodia-lakhoncave",
+      "country": "Cambodia",
+      "category": "Caves and underground",
+      "location": "Lakhon Cave",
+      "primaryActivities": "Cave system; cultural significance",
+      "howToGetThere": "Similar to above",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect local beliefs; follow guide",
+      "dressCode": "Long pants, covered top, sturdy shoes",
+      "accessNeeded": "Local guide",
+      "navigationTips": "Local guides",
+      "lat": 12.8,
+      "lng": 103.2,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-lakhoncave/800/600",
+      "amenities": [
+        "local guide",
+        "restroom",
+        "parking"
+      ],
+      "funFacts": [
+        "lakhon cave holds cultural significance for locals.",
+        "ancient rituals were performed in the chambers.",
+        "the cave system extends deep into limestone hills."
+      ]
+    },
+    {
+      "id": "cambodia-yeaklaom",
+      "country": "Cambodia",
+      "category": "Volcanoes and craters",
+      "location": "Yeak Laom Lake",
+      "primaryActivities": "Volcanic crater lake; clear water",
+      "howToGetThere": "Fly SIN → PNH; road to Ratanakiri",
+      "paymentMethods": "Cash for entrance, local boats",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect local indigenous communities; ask before photos",
+      "dressCode": "Casual, modest clothing",
+      "accessNeeded": "Entrance fee; local boat",
+      "navigationTips": "Local guides; offline maps",
+      "lat": 13.7333,
+      "lng": 107.0167,
+      "airport": "PNH",
+      "image": "https://picsum.photos/seed/cambodia-yeaklaom/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "local guide",
+        "swimming area",
+        "cafe"
+      ],
+      "funFacts": [
+        "yeak laom is a perfectly round volcanic crater lake.",
+        "indigenous tampuan people consider the lake sacred.",
+        "crystal clear water reaches 48 meters depth."
+      ]
+    },
+    {
+      "id": "cambodia-bousra",
+      "country": "Cambodia",
+      "category": "Volcanoes and craters",
+      "location": "Bousra Highlands",
+      "primaryActivities": "Rolling hills, waterfalls, forest",
+      "howToGetThere": "Fly SIN → PNH; road to Mondulkiri",
+      "paymentMethods": "Cash for tours",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect local communities; no littering",
+      "dressCode": "Long pants, covered top, good shoes",
+      "accessNeeded": "Local guide/transport",
+      "navigationTips": "Local guides; offline maps",
+      "lat": 12.8333,
+      "lng": 107.4167,
+      "airport": "PNH",
+      "image": "https://picsum.photos/seed/cambodia-bousra/800/600",
+      "amenities": [
+        "local guide",
+        "parking",
+        "restroom",
+        "viewpoint",
+        "cafe"
+      ],
+      "funFacts": [
+        "bousra waterfall is mondulkiri's most famous cascade.",
+        "the highlands have a cooler climate than lowlands.",
+        "rolling hills support coffee and pepper farms."
+      ]
+    },
+    {
+      "id": "cambodia-cardamomhighlands",
+      "country": "Cambodia",
+      "category": "Volcanoes and craters",
+      "location": "Cardamom Highlands",
+      "primaryActivities": "Forested highlands; trekking",
+      "howToGetThere": "Same as Cardamom Mountains",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Same as Cardamom",
+      "dressCode": "Long pants, covered top, sturdy shoes",
+      "accessNeeded": "Guide/permits",
+      "navigationTips": "Local guides; offline maps",
+      "lat": 11.75,
+      "lng": 103.5,
+      "airport": "PNH",
+      "image": "https://picsum.photos/seed/cambodia-cardamomhighlands/800/600",
+      "amenities": [
+        "local guide",
+        "camping",
+        "trekking trail",
+        "restroom"
+      ],
+      "funFacts": [
+        "cardamom highlands rise above 1500 meters.",
+        "misty cloud forests cloak the upper slopes.",
+        "trekking routes connect remote ethnic villages."
+      ]
+    },
+    {
+      "id": "cambodia-battambangkarst",
+      "country": "Cambodia",
+      "category": "Rock formations",
+      "location": "Battambang Karst Limestone Hills",
+      "primaryActivities": "Limestone formations; viewpoints",
+      "howToGetThere": "Fly SIN → PNH/REP; road to Battambang",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect local sites; no climbing restricted areas",
+      "dressCode": "Casual, comfortable shoes, hat",
+      "accessNeeded": "Local guide/transport",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 13.0833,
+      "lng": 103.15,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-battambangkarst/800/600",
+      "amenities": [
+        "local guide",
+        "parking",
+        "restroom",
+        "viewpoint",
+        "cafe"
+      ],
+      "funFacts": [
+        "battambang karst hills rise from flat rice plains.",
+        "limestone formations create natural rock galleries.",
+        "cycling routes pass through scenic farmland."
+      ]
+    },
+    {
+      "id": "cambodia-phnomkrapeu",
+      "country": "Cambodia",
+      "category": "Rock formations",
+      "location": "Phnom Krapeu",
+      "primaryActivities": "Scenic viewpoints; unique geology",
+      "howToGetThere": "Fly SIN → PNH/REP; road to site",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect local beliefs",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Local guide",
+      "navigationTips": "Local guides; offline maps",
+      "lat": 12.9,
+      "lng": 103.3,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-phnomkrapeu/800/600",
+      "amenities": [
+        "local guide",
+        "parking",
+        "viewpoint",
+        "restroom"
+      ],
+      "funFacts": [
+        "phnom krapeu means crocodile mountain.",
+        "unique geology creates unusual rock formations.",
+        "viewpoints overlook surrounding countryside."
+      ]
+    },
+    {
+      "id": "cambodia-phnomsampeoucliffs",
+      "country": "Cambodia",
+      "category": "Rock formations",
+      "location": "Phnom Sampeou Limestone Cliffs",
+      "primaryActivities": "Cliffs, caves, wildlife",
+      "howToGetThere": "Same as Phnom Sampeou",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect memorial and caves",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Entrance fee",
+      "navigationTips": "Google Maps; local tuktuk",
+      "lat": 13.05,
+      "lng": 103.0333,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-phnomsampeoucliffs/800/600",
+      "amenities": [
+        "viewpoint",
+        "local guide",
+        "parking",
+        "restroom"
+      ],
+      "funFacts": [
+        "limestone cliffs tower over battambang's plains.",
+        "macaques live among the cliffside vegetation.",
+        "sunset views draw visitors from battambang town."
+      ]
+    },
+    {
+      "id": "cambodia-samlautrainforest",
+      "country": "Cambodia",
+      "category": "Forest and jungles",
+      "location": "Samlaut Rainforest",
+      "primaryActivities": "Tropical rainforest; wildlife",
+      "howToGetThere": "Fly SIN → PNH; road to Battambang; then local transport",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect protected area; no littering",
+      "dressCode": "Long pants, covered top, good shoes",
+      "accessNeeded": "Local guide",
+      "navigationTips": "Local guides; offline maps",
+      "lat": 12.9167,
+      "lng": 102.5833,
+      "airport": "PNH",
+      "image": "https://picsum.photos/seed/cambodia-samlautrainforest/800/600",
+      "amenities": [
+        "local guide",
+        "trekking trail",
+        "camping",
+        "restroom"
+      ],
+      "funFacts": [
+        "samlaut rainforest shelters rare hornbill species.",
+        "community patrols help prevent illegal logging.",
+        "the forest connects to thailand's protected areas."
+      ]
+    },
+    {
+      "id": "cambodia-cardamomrainforest",
+      "country": "Cambodia",
+      "category": "Forest and jungles",
+      "location": "Cardamom Rainforest",
+      "primaryActivities": "Large rainforest; biodiversity",
+      "howToGetThere": "Same as Cardamom Mountains",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect communities; follow guide",
+      "dressCode": "Long pants, covered top, sturdy shoes",
+      "accessNeeded": "Guide/permits",
+      "navigationTips": "Local guides; offline maps",
+      "lat": 11.5833,
+      "lng": 103.75,
+      "airport": "PNH",
+      "image": "https://picsum.photos/seed/cambodia-cardamomrainforest/800/600",
+      "amenities": [
+        "local guide",
+        "camping",
+        "trekking trail",
+        "river access",
+        "restroom"
+      ],
+      "funFacts": [
+        "cardamom rainforest is among asia's last great wildernesses.",
+        "siamese crocodiles survive in remote river systems.",
+        "conservation groups protect over 900000 hectares."
+      ]
+    },
+    {
+      "id": "cambodia-preylang",
+      "country": "Cambodia",
+      "category": "Forest and jungles",
+      "location": "Prey Lang Forest",
+      "primaryActivities": "Lowland evergreen forest",
+      "howToGetThere": "Fly SIN → PNH; road to Kampong Thom/Stung Treng",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect local communities; no illegal logging areas",
+      "dressCode": "Long pants, covered top, good shoes",
+      "accessNeeded": "Local guide",
+      "navigationTips": "Local guides; offline maps",
+      "lat": 13.5,
+      "lng": 105,
+      "airport": "PNH",
+      "image": "https://picsum.photos/seed/cambodia-preylang/800/600",
+      "amenities": [
+        "local guide",
+        "trekking trail",
+        "restroom",
+        "camping"
+      ],
+      "funFacts": [
+        "prey lang is the largest lowland evergreen forest in mainland southeast asia.",
+        "community forest patrols defend against illegal logging.",
+        "rare resin trees support traditional livelihoods."
+      ]
+    },
+    {
+      "id": "cambodia-prektoalbirds",
+      "country": "Cambodia",
+      "category": "Wildlife sanctuaries",
+      "location": "Prek Toal Bird Sanctuary",
+      "primaryActivities": "Nesting waterbirds",
+      "howToGetThere": "Same as Prek Toal in Rivers",
+      "paymentMethods": "Cash for tours",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect birds; no disturbance",
+      "dressCode": "Casual, modest clothing, hat",
+      "accessNeeded": "Boat tour",
+      "navigationTips": "Tour boats",
+      "lat": 13.1667,
+      "lng": 103.6667,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-prektoalbirds/800/600",
+      "amenities": [
+        "boat dock",
+        "local guide",
+        "viewpoint",
+        "restroom"
+      ],
+      "funFacts": [
+        "thousands of storks and pelicans nest each season.",
+        "prek toal core area restricts access during breeding.",
+        "the colony is visible from elevated viewing platforms."
+      ]
+    },
+    {
+      "id": "cambodia-angtrapaengthmor",
+      "country": "Cambodia",
+      "category": "Wildlife sanctuaries",
+      "location": "Ang Trapaeng Thmor Crane Sanctuary",
+      "primaryActivities": "Sarus cranes; migratory birds",
+      "howToGetThere": "Fly SIN → REP; road to sanctuary",
+      "paymentMethods": "Cash for entrance/guide",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect sanctuary rules; quiet behaviour",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Entrance fee; guide",
+      "navigationTips": "Local guides; offline maps",
+      "lat": 13.6167,
+      "lng": 103.85,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-angtrapaengthmor/800/600",
+      "amenities": [
+        "local guide",
+        "parking",
+        "restroom",
+        "viewpoint",
+        "cafe"
+      ],
+      "funFacts": [
+        "sarus cranes gather at ang trapeang thmor in dry season.",
+        "the sanctuary was a khmer rouge irrigation project.",
+        "over 200 bird species have been recorded here."
+      ]
+    },
+    {
+      "id": "cambodia-samlautwildlife",
+      "country": "Cambodia",
+      "category": "Wildlife sanctuaries",
+      "location": "Samlaut Multiple Use Area",
+      "primaryActivities": "Elephants, clouded leopards, wildlife",
+      "howToGetThere": "Same as Samlaut in Mountains",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Same as Samlaut",
+      "dressCode": "Long pants, covered top, good shoes",
+      "accessNeeded": "Local guide",
+      "navigationTips": "Local guides; offline maps",
+      "lat": 12.9167,
+      "lng": 102.5833,
+      "airport": "PNH",
+      "image": "https://picsum.photos/seed/cambodia-samlautwildlife/800/600",
+      "amenities": [
+        "local guide",
+        "trekking trail",
+        "restroom",
+        "camping"
+      ],
+      "funFacts": [
+        "clouded leopards have been camera-trapped here.",
+        "wild elephants migrate through samlaut corridors.",
+        "night safaris reveal slow loris and civets."
+      ]
+    },
+    {
+      "id": "cambodia-watbanan",
+      "country": "Cambodia",
+      "category": "Ancient ruins",
+      "location": "Wat Banan",
+      "primaryActivities": "Angkor‑era temple on hill",
+      "howToGetThere": "Fly SIN → PNH/REP; road to Battambang then to Banan",
+      "paymentMethods": "Cash for entrance",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Temple dress rules; quiet, respectful",
+      "dressCode": "Covered shoulders/knees, comfortable shoes",
+      "accessNeeded": "Entrance fee",
+      "navigationTips": "Google Maps; local driver",
+      "lat": 13.0333,
+      "lng": 103.1167,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-watbanan/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "local guide",
+        "viewpoint",
+        "cafe"
+      ],
+      "funFacts": [
+        "wat banan sits atop a 400-meter limestone hill.",
+        "358 steps lead to five angkor-era prasats.",
+        "the temple predates angkor wat by two centuries."
+      ]
+    },
+    {
+      "id": "cambodia-watekphnom",
+      "country": "Cambodia",
+      "category": "Ancient ruins",
+      "location": "Wat Ek Phnom",
+      "primaryActivities": "11th‑century temple; carvings",
+      "howToGetThere": "Fly SIN → PNH/REP; road near Battambang",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtchet": "Respect temple; no climbing damaged parts",
+      "dressCode": "Covered shoulders/knees",
+      "accessNeeded": "Entrance fee",
+      "navigationTips": "Google Maps; local driver",
+      "lat": 13.15,
+      "lng": 103.2,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-watekphnom/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "local guide",
+        "cafe"
+      ],
+      "funFacts": [
+        "wat ek phnom dates to the 11th century.",
+        "a giant reclining buddha sits beside the ruins.",
+        "detailed bas-reliefs depict hindu mythology scenes."
+      ]
+    },
+    {
+      "id": "cambodia-banteaychhmar",
+      "country": "Cambodia",
+      "category": "Ancient ruins",
+      "location": "Banteay Chhmar",
+      "primaryActivities": "Large, less‑visited Khmer temple",
+      "howToGetThere": "Fly SIN → PNH/REP; road to site",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect temple; modest dress",
+      "dressCode": "Covered shoulders/knees, comfortable shoes",
+      "accessNeeded": "Entrance fee; guide recommended",
+      "navigationTips": "Google Maps; local driver",
+      "lat": 14.0333,
+      "lng": 103.1167,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-banteaychhmar/800/600",
+      "amenities": [
+        "local guide",
+        "parking",
+        "restroom",
+        "cafe"
+      ],
+      "funFacts": [
+        "banteay chhmar is one of cambodia's largest temple complexes.",
+        "massive face towers resemble bayon at angkor.",
+        "community-based tourism supports local villagers."
+      ]
+    },
+    {
+      "id": "cambodia-killingcaves",
+      "country": "Cambodia",
+      "category": "Historical sites",
+      "location": "Killing Caves of Phnom Sampeou",
+      "primaryActivities": "Khmer Rouge memorial",
+      "howToGetThere": "Same as Phnom Sampeou",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Very respectful, quiet behaviour; no inappropriate photos",
+      "dressCode": "Modest clothing",
+      "accessNeeded": "Entrance fee",
+      "navigationTips": "Google Maps; local tuktuk",
+      "lat": 13.05,
+      "lng": 103.0333,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-killingcaves/800/600",
+      "amenities": [
+        "local guide",
+        "parking",
+        "restroom",
+        "memorial"
+      ],
+      "funFacts": [
+        "victims were bludgeoned and pushed into the cave.",
+        "a memorial stupa holds recovered bones and skulls.",
+        "the site is a somber reminder of khmer rouge atrocities."
+      ]
+    },
+    {
+      "id": "cambodia-watsamrongknong",
+      "country": "Cambodia",
+      "category": "Historical sites",
+      "location": "Wat Samrong Knong",
+      "primaryActivities": "Historic pagoda",
+      "howToGetThere": "Fly SIN → PNH/REP; road to site",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect religious site; temple dress",
+      "dressCode": "Covered shoulders/knees",
+      "accessNeeded": "Entrance/donation",
+      "navigationTips": "Local driver",
+      "lat": 13.1,
+      "lng": 103.2,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-watsamrongknong/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "local guide"
+      ],
+      "funFacts": [
+        "wat samrong knong is a historic pagoda in battambang.",
+        "the temple survived wars and political upheaval.",
+        "monks still maintain daily ceremonies here."
+      ]
+    },
+    {
+      "id": "cambodia-frenchcolonial",
+      "country": "Cambodia",
+      "category": "Historical sites",
+      "location": "French Colonial Quarter",
+      "primaryActivities": "Colonial architecture",
+      "howToGetThere": "Fly SIN → PNH; walk/tuk‑tuk in Phnom Penh",
+      "paymentMethods": "Cash/cards in area",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect buildings; no trespassing",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Free/paid tours",
+      "navigationTips": "Google Maps; walk/tuk‑tuk",
+      "lat": 11.5564,
+      "lng": 104.9282,
+      "airport": "PNH",
+      "image": "https://picsum.photos/seed/cambodia-frenchcolonial/800/600",
+      "amenities": [
+        "cafe",
+        "restroom",
+        "restaurant",
+        "museum",
+        "local guide"
+      ],
+      "funFacts": [
+        "phnom penh's french quarter dates to the 1860s.",
+        "yellow colonial villas line tree-shaded boulevards.",
+        "the post office and raffles hotel are heritage landmarks."
+      ]
+    },
+    {
+      "id": "cambodia-watkor",
+      "country": "Cambodia",
+      "category": "Rural countryside",
+      "location": "Wat Kor Village",
+      "primaryActivities": "Traditional wooden houses",
+      "howToGetThere": "Fly SIN → PNH/REP; road to Battambang area",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Ask before photos; respect homes",
+      "dressCode": "Casual, modest clothing",
+      "accessNeeded": "Local guide/transport",
+      "navigationTips": "Google Maps; local driver",
+      "lat": 13.0833,
+      "lng": 103.1833,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-watkor/800/600",
+      "amenities": [
+        "local guide",
+        "parking",
+        "restroom",
+        "cafe"
+      ],
+      "funFacts": [
+        "wat kor village has well-preserved khmer wooden houses.",
+        "some homes date to the early 20th century.",
+        "colonial and traditional architecture blend here."
+      ]
+    },
+    {
+      "id": "cambodia-sangkaecountryside",
+      "country": "Cambodia",
+      "category": "Rural countryside",
+      "location": "Sangkae Countryside Loop",
+      "primaryActivities": "Cycling/driving through farms/villages",
+      "howToGetThere": "Fly SIN → PNH/REP; road to Battambang",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect farmers; ask before photos",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Bicycle/vehicle",
+      "navigationTips": "Google Maps; local rental",
+      "lat": 13.05,
+      "lng": 103.1833,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-sangkaecountryside/800/600",
+      "amenities": [
+        "bicycle rental",
+        "local guide",
+        "cafe",
+        "restroom",
+        "parking"
+      ],
+      "funFacts": [
+        "the sangkae countryside loop passes rice paddies and villages.",
+        "cycling is the best way to explore rural battambang.",
+        "fruit orchards and duck farms line the route."
+      ]
+    },
+    {
+      "id": "cambodia-ricefieldvillages",
+      "country": "Cambodia",
+      "category": "Rural countryside",
+      "location": "Rice Field Villages of Banan District",
+      "primaryActivities": "Agricultural communities",
+      "howToGetThere": "Fly SIN → PNH/REP; road to Banan",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Ask before photos; respect work",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Local guide/transport",
+      "navigationTips": "Google Maps; local driver",
+      "lat": 13.0333,
+      "lng": 103.1167,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-ricefieldvillages/800/600",
+      "amenities": [
+        "local guide",
+        "parking",
+        "restroom",
+        "cafe"
+      ],
+      "funFacts": [
+        "banan district villages depend on rice farming.",
+        "traditional stilt houses rise above seasonal floods.",
+        "farmers plant and harvest on a monsoon calendar."
+      ]
+    },
+    {
+      "id": "cambodia-kompongluong",
+      "country": "Cambodia",
+      "category": "Water communities – water housing",
+      "location": "Kompong Luong Floating Village",
+      "primaryActivities": "Floating homes, schools, shops on Tonlé Sap",
+      "howToGetThere": "Fly SIN → REP; boat tour on Tonlé Sap",
+      "paymentMethods": "Cash for tours",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect community; ask before photos",
+      "dressCode": "Casual, modest clothing",
+      "accessNeeded": "Boat tour",
+      "navigationTips": "Tour boats",
+      "lat": 12.5833,
+      "lng": 104.0833,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-kompongluong/800/600",
+      "amenities": [
+        "boat dock",
+        "local guide",
+        "restroom",
+        "cafe"
+      ],
+      "funFacts": [
+        "kompong luong is a floating village on tonlé sap.",
+        "schools, shops, and homes all float on the lake.",
+        "the community moves as water levels change seasonally."
+      ]
+    },
+    {
+      "id": "cambodia-chongkos",
+      "country": "Cambodia",
+      "category": "Water communities – water housing",
+      "location": "Chong Kos Floating Village",
+      "primaryActivities": "Traditional floating fishing community",
+      "howToGetThere": "Fly SIN → PNH/REP; boat tour",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Same as above",
+      "dressCode": "Casual, modest clothing",
+      "accessNeeded": "Boat tour",
+      "navigationTips": "Tour boats",
+      "lat": 13,
+      "lng": 103.5,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-chongkos/800/600",
+      "amenities": [
+        "boat dock",
+        "local guide",
+        "restroom"
+      ],
+      "funFacts": [
+        "chong kos is a traditional floating fishing village.",
+        "families have lived on the water for generations.",
+        "colorful boats serve as daily transportation."
+      ]
+    },
+    {
+      "id": "cambodia-phoum Kandal",
+      "country": "Cambodia",
+      "category": "Water communities – water housing",
+      "location": "Phoum Kandal Floating Village",
+      "primaryActivities": "Water‑based village; fishing lifestyle",
+      "howToGetThere": "Fly SIN → PNH/REP; boat tour",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Same as above",
+      "dressCode": "Casual, modest clothing",
+      "accessNeeded": "Boat tour",
+      "navigationTips": "Tour boats",
+      "lat": 13.0833,
+      "lng": 103.5833,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-phoum-kandal/800/600",
+      "amenities": [
+        "boat dock",
+        "local guide",
+        "restroom"
+      ],
+      "funFacts": [
+        "phoum kandal means central village in khmer.",
+        "floating homes cluster along tonlé sap channels.",
+        "fishing nets and traps are made by hand here."
+      ]
+    },
+    {
+      "id": "cambodia-watkorheritage",
+      "country": "Cambodia",
+      "category": "Cultural villages",
+      "location": "Wat Kor Heritage Village",
+      "primaryActivities": "Traditional architecture and culture",
+      "howToGetThere": "Same as Wat Kor Village",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Ask before photos; respect homes",
+      "dressCode": "Casual, modest clothing",
+      "accessNeeded": "Local guide/transport",
+      "navigationTips": "Google Maps; local driver",
+      "lat": 13.0833,
+      "lng": 103.1833,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-watkorheritage/800/600",
+      "amenities": [
+        "local guide",
+        "parking",
+        "restroom",
+        "cafe",
+        "museum"
+      ],
+      "funFacts": [
+        "heritage tours showcase wat kor's wooden architecture.",
+        "some houses feature intricate carved gables.",
+        "the village is a living museum of khmer design."
+      ]
+    },
+    {
+      "id": "cambodia-phareponleu",
+      "country": "Cambodia",
+      "category": "Cultural villages",
+      "location": "Phare Ponleu Selpak Community",
+      "primaryActivities": "Visual arts, circus training",
+      "howToGetThere": "Fly SIN → PNH/REP; road to Siem Reap",
+      "paymentMethods": "Cash/cards for tickets",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect performers; no flash during shows",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Show tickets",
+      "navigationTips": "Google Maps; tuktuk",
+      "lat": 13.35,
+      "lng": 103.85,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-phareponleu/800/600",
+      "amenities": [
+        "restroom",
+        "cafe",
+        "parking",
+        "theater",
+        "souvenir shop"
+      ],
+      "funFacts": [
+        "phare ponleu selpak trains circus artists from poverty.",
+        "the school started in a refugee camp in 1994.",
+        "performances blend acrobatics with khmer storytelling."
+      ]
+    },
+    {
+      "id": "cambodia-bananpottery",
+      "country": "Cambodia",
+      "category": "Cultural villages",
+      "location": "Banan Pottery Villages",
+      "primaryActivities": "Traditional pottery",
+      "howToGetThere": "Fly SIN → PNH/REP; road to Banan",
+      "paymentMethods": "Cash for purchases",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Ask before photos; respect artisans",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Local guide/transport",
+      "navigationTips": "Google Maps; local driver",
+      "lat": 13.0333,
+      "lng": 103.1167,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-bananpottery/800/600",
+      "amenities": [
+        "workshop",
+        "local guide",
+        "restroom",
+        "souvenir shop"
+      ],
+      "funFacts": [
+        "banan district villages have made pottery for centuries.",
+        "clay is sourced from nearby riverbanks.",
+        "artisans shape pots on traditional kick wheels."
+      ]
+    },
+    {
+      "id": "cambodia-battambangartisan",
+      "country": "Cambodia",
+      "category": "Artisan towns",
+      "location": "Battambang",
+      "primaryActivities": "Arts, galleries, circus",
+      "howToGetThere": "Fly SIN → PNH/REP; road to Battambang",
+      "paymentMethods": "Cash/cards",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Respect artists; no littering",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Free/paid activities",
+      "navigationTips": "Google Maps; walk/tuk‑tuk",
+      "lat": 13.0957,
+      "lng": 103.2022,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-battambangartisan/800/600",
+      "amenities": [
+        "cafe",
+        "restroom",
+        "gallery",
+        "local guide",
+        "parking"
+      ],
+      "funFacts": [
+        "battambang is cambodia's second largest city.",
+        "art galleries and studios fill the colonial streets.",
+        "the bamboo train is a quirky local attraction."
+      ]
+    },
+    {
+      "id": "cambodia-pursatmarble",
+      "country": "Cambodia",
+      "category": "Artisan towns",
+      "location": "Pursat Marble Carving Villages",
+      "primaryActivities": "Handcrafted marble sculptures",
+      "howToGetThere": "Fly SIN → PNH; road to Pursat",
+      "paymentMethods": "Cash for purchases",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Ask before photos; respect artisans",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Local guide/transport",
+      "navigationTips": "Google Maps; local driver",
+      "lat": 12.5333,
+      "lng": 103.9167,
+      "airport": "PNH",
+      "image": "https://picsum.photos/seed/cambodia-pursatmarble/800/600",
+      "amenities": [
+        "workshop",
+        "local guide",
+        "restroom",
+        "souvenir shop",
+        "parking"
+      ],
+      "funFacts": [
+        "pursat province is known for white marble carving.",
+        "sculptors create buddha statues and decorative pieces.",
+        "marble is quarried from nearby cardamom foothills."
+      ]
+    },
+    {
+      "id": "cambodia-roluos",
+      "country": "Cambodia",
+      "category": "Artisan towns",
+      "location": "Roluos Pottery Vill",
+      "primaryActivities": "Traditional pottery",
+      "howToGetThere": "Fly SIN → REP; road to Roluos area",
+      "paymentMethods": "Cash",
+      "visaEntry": "Visa‑free up to 30 days (tourism)",
+      "cultureEtiquette": "Ask before photos; respect artisans",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Local guide/transport",
+      "navigationTips": "Google Maps; local driver",
+      "lat": 13.3333,
+      "lng": 103.9667,
+      "airport": "REP",
+      "image": "https://picsum.photos/seed/cambodia-roluos/800/600",
+      "amenities": [
+        "workshop",
+        "local guide",
+        "restroom",
+        "souvenir shop"
+      ],
+      "funFacts": [
+        "roluos group temples predate angkor wat.",
+        "nearby villages specialize in traditional pottery.",
+        "the area was an early capital of the khmer empire."
+      ]
+    },
+    {
+      "id": "vietnam-halongbay",
+      "country": "Vietnam",
+      "category": "Coastline/islands",
+      "location": "Ha Long Bay",
+      "primaryActivities": "Cruise among limestone islands",
+      "howToGetThere": "Fly SIN → Hanoi (HAN); road transfer to Ha Long (3–4h)",
+      "paymentMethods": "Cash/cards on cruises",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Dress casually but modestly on boats; respect crew and protected areas",
+      "dressCode": "Light layers, comfortable shoes, sun protection",
+      "accessNeeded": "Cruise booking",
+      "navigationTips": "Cruise operator handles routing",
+      "lat": 20.9101,
+      "lng": 107.1839,
+      "airport": "HAN",
+      "image": "https://images.unsplash.com/photo-1528127269322-539bd963d0db?w=800&h=600&fit=crop",
+      "amenities": [
+        "boat dock",
+        "cafe",
+        "restroom",
+        "local guide",
+        "viewpoint"
+      ],
+      "funFacts": [
+        "ha long bay has nearly 2000 limestone karst islands.",
+        "the name means descending dragon in vietnamese.",
+        "it became a unesco world heritage site in 1994."
+      ]
+    },
+    {
+      "id": "vietnam-condao-islands",
+      "country": "Vietnam",
+      "category": "Coastline/islands",
+      "location": "Con Dao Islands",
+      "primaryActivities": "Beaches, coral reefs, turtle nesting",
+      "howToGetThere": "Fly SIN → Ho Chi Minh City (SGN) or HAN → Con Dao (VCS)",
+      "paymentMethods": "Cash/cards at resorts",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect marine park; no coral touching",
+      "dressCode": "Swimwear, cover‑up in town",
+      "accessNeeded": "Boat/plane transfer; resort booking",
+      "navigationTips": "Local transport; offline maps",
+      "lat": 8.6833,
+      "lng": 106.6167,
+      "airport": "VCS",
+      "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop",
+      "amenities": [
+        "boat dock",
+        "beach access",
+        "restroom",
+        "cafe",
+        "local guide"
+      ],
+      "funFacts": [
+        "con dao was once a notorious french colonial prison.",
+        "sea turtles nest on pristine beaches each year.",
+        "the archipelago has 16 mostly uninhabited islands."
+      ]
+    },
+    {
+      "id": "vietnam-phuquoc",
+      "country": "Vietnam",
+      "category": "Coastline/islands",
+      "location": "Phu Quoc Island",
+      "primaryActivities": "Beaches, tropical forests, marine parks",
+      "howToGetThere": "Fly SIN → SGN or direct to Phu Quoc (PQC)",
+      "paymentMethods": "Cash/cards",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect local culture; no drugs",
+      "dressCode": "Swimwear for beach; modest in town",
+      "accessNeeded": "Flight/boat; resort booking",
+      "navigationTips": "Google Maps; local taxis",
+      "lat": 10.2899,
+      "lng": 103.984,
+      "airport": "PQC",
+      "image": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop",
+      "amenities": [
+        "beach access",
+        "cafe",
+        "restroom",
+        "parking",
+        "snorkel rental",
+        "local guide"
+      ],
+      "funFacts": [
+        "phu quoc produces world-famous fish sauce.",
+        "the island has vietnam's best white sand beaches.",
+        "pepper farms cover the island's red soil hills."
+      ]
+    },
+    {
+      "id": "vietnam-honmun",
+      "country": "Vietnam",
+      "category": "Underwater worlds",
+      "location": "Hon Mun Marine Protected Area",
+      "primaryActivities": "Diving; coral reefs",
+      "howToGetThere": "Fly SIN → Nha Trang (CXR) via SGN/HAN",
+      "paymentMethods": "Cash/cards at dive shops",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Follow dive safety; no touching corals",
+      "dressCode": "Dive gear, swimwear",
+      "accessNeeded": "Dive certification; boat",
+      "navigationTips": "Dive operator handles routes",
+      "lat": 12.1667,
+      "lng": 109.3,
+      "airport": "CXR",
+      "image": "https://picsum.photos/seed/vietnam-honmun/800/600",
+      "amenities": [
+        "dive shop",
+        "boat dock",
+        "snorkel rental",
+        "restroom",
+        "local guide"
+      ],
+      "funFacts": [
+        "hon mun is nha trang's premier marine protected area.",
+        "over 350 coral species thrive in these waters.",
+        "the area was vietnam's first marine protected zone."
+      ]
+    },
+    {
+      "id": "vietnam-culaocham",
+      "country": "Vietnam",
+      "category": "Underwater worlds",
+      "location": "Cu Lao Cham Marine Protected Area",
+      "primaryActivities": "Diving, snorkeling near Hoi An",
+      "howToGetThere": "Fly SIN → Da Nang (DAD); boat to Cu Lao Cham",
+      "paymentMethods": "Cash/cards",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect marine rules; no littering",
+      "dressCode": "Swimwear, cover‑up in town",
+      "accessNeeded": "Boat booking",
+      "navigationTips": "Boat operator",
+      "lat": 15.95,
+      "lng": 108.5167,
+      "airport": "DAD",
+      "image": "https://picsum.photos/seed/vietnam-culaocham/800/600",
+      "amenities": [
+        "boat dock",
+        "snorkel rental",
+        "restroom",
+        "cafe",
+        "local guide"
+      ],
+      "funFacts": [
+        "cu lao cham is a unesco biosphere reserve.",
+        "the islands sit just 15 kilometers from hoi an.",
+        "cham people have fished these waters for centuries."
+      ]
+    },
+    {
+      "id": "vietnam-condao-nationalpark",
+      "country": "Vietnam",
+      "category": "Underwater worlds",
+      "location": "Con Dao National Park",
+      "primaryActivities": "Snorkeling, diving, turtles",
+      "howToGetThere": "Fly SIN → Ho Chi Minh City (SGN) or HAN → Con Dao (VCS)",
+      "paymentMethods": "Cash/cards",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect park rules; no wildlife disturbance",
+      "dressCode": "Swimwear, dive gear",
+      "accessNeeded": "Park fees; dive booking",
+      "navigationTips": "Local boats; guides",
+      "lat": 8.6833,
+      "lng": 106.6167,
+      "airport": "VCS",
+      "image": "https://picsum.photos/seed/vietnam-condao-nationalpark/800/600",
+      "amenities": [
+        "local guide",
+        "boat dock",
+        "restroom",
+        "camping",
+        "snorkel rental"
+      ],
+      "funFacts": [
+        "con dao national park protects rare dugongs.",
+        "the park covers both land and marine ecosystems.",
+        "endangered green turtles nest on protected beaches."
+      ]
+    },
+    {
+      "id": "vietnam-tramchim",
+      "country": "Vietnam",
+      "category": "River and wetlands",
+      "location": "Tram Chim National Park",
+      "primaryActivities": "Wetlands; sarus cranes",
+      "howToGetThere": "Fly SIN → SGN; road to Dong Thap",
+      "paymentMethods": "Cash for entrance, guides",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect sanctuary; quiet behaviour",
+      "dressCode": "Casual, comfortable shoes, hat",
+      "accessNeeded": "Entrance fee; guide",
+      "navigationTips": "Local guides; offline maps",
+      "lat": 10.7,
+      "lng": 105.5167,
+      "airport": "SGN",
+      "image": "https://picsum.photos/seed/vietnam-tramchim/800/600",
+      "amenities": [
+        "boat dock",
+        "local guide",
+        "restroom",
+        "viewpoint",
+        "cafe"
+      ],
+      "funFacts": [
+        "tram chim is a ramsar wetland of international importance.",
+        "sarus cranes winter here from november to may.",
+        "melaleuca forests flood during the rainy season."
+      ]
+    },
+    {
+      "id": "vietnam-vanlong",
+      "country": "Vietnam",
+      "category": "River and wetlands",
+      "location": "Van Long Nature Reserve",
+      "primaryActivities": "Wetlands; limestone karsts; langurs",
+      "howToGetThere": "Fly SIN → HAN; road to Ninh Binh",
+      "paymentMethods": "Cash/cards for boats",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect reserve; no littering",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Boat tour",
+      "navigationTips": "Local boats; Google Maps",
+      "lat": 20.35,
+      "lng": 105.9167,
+      "airport": "HAN",
+      "image": "https://picsum.photos/seed/vietnam-vanlong/800/600",
+      "amenities": [
+        "boat dock",
+        "local guide",
+        "restroom",
+        "viewpoint",
+        "parking"
+      ],
+      "funFacts": [
+        "van long is ninh binh's largest wetland reserve.",
+        "delacour's langurs live on limestone cliffs here.",
+        "silent boat tours protect the fragile ecosystem."
+      ]
+    },
+    {
+      "id": "vietnam-mekongdelta",
+      "country": "Vietnam",
+      "category": "River and wetlands",
+      "location": "Mekong Delta",
+      "primaryActivities": "Rivers, canals, floating markets",
+      "howToGetThere": "Fly SIN → SGN; road/boat to Can Tho/Ben Tre",
+      "paymentMethods": "Cash/cards",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect local communities; ask before photos",
+      "dressCode": "Casual, modest clothing",
+      "accessNeeded": "Boat tours; homestays",
+      "navigationTips": "Local boats; Google Maps",
+      "lat": 10.0452,
+      "lng": 105.7469,
+      "airport": "VCA",
+      "image": "https://picsum.photos/seed/vietnam-mekongdelta/800/600",
+      "amenities": [
+        "boat dock",
+        "cafe",
+        "restroom",
+        "local guide",
+        "market",
+        "homestay"
+      ],
+      "funFacts": [
+        "the mekong delta produces half of vietnam's rice.",
+        "floating markets operate at dawn on the river.",
+        "over 17 million people live in the delta region."
+      ]
+    },
+    {
+      "id": "vietnam-fansipan",
+      "country": "Vietnam",
+      "category": "Mountain and wetlands",
+      "location": "Fansipan",
+      "primaryActivities": "Highest peak; trekking",
+      "howToGetThere": "Fly SIN → SGN/HAN → Lao Cai; train to Sapa; trek",
+      "paymentMethods": "Cash/cards for guides/permits",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect mountain and local ethnic groups",
+      "dressCode": "Long pants, covered top, good boots, warm layers",
+      "accessNeeded": "Guide/permit; strong fitness",
+      "navigationTips": "Local guides; offline maps",
+      "lat": 22.3033,
+      "lng": 103.775,
+      "airport": "HAN",
+      "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=600&fit=crop",
+      "amenities": [
+        "cable car",
+        "local guide",
+        "restroom",
+        "cafe",
+        "viewpoint",
+        "parking"
+      ],
+      "funFacts": [
+        "fansipan is the highest peak in indochina at 3143 meters.",
+        "a cable car reaches near the summit from sapa.",
+        "the mountain supports rare alpine flora and fauna."
+      ]
+    },
+    {
+      "id": "vietnam-hagiang",
+      "country": "Vietnam",
+      "category": "Mountain and wetlands",
+      "location": "Ha Giang Karst Plateau",
+      "primaryActivities": "Mountains, valleys, ethnic villages",
+      "howToGetThere": "Fly SIN → HAN; road to Ha Giang",
+      "paymentMethods": "Cash for guides, homestays",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect local cultures; ask before photos",
+      "dressCode": "Long pants, covered top, sturdy shoes",
+      "accessNeeded": "Motorbike/guide; permit",
+      "navigationTips": "Local guides; offline maps",
+      "lat": 22.8333,
+      "lng": 104.9833,
+      "airport": "HAN",
+      "image": "https://picsum.photos/seed/vietnam-hagiang/800/600",
+      "amenities": [
+        "local guide",
+        "homestay",
+        "restroom",
+        "viewpoint",
+        "parking"
+      ],
+      "funFacts": [
+        "ha giang loop is vietnam's most scenic motorbike route.",
+        "dong van karst plateau is a unesco geopark.",
+        "ethnic hmong and dao villages dot the mountains."
+      ]
+    },
+    {
+      "id": "vietnam-bachma",
+      "country": "Vietnam",
+      "category": "Mountain and wetlands",
+      "location": "Bach Ma National Park",
+      "primaryActivities": "Mountain forests, waterfalls",
+      "howToGetThere": "Fly SIN → HAN/DAD; road to park",
+      "paymentMethods": "Cash for entrance",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect park; no littering",
+      "dressCode": "Long pants, covered top, good shoes",
+      "accessNeeded": "Entrance fee; guide",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 16.2,
+      "lng": 107.6833,
+      "airport": "DAD",
+      "image": "https://picsum.photos/seed/vietnam-bachma/800/600",
+      "amenities": [
+        "local guide",
+        "parking",
+        "restroom",
+        "camping",
+        "trekking trail"
+      ],
+      "funFacts": [
+        "bach ma national park rises from sea level to 1450 meters.",
+        "french colonial villas remain in the cloud forest.",
+        "waterfalls cascade through lush montane rainforest."
+      ]
+    },
+    {
+      "id": "vietnam-sondoong",
+      "country": "Vietnam",
+      "category": "Caves and underground",
+      "location": "Son Doong Cave",
+      "primaryActivities": "Expedition caving",
+      "howToGetThere": "Fly SIN → HAN/SGN → Dong Hoi (VDH); specialized tour",
+      "paymentMethods": "Prepaid tour package",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Follow guide strictly; no independent access",
+      "dressCode": "Expedition gear, strong fitness",
+      "accessNeeded": "Permit via licensed operator",
+      "navigationTips": "Guided only",
+      "lat": 17.4575,
+      "lng": 106.285,
+      "airport": "VDH",
+      "image": "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&h=600&fit=crop",
+      "amenities": [
+        "local guide",
+        "camping",
+        "restroom"
+      ],
+      "funFacts": [
+        "son doong is the world's largest known cave passage.",
+        "its main chamber could fit a 40-story building.",
+        "a unique underground jungle grows beneath skylights."
+      ]
+    },
+    {
+      "id": "vietnam-phongnha",
+      "country": "Vietnam",
+      "category": "Caves and underground",
+      "location": "Phong Nha Cave",
+      "primaryActivities": "Boat cave; underground chambers",
+      "howToGetThere": "Fly SIN → Dong Hoi (VDH) via HAN/SGN",
+      "paymentMethods": "Cash/cards for tours",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Follow safety rules; no littering",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Boat tour",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 17.59,
+      "lng": 106.2833,
+      "airport": "VDH",
+      "image": "https://picsum.photos/seed/vietnam-phongnha/800/600",
+      "amenities": [
+        "boat dock",
+        "local guide",
+        "restroom",
+        "cafe",
+        "parking"
+      ],
+      "funFacts": [
+        "phong nha cave is reached by traditional dragon boat.",
+        "underground rivers flow through massive chambers.",
+        "the cave stretches over 7 kilometers in length."
+      ]
+    },
+    {
+      "id": "vietnam-paradisecave",
+      "country": "Vietnam",
+      "category": "Caves and underground",
+      "location": "Paradise Cave",
+      "primaryActivities": "Stalactites; wooden walkway",
+      "howToGetThere": "Fly SIN → Dong Hoi (VDH) via HAN/SGN",
+      "paymentMethods": "Cash/cards",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Follow safety rules; no littering",
+      "dressCode": "Comfortable shoes",
+      "accessNeeded": "Entrance fee",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 17.5167,
+      "lng": 106.2167,
+      "airport": "VDH",
+      "image": "https://picsum.photos/seed/vietnam-paradisecave/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "local guide",
+        "cafe",
+        "viewpoint"
+      ],
+      "funFacts": [
+        "paradise cave was discovered by a local man in 2005.",
+        "stalactites and stalagmites fill a 31-kilometer system.",
+        "a wooden walkway leads through cathedral-like halls."
+      ]
+    },
+    {
+      "id": "vietnam-lyson",
+      "country": "Vietnam",
+      "category": "Volcanoes and craters",
+      "location": "Ly Son Island",
+      "primaryActivities": "Volcanic cliffs; crater landscapes",
+      "howToGetThere": "Fly SIN → DAD; boat to Ly Son",
+      "paymentMethods": "Cash/cards",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect local culture; no littering",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Boat booking",
+      "navigationTips": "Local boats; offline maps",
+      "lat": 15.3833,
+      "lng": 109.1167,
+      "airport": "DAD",
+      "image": "https://picsum.photos/seed/vietnam-lyson/800/600",
+      "amenities": [
+        "boat dock",
+        "cafe",
+        "restroom",
+        "local guide",
+        "beach access"
+      ],
+      "funFacts": [
+        "ly son island formed from ancient volcanic eruptions.",
+        "garlic farming is the island's main livelihood.",
+        "volcanic cliffs and crater landscapes surround the island."
+      ]
+    },
+    {
+      "id": "vietnam-bienho",
+      "country": "Vietnam",
+      "category": "Volcanoes and craters",
+      "location": "Bien Ho (T'Nung Lake)",
+      "primaryActivities": "Crater lake scenery",
+      "howToGetThere": "Fly SIN → SGN/Da Lat; road to lake",
+      "paymentMethods": "Cash",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect local area; no littering",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Local transport",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 14.0167,
+      "lng": 108.05,
+      "airport": "DLI",
+      "image": "https://picsum.photos/seed/vietnam-bienho/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "viewpoint",
+        "cafe",
+        "local guide"
+      ],
+      "funFacts": [
+        "bien ho is a volcanic crater lake near pleiku.",
+        "the jrai people consider the lake spiritually significant.",
+        "morning mist creates mirror-like reflections on the water."
+      ]
+    },
+    {
+      "id": "vietnam-chudangya",
+      "country": "Vietnam",
+      "category": "Volcanoes and craters",
+      "location": "Chu Dang Ya Volcano",
+      "primaryActivities": "Extinct volcano; flower fields",
+      "howToGetThere": "Fly SIN → SGN; road to Dak Lak",
+      "paymentMethods": "Cash",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect local communities",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Local guide/transport",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 13.85,
+      "lng": 108.1,
+      "airport": "SGN",
+      "image": "https://picsum.photos/seed/vietnam-chudangya/800/600",
+      "amenities": [
+        "local guide",
+        "parking",
+        "restroom",
+        "viewpoint",
+        "cafe"
+      ],
+      "funFacts": [
+        "chu dang ya is an extinct volcano near pleiku.",
+        "wild sunflowers bloom across the slopes in november.",
+        "the crater floor supports coffee and pepper farms."
+      ]
+    },
+    {
+      "id": "vietnam-halongbay-rock",
+      "country": "Vietnam",
+      "category": "Rock formation",
+      "location": "Ha Long Bay (rock aspect)",
+      "primaryActivities": "Limestone towers; viewpoints",
+      "howToGetThere": "Fly SIN → Hanoi (HAN); road transfer to Ha Long (3–4h)",
+      "paymentMethods": "Cash/cards",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Dress casually but modestly on boats; respect crew and protected areas",
+      "dressCode": "Comfortable shoes, sun protection",
+      "accessNeeded": "Cruise/day tour",
+      "navigationTips": "Cruise operator",
+      "lat": 20.85,
+      "lng": 107.15,
+      "airport": "HAN",
+      "image": "https://images.unsplash.com/photo-1528127269322-539bd963d0db?w=800&h=600&fit=crop",
+      "amenities": [
+        "boat dock",
+        "viewpoint",
+        "local guide",
+        "restroom",
+        "cafe"
+      ],
+      "funFacts": [
+        "limestone towers rise up to 100 meters from the sea.",
+        "karst formation took over 500 million years.",
+        "titov island offers panoramic bay viewpoints."
+      ]
+    },
+    {
+      "id": "vietnam-muacave",
+      "country": "Vietnam",
+      "category": "Rock formation",
+      "location": "Mua Cave Viewpoint",
+      "primaryActivities": "Karst formations; rice fields",
+      "howToGetThere": "Fly SIN → HAN; road to Ninh Binh",
+      "paymentMethods": "Cash/cards for entrance",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect site; no littering",
+      "dressCode": "Comfortable shoes",
+      "accessNeeded": "Entrance fee",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 20.2333,
+      "lng": 105.9333,
+      "airport": "HAN",
+      "image": "https://picsum.photos/seed/vietnam-muacave/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "viewpoint",
+        "local guide",
+        "cafe"
+      ],
+      "funFacts": [
+        "mua cave viewpoint requires climbing 500 stone steps.",
+        "the dragon-shaped ridge overlooks tam coc rice fields.",
+        "the view is among ninh binh's most photographed scenes."
+      ]
+    },
+    {
+      "id": "vietnam-dongvan",
+      "country": "Vietnam",
+      "category": "Rock formation",
+      "location": "Dong Van Karst Plateau",
+      "primaryActivities": "UNESCO Geopark; limestone landscapes",
+      "howToGetThere": "Fly SIN → HAN; road to Ha Giang/Dong Van",
+      "paymentMethods": "Cash for guides, homestays",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect local ethnic groups; ask before photos",
+      "dressCode": "Long pants, covered top, sturdy shoes",
+      "accessNeeded": "Local guide/transport",
+      "navigationTips": "Local guides; offline maps",
+      "lat": 23.2667,
+      "lng": 105.3667,
+      "airport": "HAN",
+      "image": "https://picsum.photos/seed/vietnam-dongvan/800/600",
+      "amenities": [
+        "local guide",
+        "homestay",
+        "restroom",
+        "viewpoint",
+        "parking"
+      ],
+      "funFacts": [
+        "dong van karst plateau is a unesco global geopark.",
+        "limestone peaks create a dramatic highland landscape.",
+        "hmong markets fill the old town each sunday morning."
+      ]
+    },
+    {
+      "id": "vietnam-cattien-forest",
+      "country": "Vietnam",
+      "category": "Forest and jungles",
+      "location": "Cat Tien National Park",
+      "primaryActivities": "Lowland forest; gibbons, crocodiles",
+      "howToGetThere": "Fly SIN → SGN; road to park",
+      "paymentMethods": "Cash/cards",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect wildlife; no feeding",
+      "dressCode": "Long pants, covered top, good shoes, insect repellent",
+      "accessNeeded": "Entrance fee; guide",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 11.5833,
+      "lng": 107.4167,
+      "airport": "SGN",
+      "image": "https://images.unsplash.com/photo-1448375240576-d6d6a4a4c8a8?w=800&h=600&fit=crop",
+      "amenities": [
+        "local guide",
+        "camping",
+        "restroom",
+        "trekking trail",
+        "parking"
+      ],
+      "funFacts": [
+        "cat tien protects one of vietnam's largest lowland forests.",
+        "siamese crocodiles survive in the park's wetlands.",
+        "gibbon calls echo through the canopy at dawn."
+      ]
+    },
+    {
+      "id": "vietnam-yokdon",
+      "country": "Vietnam",
+      "category": "Forest and jungles",
+      "location": "Yok Don National Park",
+      "primaryActivities": "Large forest; dry woodland",
+      "howToGetThere": "Fly SIN → SGN; road to Dak Lak",
+      "paymentMethods": "Cash",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect park; no littering",
+      "dressCode": "Long pants, covered top, good shoes",
+      "accessNeeded": "Entrance fee; guide",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 12.75,
+      "lng": 107.6667,
+      "airport": "SGN",
+      "image": "https://picsum.photos/seed/vietnam-yokdon/800/600",
+      "amenities": [
+        "local guide",
+        "camping",
+        "restroom",
+        "trekking trail",
+        "parking"
+      ],
+      "funFacts": [
+        "yok don is vietnam's largest national park.",
+        "elephants and leopards roam the dry dipterocarp forest.",
+        "the park borders cambodia's protected areas."
+      ]
+    },
+    {
+      "id": "vietnam-cucphuong",
+      "country": "Vietnam",
+      "category": "Forest and jungles",
+      "location": "Cuc Phuong National Park",
+      "primaryActivities": "Ancient trees; primates",
+      "howToGetThere": "Fly SIN → HAN; road to park",
+      "paymentMethods": "Cash/cards",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect park; no littering",
+      "dressCode": "Long pants, covered top, good shoes",
+      "accessNeeded": "Entrance fee; guide",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 20.2833,
+      "lng": 105.6167,
+      "airport": "HAN",
+      "image": "https://picsum.photos/seed/vietnam-cucphuong/800/600",
+      "amenities": [
+        "local guide",
+        "camping",
+        "restroom",
+        "museum",
+        "parking"
+      ],
+      "funFacts": [
+        "cuc phuong is vietnam's first national park.",
+        "a 1000-year-old tree stands in the ancient forest.",
+        "endangered langurs are rehabilitated at the primate center."
+      ]
+    },
+    {
+      "id": "vietnam-cattien-wildlife",
+      "country": "Vietnam",
+      "category": "Wildlife sanctuaries",
+      "location": "Cat Tien National Park",
+      "primaryActivities": "Endangered mammals, birds, reptiles",
+      "howToGetThere": "Fly SIN → SGN; road to park",
+      "paymentMethods": "Cash/cards",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect wildlife; no feeding",
+      "dressCode": "Long pants, covered top, good shoes",
+      "accessNeeded": "Entrance fee; guide",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 11.5833,
+      "lng": 107.4167,
+      "airport": "SGN",
+      "image": "https://picsum.photos/seed/vietnam-cattien-wildlife/800/600",
+      "amenities": [
+        "local guide",
+        "camping",
+        "restroom",
+        "trekking trail"
+      ],
+      "funFacts": [
+        "cat tien shelters endangered sun bears and gibbons.",
+        "night safaris reveal civets and flying squirrels.",
+        "the park spans over 720 square kilometers."
+      ]
+    },
+    {
+      "id": "vietnam-pumat",
+      "country": "Vietnam",
+      "category": "Wildlife sanctuaries",
+      "location": "Pu Mat National Park",
+      "primaryActivities": "Rare species; extensive forest",
+      "howToGetThere": "Fly SIN → HAN; road to Nghe An",
+      "paymentMethods": "Cash",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect park; no littering",
+      "dressCode": "Long pants, covered top, good shoes",
+      "accessNeeded": "Entrance fee; guide",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 19.0833,
+      "lng": 104.6667,
+      "airport": "HAN",
+      "image": "https://picsum.photos/seed/vietnam-pumat/800/600",
+      "amenities": [
+        "local guide",
+        "camping",
+        "restroom",
+        "trekking trail"
+      ],
+      "funFacts": [
+        "pu mat national park protects the saola forest antelope.",
+        "the park connects vietnam's north central highlands.",
+        "over 2400 plant species grow in its forests."
+      ]
+    },
+    {
+      "id": "vietnam-condao-wildlife",
+      "country": "Vietnam",
+      "category": "Wildlife sanctuaries",
+      "location": "Con Dao National Park",
+      "primaryActivities": "Turtles, coral reefs, island wildlife",
+      "howToGetThere": "Fly SIN → Ho Chi Minh City (SGN) or HAN → Con Dao (VCS)",
+      "paymentMethods": "Cash/cards",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect park; no wildlife disturbance",
+      "dressCode": "Swimwear, dive gear, cover‑up",
+      "accessNeeded": "Park fees; boat",
+      "navigationTips": "Local boats; guides",
+      "lat": 8.6833,
+      "lng": 106.6167,
+      "airport": "VCS",
+      "image": "https://picsum.photos/seed/vietnam-condao-wildlife/800/600",
+      "amenities": [
+        "local guide",
+        "boat dock",
+        "restroom",
+        "camping"
+      ],
+      "funFacts": [
+        "con dao protects endemic species found nowhere else.",
+        "sea turtles are monitored during nesting season.",
+        "the marine park covers 14000 hectares of ocean."
+      ]
+    },
+    {
+      "id": "vietnam-myson",
+      "country": "Vietnam",
+      "category": "Ancient ruins",
+      "location": "My Son Sanctuary",
+      "primaryActivities": "Champa Hindu temples",
+      "howToGetThere": "Fly SIN → DAD; road to My Son",
+      "paymentMethods": "Cash/cards for tickets",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Temple dress rules; no climbing",
+      "dressCode": "Covered shoulders/knees, comfortable shoes",
+      "accessNeeded": "Entrance fee; guide",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 15.7633,
+      "lng": 108.1242,
+      "airport": "DAD",
+      "image": "https://picsum.photos/seed/vietnam-myson/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "museum",
+        "local guide",
+        "cafe"
+      ],
+      "funFacts": [
+        "my son was the spiritual center of the champa kingdom.",
+        "red brick towers date from the 4th to 13th centuries.",
+        "us bombing in 1969 damaged many temple structures."
+      ]
+    },
+    {
+      "id": "vietnam-trakieu",
+      "country": "Vietnam",
+      "category": "Ancient ruins",
+      "location": "Tra Kieu Citadel",
+      "primaryActivities": "Champa archaeological site",
+      "howToGetThere": "Fly SIN → DAD; road to Quang Nam",
+      "paymentMethods": "Cash",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect site; no littering",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Entrance fee; guide",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 15.7833,
+      "lng": 108.2833,
+      "airport": "DAD",
+      "image": "https://picsum.photos/seed/vietnam-trakieu/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "local guide",
+        "museum"
+      ],
+      "funFacts": [
+        "tra kieu was the first capital of the champa kingdom.",
+        "archaeological digs reveal ancient palace foundations.",
+        "the site sits along the scenic thu bon river."
+      ]
+    },
+    {
+      "id": "vietnam-oceo",
+      "country": "Vietnam",
+      "category": "Ancient ruins",
+      "location": "Oc Eo Archaeological Site",
+      "primaryActivities": "Funan ruins",
+      "howToGetThere": "Fly SIN → SGN; road to An Giang",
+      "paymentMethods": "Cash",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect site; ask before photos",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Entrance fee; guide",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 10.3167,
+      "lng": 105.0833,
+      "airport": "SGN",
+      "image": "https://picsum.photos/seed/vietnam-oceo/800/600",
+      "amenities": [
+        "museum",
+        "local guide",
+        "restroom",
+        "parking"
+      ],
+      "funFacts": [
+        "oc eo was a major port of the ancient funan kingdom.",
+        "excavations uncovered gold jewelry and roman coins.",
+        "the site reveals early maritime trade across asia."
+      ]
+    },
+    {
+      "id": "vietnam-hue",
+      "country": "Vietnam",
+      "category": "Historical sites",
+      "location": "Imperial City of Hue",
+      "primaryActivities": "Former royal capital",
+      "howToGetThere": "Fly SIN → HAN/DAD; road/rail to Hue",
+      "paymentMethods": "Cash/cards",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect historical site; modest dress",
+      "dressCode": "Covered shoulders/knees, comfortable shoes",
+      "accessNeeded": "Entrance fee",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 16.4637,
+      "lng": 107.5909,
+      "airport": "HUI",
+      "image": "https://picsum.photos/seed/vietnam-hue/800/600",
+      "amenities": [
+        "parking",
+        "restroom",
+        "museum",
+        "cafe",
+        "local guide",
+        "souvenir shop"
+      ],
+      "funFacts": [
+        "hue was vietnam's imperial capital under the nguyen dynasty.",
+        "the citadel's forbidden purple city housed emperors.",
+        "perfume river flows through the historic city center."
+      ]
+    },
+    {
+      "id": "vietnam-hoalo",
+      "country": "Vietnam",
+      "category": "Historical sites",
+      "location": "Hoa Lo Prison",
+      "primaryActivities": "Colonial/war prison museum",
+      "howToGetThere": "Fly SIN → HAN; road to Hanoi centre",
+      "paymentMethods": "Cash/cards",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect memorial; no loud behaviour",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Entrance fee",
+      "navigationTips": "Google Maps; walk/taxi",
+      "lat": 21.025,
+      "lng": 105.8467,
+      "airport": "HAN",
+      "image": "https://picsum.photos/seed/vietnam-hoalo/800/600",
+      "amenities": [
+        "museum",
+        "restroom",
+        "cafe",
+        "parking",
+        "local guide"
+      ],
+      "funFacts": [
+        "hoa lo prison was nicknamed the hanoi hilton by american pows.",
+        "the french built it in the 1890s to hold political prisoners.",
+        "senator john mccain was held here during the vietnam war."
+      ]
+    },
+    {
+      "id": "vietnam-cuchi",
+      "country": "Vietnam",
+      "category": "Historical sites",
+      "location": "Cu Chi Tunnels",
+      "primaryActivities": "Wartime tunnel network",
+      "howToGetThere": "Fly SIN → SGN; road to Cu Chi",
+      "paymentMethods": "Cash/cards",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect site; follow guide",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Entrance fee; guide",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 11.1522,
+      "lng": 106.4944,
+      "airport": "SGN",
+      "image": "https://picsum.photos/seed/vietnam-cuchi/800/600",
+      "amenities": [
+        "local guide",
+        "restroom",
+        "parking",
+        "cafe",
+        "museum"
+      ],
+      "funFacts": [
+        "cu chi tunnels stretch over 250 kilometers underground.",
+        "the network had kitchens, hospitals, and trap doors.",
+        "visitors can crawl through widened tunnel sections."
+      ]
+    },
+    {
+      "id": "vietnam-maichau",
+      "country": "Vietnam",
+      "category": "Rural countryside",
+      "location": "Mai Chau Valley",
+      "primaryActivities": "Rice paddies; stilt‑house villages",
+      "howToGetThere": "Fly SIN → HAN; road to Mai Chau",
+      "paymentMethods": "Cash/cards",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect villages; ask before photos",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Local guide/transport",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 20.6667,
+      "lng": 105,
+      "airport": "HAN",
+      "image": "https://picsum.photos/seed/vietnam-maichau/800/600",
+      "amenities": [
+        "homestay",
+        "local guide",
+        "restroom",
+        "cafe",
+        "parking"
+      ],
+      "funFacts": [
+        "mai chau valley is home to white thai ethnic communities.",
+        "stilt houses offer traditional homestay experiences.",
+        "rice paddies and karst hills surround the peaceful valley."
+      ]
+    },
+    {
+      "id": "vietnam-mucangchai",
+      "country": "Vietnam",
+      "category": "Rural countryside",
+      "location": "Mu Cang Chai",
+      "primaryActivities": "Terraced rice fields",
+      "howToGetThere": "Fly SIN → HAN; road to Yen Bai",
+      "paymentMethods": "Cash",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect farmers; ask before photos",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Local guide/transport",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 21.85,
+      "lng": 104.0667,
+      "airport": "HAN",
+      "image": "https://picsum.photos/seed/vietnam-mucangchai/800/600",
+      "amenities": [
+        "viewpoint",
+        "local guide",
+        "homestay",
+        "restroom",
+        "cafe"
+      ],
+      "funFacts": [
+        "mu cang chai terraces are among the world's most beautiful.",
+        "hmong farmers have carved rice paddies into steep slopes.",
+        "september harvest season turns the hills golden."
+      ]
+    },
+    {
+      "id": "vietnam-bacson",
+      "country": "Vietnam",
+      "category": "Rural countryside",
+      "location": "Bac Son Valley",
+      "primaryActivities": "Agricultural landscape; limestone mountains",
+      "howToGetThere": "Fly SIN → HAN; road to Lang Son",
+      "paymentMethods": "Cash",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect local communities",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Local guide/transport",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 21.8333,
+      "lng": 106.25,
+      "airport": "HAN",
+      "image": "https://picsum.photos/seed/vietnam-bacson/800/600",
+      "amenities": [
+        "viewpoint",
+        "local guide",
+        "homestay",
+        "restroom",
+        "parking"
+      ],
+      "funFacts": [
+        "bac son valley lies between limestone mountain ranges.",
+        "tay ethnic villages dot the fertile rice plain.",
+        "sunrise paints the valley in layers of morning mist."
+      ]
+    },
+    {
+      "id": "vietnam-cuavan",
+      "country": "Vietnam",
+      "category": "Water communities – water housing",
+      "location": "Cua Van Floating Village",
+      "primaryActivities": "Floating fishing community (Ha Long area)",
+      "howToGetThere": "Fly SIN → HAN; road/boat to Ha Long",
+      "paymentMethods": "Cash for boats",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect community; ask before photos",
+      "dressCode": "Casual, modest clothing",
+      "accessNeeded": "Boat tour",
+      "navigationTips": "Tour boats",
+      "lat": 20.7833,
+      "lng": 107.0833,
+      "airport": "HAN",
+      "image": "https://picsum.photos/seed/vietnam-cuavan/800/600",
+      "amenities": [
+        "boat dock",
+        "local guide",
+        "restroom",
+        "cafe"
+      ],
+      "funFacts": [
+        "cua van is the largest floating village in ha long bay.",
+        "families have lived on the water for generations.",
+        "a floating cultural center teaches traditional fishing."
+      ]
+    },
+    {
+      "id": "vietnam-chaudoc",
+      "country": "Vietnam",
+      "category": "Water communities – water housing",
+      "location": "Chau Doc Floating Villages",
+      "primaryActivities": "Floating fish farms and homes",
+      "howToGetThere": "Fly SIN → SGN; road to Chau Doc",
+      "paymentMethods": "Cash",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect community; ask before photos",
+      "dressCode": "Casual, modest clothing",
+      "accessNeeded": "Boat tour",
+      "navigationTips": "Local boats",
+      "lat": 10.7,
+      "lng": 105.1167,
+      "airport": "VCA",
+      "image": "https://picsum.photos/seed/vietnam-chaudoc/800/600",
+      "amenities": [
+        "boat dock",
+        "local guide",
+        "restroom",
+        "market",
+        "cafe"
+      ],
+      "funFacts": [
+        "chau doc sits where the mekong meets the bassac river.",
+        "floating fish farms cover the waterways near town.",
+        "sam mountain offers views over cambodia's border."
+      ]
+    },
+    {
+      "id": "vietnam-tanlap",
+      "country": "Vietnam",
+      "category": "Water communities – water housing",
+      "location": "Tan Lap Floating Village",
+      "primaryActivities": "Wetland community; waterways",
+      "howToGetThere": "Fly SIN → SGN; road to Dong Thap",
+      "paymentMethods": "Cash",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect community; ask before photos",
+      "dressCode": "Casual, modest clothing",
+      "accessNeeded": "Boat tour",
+      "navigationTips": "Local boats",
+      "lat": 10.5167,
+      "lng": 105.8167,
+      "airport": "VCA",
+      "image": "https://picsum.photos/seed/vietnam-tanlap/800/600",
+      "amenities": [
+        "boat dock",
+        "local guide",
+        "restroom",
+        "cafe",
+        "viewpoint"
+      ],
+      "funFacts": [
+        "tan lap floating village floats on melaleuca forest canals.",
+        "a walkway through the wetland canopy offers bird watching.",
+        "the ecosystem supports rare waterbirds and fish."
+      ]
+    },
+    {
+      "id": "vietnam-catcat",
+      "country": "Vietnam",
+      "category": "Cultural villages",
+      "location": "Cat Cat Village",
+      "primaryActivities": "Hmong crafts; mountain scenery",
+      "howToGetThere": "Fly SIN → HAN; road to Sapa",
+      "paymentMethods": "Cash/cards",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect local culture; ask before photos",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Entrance fee; guide",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 22.3333,
+      "lng": 103.8333,
+      "airport": "HAN",
+      "image": "https://picsum.photos/seed/vietnam-catcat/800/600",
+      "amenities": [
+        "local guide",
+        "restroom",
+        "cafe",
+        "souvenir shop",
+        "trekking trail"
+      ],
+      "funFacts": [
+        "cat cat village is a hmong craft community near sapa.",
+        "waterfalls cascade through the terraced hillside.",
+        "traditional indigo dyeing is demonstrated for visitors."
+      ]
+    },
+    {
+      "id": "vietnam-lac",
+      "country": "Vietnam",
+      "category": "Cultural villages",
+      "location": "Lac Village",
+      "primaryActivities": "White Thai stilt houses; customs",
+      "howToGetThere": "Fly SIN → HAN; road to Son La",
+      "paymentMethods": "Cash",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect local culture; ask before photos",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Local guide/transport",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 20.5833,
+      "lng": 104.9833,
+      "airport": "HAN",
+      "image": "https://picsum.photos/seed/vietnam-lac/800/600",
+      "amenities": [
+        "homestay",
+        "local guide",
+        "restroom",
+        "cafe",
+        "parking"
+      ],
+      "funFacts": [
+        "lac village features white thai stilt houses.",
+        "xoe dance performances welcome guests.",
+        "the village sits beside peaceful mai chau valley."
+      ]
+    },
+    {
+      "id": "vietnam-tavan",
+      "country": "Vietnam",
+      "category": "Cultural villages",
+      "location": "Ta Van Village",
+      "primaryActivities": "Giay and Hmong communities; terraced fields",
+      "howToGetThere": "Fly SIN → HAN; road to Sapa area",
+      "paymentMethods": "Cash",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect local culture; ask before photos",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Local guide/transport",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 22.3167,
+      "lng": 103.7833,
+      "airport": "HAN",
+      "image": "https://picsum.photos/seed/vietnam-tavan/800/600",
+      "amenities": [
+        "homestay",
+        "local guide",
+        "restroom",
+        "trekking trail",
+        "cafe"
+      ],
+      "funFacts": [
+        "ta van village is home to giay and hmong communities.",
+        "terraced rice fields surround the muong hoa valley.",
+        "homestays offer authentic mountain village life."
+      ]
+    },
+    {
+      "id": "vietnam-battrang",
+      "country": "Vietnam",
+      "category": "Artisan towns",
+      "location": "Bat Trang Pottery Village",
+      "primaryActivities": "Ceramic production; pottery",
+      "howToGetThere": "Fly SIN → HAN; road to Bat Trang",
+      "paymentMethods": "Cash/cards",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect artisans; ask before photos",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Local guide/transport",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 20.9833,
+      "lng": 105.9167,
+      "airport": "HAN",
+      "image": "https://picsum.photos/seed/vietnam-battrang/800/600",
+      "amenities": [
+        "workshop",
+        "local guide",
+        "restroom",
+        "souvenir shop",
+        "cafe"
+      ],
+      "funFacts": [
+        "bat trang pottery village has operated for over 700 years.",
+        "artisans use traditional dragon kilns to fire ceramics.",
+        "visitors can try throwing pots on a wheel."
+      ]
+    },
+    {
+      "id": "vietnam-kimbong",
+      "country": "Vietnam",
+      "category": "Artisan towns",
+      "location": "Kim Bong Carpentry Village",
+      "primaryActivities": "Traditional woodworking",
+      "howToGetThere": "Fly SIN → HAN/DAD; road to Quang Nam",
+      "paymentMethods": "Cash",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect artisans; ask before photos",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Local guide/transport",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 15.5833,
+      "lng": 108.3667,
+      "airport": "DAD",
+      "image": "https://picsum.photos/seed/vietnam-kimbong/800/600",
+      "amenities": [
+        "workshop",
+        "local guide",
+        "restroom",
+        "boat dock",
+        "souvenir shop"
+      ],
+      "funFacts": [
+        "kim bong carpentry village is reached by boat from hoi an.",
+        "craftsmen build wooden boats and temple carvings.",
+        "the village has supplied hoi an's builders for centuries."
+      ]
+    },
+    {
+      "id": "vietnam-vanphuc",
+      "country": "Vietnam",
+      "category": "Artisan towns",
+      "location": "Van Phuc Silk Village",
+      "primaryActivities": "Silk weaving",
+      "howToGetThere": "Fly SIN → HAN; road to Ha Dong",
+      "paymentMethods": "Cash/cards",
+      "visaEntry": "Singaporeans generally visa‑free up to 30 days per entry",
+      "cultureEtiquette": "Respect artisans; ask before photos",
+      "dressCode": "Casual, comfortable shoes",
+      "accessNeeded": "Local guide/transport",
+      "navigationTips": "Google Maps; local drivers",
+      "lat": 20.9833,
+      "lng": 105.7667,
+      "airport": "HAN",
+      "image": "https://picsum.photos/seed/vietnam-vanphuc/800/600",
+      "amenities": [
+        "workshop",
+        "local guide",
+        "restroom",
+        "souvenir shop",
+        "cafe"
+      ],
+      "funFacts": [
+        "van phuc silk village weaves fabric for royalty since antiquity.",
+        "traditional looms produce intricate patterns by hand.",
+        "the village sits on the nhue river near hanoi."
+      ]
+    }
+  ],
+  "categories": [
+    "Ancient ruins",
+    "Artisan towns",
+    "Caves and underground",
+    "Coastline/islands",
+    "Cultural villages",
+    "Forest and jungles",
+    "Historical sites",
+    "Mountain and wetlands",
+    "River and wetlands",
+    "Rock formation",
+    "Rock formations",
+    "Rural countryside",
+    "Underwater worlds",
+    "Volcanoes and craters",
+    "Water communities – water housing",
+    "Wildlife sanctuaries"
+  ]
+}

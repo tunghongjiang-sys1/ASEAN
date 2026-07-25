@@ -16,6 +16,7 @@
     .plane {
       position: absolute; width: 32px; height: 32px; pointer-events: none; z-index: 5;
       filter: drop-shadow(0 2px 6px rgba(0,0,0,0.45));
+      transform-origin: 50% 50%;
       display: none;
     }
     .user-ring {
@@ -126,18 +127,53 @@
       userMarker = new maplibregl.Marker({ element: el }).setLngLat([loc.lng, loc.lat]).addTo(map);
     }
 
-    function lerp(a, b, t) { return a + (b - a) * t; }
+    function haversineDeg(a, b) {
+      const toRad = Math.PI / 180;
+      const f1 = a.lat * toRad, f2 = b.lat * toRad;
+      const df = (b.lat - a.lat) * toRad;
+      const dl = (b.lng - a.lng) * toRad;
+      const x = Math.sin(df / 2) * Math.sin(df / 2)
+              + Math.cos(f1) * Math.cos(f2) * Math.sin(dl / 2) * Math.sin(dl / 2);
+      const c = 2 * Math.asin(Math.min(1, Math.sqrt(x)));
+      return c * 180 / Math.PI;
+    }
+
+    function slerp(a, b, t) {
+      const toRad = Math.PI / 180, toDeg = 180 / Math.PI;
+      const f1 = a.lat * toRad, l1 = a.lng * toRad;
+      const f2 = b.lat * toRad, l2 = b.lng * toRad;
+      const cosf1 = Math.cos(f1), cosf2 = Math.cos(f2);
+      const x1 = cosf1 * Math.cos(l1), y1 = cosf1 * Math.sin(l1), z1 = Math.sin(f1);
+      const x2 = cosf2 * Math.cos(l2), y2 = cosf2 * Math.sin(l2), z2 = Math.sin(f2);
+      const dot = x1 * x2 + y1 * y2 + z1 * z2;
+      const omega = Math.acos(Math.max(-1, Math.min(1, dot)));
+      if (!isFinite(omega) || omega < 1e-9) {
+        return { lng: a.lng + (b.lng - a.lng) * t, lat: a.lat + (b.lat - a.lat) * t };
+      }
+      const sinO = Math.sin(omega);
+      const k1 = Math.sin((1 - t) * omega) / sinO;
+      const k2 = Math.sin(t * omega) / sinO;
+      const x = k1 * x1 + k2 * x2;
+      const y = k1 * y1 + k2 * y2;
+      const z = k1 * z1 + k2 * z2;
+      const f = Math.asin(Math.max(-1, Math.min(1, z)));
+      let l = Math.atan2(y, x) * toDeg;
+      if (l > 180) l -= 360;
+      else if (l < -180) l += 360;
+      return { lng: l, lat: f * toDeg };
+    }
 
     function flyPlane(from, to, color) {
       plane.style.display = 'block';
       if (color) plane.querySelector('path').setAttribute('fill', color);
       const start = performance.now();
-      const dist = Math.hypot(to.lng - from.lng, to.lat - from.lat);
+      const dist = haversineDeg(from, to);
       const dur = Math.min(5200, Math.max(2200, dist * 35));
-      const arc = Math.min(18, 3 + dist * 0.12);
+      const arc = Math.min(2.0, 0.4 + dist * 0.025);
 
+      const mid = slerp(from, to, 0.5);
       map.flyTo({
-        center: [(from.lng + to.lng) / 2, (from.lat + to.lat) / 2],
+        center: [mid.lng, mid.lat],
         zoom: dist > 40 ? 1.8 : 3.2,
         pitch: 35,
         duration: 800
@@ -146,19 +182,18 @@
       function frame(now) {
         const t = Math.min(1, (now - start) / dur);
         const ease = t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t;
-        const lng = lerp(from.lng, to.lng, ease);
-        const lat = lerp(from.lat, to.lat, ease) + Math.sin(Math.PI * ease) * arc;
+        const pos = slerp(from, to, ease);
+        const lng = pos.lng;
+        const lat = pos.lat + Math.sin(Math.PI * ease) * arc;
         const p = map.project([lng, lat]);
 
-        // Tilt the plane along the direction of travel on screen so its
-        // heading matches the location it's flying toward — works correctly
-        // even when the map is pitched/rotated.
         let angle = 0;
         if (t < 1) {
           const tNext = Math.min(1, t + 0.025);
           const easeNext = tNext < 0.5 ? 2 * tNext * tNext : -1 + (4 - 2 * tNext) * tNext;
-          const nextLng = lerp(from.lng, to.lng, easeNext);
-          const nextLat = lerp(from.lat, to.lat, easeNext) + Math.sin(Math.PI * easeNext) * arc;
+          const posNext = slerp(from, to, easeNext);
+          const nextLng = posNext.lng;
+          const nextLat = posNext.lat + Math.sin(Math.PI * easeNext) * arc;
           const pNext = map.project([nextLng, nextLat]);
           angle = Math.atan2(pNext.y - p.y, pNext.x - p.x) * 180 / Math.PI;
         } else {
@@ -170,6 +205,7 @@
         plane.style.top = (p.y - 16) + 'px';
         plane.style.transform = 'rotate(' + angle + 'deg)';
         map.easeTo({ center: [lng, lat], duration: 0 });
+
         if (t < 1) requestAnimationFrame(frame);
         else {
           map.flyTo({
@@ -209,7 +245,6 @@
       if (data.type === 'setUser') setUser(data.payload);
       if (data.type === 'flyPlane') flyPlane(data.payload.from, data.payload.to, data.payload.color);
       if (data.type === 'focus') {
-        // When a plane is flying, skip extra focus — plane ends centered
         if (plane.style.display === 'block') {
           selectedId = data.payload.place.id;
           setPlaces(lastPlaces);

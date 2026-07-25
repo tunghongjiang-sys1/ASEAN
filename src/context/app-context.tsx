@@ -2,32 +2,51 @@ import React, { createContext, useCallback, useContext, useEffect, useMemo, useS
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { AttractionPreference, NoteItem, UserLocation } from '../types/place';
 
-export type AuthMode = 'guest' | 'google';
+export type AuthMode = 'guest' | 'google' | 'email';
 
 export type AuthUser = {
   mode: AuthMode;
   name: string;
   email?: string;
+  picture?: string;
+};
+
+export type GoogleProfileInput = {
+  name?: string;
+  email?: string;
+  picture?: string;
+  sub?: string;
+};
+
+export type EmailHistoryEntry = {
+  email: string;
+  name: string;
+  signedInAt: string;
+  signedOutAt: string | null;
 };
 
 type AppState = {
   auth: AuthUser | null;
   loginAsGuest: () => void;
-  loginWithGoogle: () => void;
+  loginWithGoogle: (profile?: GoogleProfileInput) => void;
+  loginWithEmail: (email: string, name?: string) => void;
   logout: () => void;
   preferences: AttractionPreference[];
   setPreferences: (v: AttractionPreference[]) => void;
   userLocation: UserLocation | null;
   setUserLocation: (v: UserLocation | null) => void;
   notes: NoteItem[];
-  addNote: (placeId: string) => void;
+  addNote: (placeId: string, body?: string) => void;
   removeNote: (placeId: string) => void;
+  updatenotebody: (placeId: string, body: string) => void;
   hasNote: (placeId: string) => boolean;
   selectedPlaceId: string | null;
   setSelectedPlaceId: (id: string | null) => void;
   onboarded: boolean;
   setOnboarded: (v: boolean) => void;
   resetJourney: () => void;
+  emailHistory: EmailHistoryEntry[];
+  removeemailhistoryentry: (email: string) => void;
 };
 
 const AppContext = createContext<AppState | null>(null);
@@ -36,6 +55,7 @@ const PREF_KEY = 'asean_travel_prefs';
 const AUTH_KEY = 'asean_travel_auth';
 const ONBOARD_KEY = 'asean_travel_onboarded';
 const LOC_KEY = 'asean_travel_location';
+const emailhistorykey = 'asean_travel_email_history';
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [auth, setAuth] = useState<AuthUser | null>(null);
@@ -44,23 +64,38 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [notes, setNotes] = useState<NoteItem[]>([]);
   const [selectedPlaceId, setSelectedPlaceId] = useState<string | null>(null);
   const [onboarded, setOnboardedState] = useState(false);
+  const [emailhistory, setemailhistory] = useState<EmailHistoryEntry[]>([]);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     (async () => {
       try {
-        const [n, p, a, o, l] = await Promise.all([
+        const [n, p, a, o, l, eh] = await Promise.all([
           AsyncStorage.getItem(NOTES_KEY),
           AsyncStorage.getItem(PREF_KEY),
           AsyncStorage.getItem(AUTH_KEY),
           AsyncStorage.getItem(ONBOARD_KEY),
           AsyncStorage.getItem(LOC_KEY),
+          AsyncStorage.getItem(emailhistorykey),
         ]);
-        if (n) setNotes(JSON.parse(n));
+        if (n) {
+          const parsed = JSON.parse(n);
+          if (Array.isArray(parsed)) {
+            setNotes(
+              parsed.map((x: any) => ({
+                placeId: String(x?.placeId ?? ''),
+                addedAt: String(x?.addedAt ?? new Date().toISOString()),
+                body: typeof x?.body === 'string' ? x.body : undefined,
+                updatedAt: typeof x?.updatedAt === 'string' ? x.updatedAt : undefined,
+              }))
+            );
+          }
+        }
         if (p) setPreferencesState(JSON.parse(p));
         if (a) setAuth(JSON.parse(a));
         if (o === '1') setOnboardedState(true);
         if (l) setUserLocationState(JSON.parse(l));
+        if (eh) setemailhistory(JSON.parse(eh));
       } catch {}
       setHydrated(true);
     })();
@@ -76,21 +111,95 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     persistAuth({ mode: 'guest', name: 'guest traveller' });
   }, [persistAuth]);
 
-  const loginWithGoogle = useCallback(() => {
-    persistAuth({
-      mode: 'google',
-      name: 'google traveller',
-      email: 'traveller@gmail.com',
+  const recordemaillogin = useCallback((emailraw: string, nameraw: string) => {
+    const now = new Date().toISOString();
+    setemailhistory((prev) => {
+      const closed = prev.map((e) =>
+        e.email === emailraw && e.signedOutAt === null
+          ? { ...e, signedOutAt: now }
+          : e
+      );
+      const next = [
+        ...closed,
+        { email: emailraw, name: nameraw, signedInAt: now, signedOutAt: null },
+      ];
+      AsyncStorage.setItem(emailhistorykey, JSON.stringify(next)).catch(() => {});
+      return next;
     });
-  }, [persistAuth]);
+  }, []);
+
+  const recordemaillogout = useCallback((emailraw: string) => {
+    if (!emailraw) return;
+    const now = new Date().toISOString();
+    setemailhistory((prev) => {
+      const next = prev.map((e) =>
+        e.email === emailraw && e.signedOutAt === null
+          ? { ...e, signedOutAt: now }
+          : e
+      );
+      AsyncStorage.setItem(emailhistorykey, JSON.stringify(next)).catch(() => {});
+      return next;
+    });
+  }, []);
+
+  const removeemailhistoryentry = useCallback((emailraw: string) => {
+    const target = emailraw.trim().toLowerCase();
+    if (!target) return;
+    setemailhistory((prev) => {
+      const next = prev.filter((e) => e.email.toLowerCase() !== target);
+      AsyncStorage.setItem(emailhistorykey, JSON.stringify(next)).catch(() => {});
+      return next;
+    });
+  }, []);
+
+  const loginWithGoogle = useCallback(
+    (profile?: GoogleProfileInput) => {
+      if (profile?.email && profile?.name) {
+        persistAuth({
+          mode: 'google',
+          name: profile.name,
+          email: profile.email,
+          picture: profile.picture,
+        });
+      } else {
+        persistAuth({
+          mode: 'google',
+          name: 'google traveller',
+          email: 'traveller@gmail.com',
+        });
+      }
+    },
+    [persistAuth]
+  );
+
+  const loginWithEmail = useCallback(
+    (emailraw: string, nameraw?: string) => {
+      const cleanemail = emailraw.trim();
+      if (!cleanemail) return;
+      const localpart = cleanemail.split('@')[0] || '';
+      const safename = localpart.replace(/[^a-z0-9._-]/gi, '');
+      const displayname =
+        nameraw?.trim() || safename || cleanemail || 'traveler';
+      persistAuth({
+        mode: 'email',
+        name: displayname,
+        email: cleanemail,
+      });
+      recordemaillogin(cleanemail, displayname);
+    },
+    [persistAuth, recordemaillogin]
+  );
 
   const logout = useCallback(() => {
+    if (auth?.mode === 'email' && auth.email) {
+      recordemaillogout(auth.email);
+    }
     persistAuth(null);
     setOnboardedState(false);
     setUserLocationState(null);
     setSelectedPlaceId(null);
     AsyncStorage.multiRemove([ONBOARD_KEY, LOC_KEY]).catch(() => {});
-  }, [persistAuth]);
+  }, [auth, persistAuth, recordemaillogout]);
 
   const setPreferences = useCallback((v: AttractionPreference[]) => {
     setPreferencesState(v);
@@ -108,10 +217,18 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     AsyncStorage.setItem(ONBOARD_KEY, v ? '1' : '0').catch(() => {});
   }, []);
 
-  const addNote = useCallback((placeId: string) => {
+  const addNote = useCallback((placeId: string, bodyraw?: string) => {
+    const body = bodyraw?.trim() || undefined;
+    const now = new Date().toISOString();
     setNotes((prev) => {
-      if (prev.some((n) => n.placeId === placeId)) return prev;
-      const next = [...prev, { placeId, addedAt: new Date().toISOString() }];
+      if (prev.some((n) => n.placeId === placeId)) {
+        const next = prev.map((n) =>
+          n.placeId === placeId ? { ...n, body: body ?? n.body, updatedAt: now } : n
+        );
+        AsyncStorage.setItem(NOTES_KEY, JSON.stringify(next)).catch(() => {});
+        return next;
+      }
+      const next = [...prev, { placeId, addedAt: now, body, updatedAt: body ? now : undefined }];
       AsyncStorage.setItem(NOTES_KEY, JSON.stringify(next)).catch(() => {});
       return next;
     });
@@ -120,6 +237,16 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const removeNote = useCallback((placeId: string) => {
     setNotes((prev) => {
       const next = prev.filter((n) => n.placeId !== placeId);
+      AsyncStorage.setItem(NOTES_KEY, JSON.stringify(next)).catch(() => {});
+      return next;
+    });
+  }, []);
+
+  const updatenotebody = useCallback((placeId: string, bodyraw: string) => {
+    const body = bodyraw.trim() || undefined;
+    const now = new Date().toISOString();
+    setNotes((prev) => {
+      const next = prev.map((n) => (n.placeId === placeId ? { ...n, body, updatedAt: now } : n));
       AsyncStorage.setItem(NOTES_KEY, JSON.stringify(next)).catch(() => {});
       return next;
     });
@@ -141,6 +268,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       auth,
       loginAsGuest,
       loginWithGoogle,
+      loginWithEmail,
       logout,
       preferences,
       setPreferences,
@@ -150,16 +278,20 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       addNote,
       removeNote,
       hasNote,
+      updatenotebody,
       selectedPlaceId,
       setSelectedPlaceId,
       onboarded,
       setOnboarded,
       resetJourney,
+      emailHistory: emailhistory,
+      removeemailhistoryentry,
     }),
     [
       auth,
       loginAsGuest,
       loginWithGoogle,
+      loginWithEmail,
       logout,
       preferences,
       setPreferences,
@@ -173,6 +305,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       onboarded,
       setOnboarded,
       resetJourney,
+      emailhistory,
+      removeemailhistoryentry,
+      updatenotebody,
     ]
   );
 

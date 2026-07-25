@@ -28,6 +28,8 @@ export type UserLocation = {
 export type NoteItem = {
   placeId: string;
   addedAt: string;
+  body?: string;
+  updatedAt?: string;
 };
 
 export type AttractionPreference = string;

@@ -1,5 +1,13 @@
 import type { FlightInfo } from '../types/place';
 
+const BACKEND_URL =
+  (process.env.EXPO_PUBLIC_BACKEND_URL || '').replace(/\/+$/, '') ||
+  'http://localhost:8000';
+
+const BACKEND_SECRET = (process.env.EXPO_PUBLIC_BACKEND_SECRET || '').trim();
+
+type FlightReply = { flights: FlightInfo[]; live: boolean };
+
 const SIN = 'SIN';
 
 const ROUTE_AIRLINES: Record<string, { airline: string; code: string; durationMin: number }[]> = {
@@ -55,10 +63,6 @@ function pad(n: number) {
   return String(n).padStart(2, '0');
 }
 
-function formatLocal(d: Date) {
-  return `${pad(d.getHours())}:${pad(d.getMinutes())}`;
-}
-
 function addMinutes(d: Date, m: number) {
   return new Date(d.getTime() + m * 60000);
 }
@@ -73,7 +77,7 @@ function syntheticFlights(to: string, count = 6): FlightInfo[] {
     const meta = routes[i % routes.length];
     const dep = addMinutes(now, 45 + i * 95 + (i % 3) * 20);
     const arr = addMinutes(dep, meta.durationMin);
-    const num = `${meta.code}${940 + i * 7 + (to.charCodeAt(0) % 40)}`;
+    const num = `${meta.code}${940 + i * 7 + (to.length % 40)}`;
     out.push({
       flightNumber: num,
       airline: meta.airline,
@@ -88,40 +92,28 @@ function syntheticFlights(to: string, count = 6): FlightInfo[] {
   return out;
 }
 
-async function aviationStackFlights(to: string): Promise<FlightInfo[] | null> {
-  const key = process.env.EXPO_PUBLIC_AVIATIONSTACK_API_KEY;
-  if (!key) return null;
-  try {
-    const url = `https://api.aviationstack.com/v1/flights?access_key=${key}&dep_iata=${SIN}&arr_iata=${to}&limit=8`;
-    const res = await fetch(url);
-    if (!res.ok) return null;
-    const data = await res.json();
-    if (!Array.isArray(data?.data) || data.data.length === 0) return null;
-    return data.data.map((f: any) => ({
-      flightNumber: f?.flight?.iata || f?.flight?.icao || '—',
-      airline: (f?.airline?.name || 'airline').toLowerCase(),
-      from: f?.departure?.iata || SIN,
-      to: f?.arrival?.iata || to,
-      departure: f?.departure?.scheduled || new Date().toISOString(),
-      arrival: f?.arrival?.scheduled || new Date().toISOString(),
-      status: (f?.flight_status || 'scheduled').toLowerCase(),
-      terminal: f?.departure?.terminal || undefined,
-    }));
-  } catch {
-    return null;
-  }
-}
-
 export async function getFlightsTo(airport: string): Promise<FlightInfo[]> {
   const to = (airport || 'DPS').toUpperCase();
-  const live = await aviationStackFlights(to);
-  if (live && live.length) return live;
-  return syntheticFlights(to);
+
+  const headers: Record<string, string> = { Accept: 'application/json' };
+  if (BACKEND_SECRET) headers.Authorization = `Bearer ${BACKEND_SECRET}`;
+
+  try {
+    const res = await fetch(`${BACKEND_URL}/flights?to=${encodeURIComponent(to)}`, {
+      method: 'GET',
+      headers,
+    });
+    if (!res.ok) return syntheticFlights(to);
+    const data = (await res.json()) as FlightReply;
+    return Array.isArray(data.flights) && data.flights.length ? data.flights : syntheticFlights(to);
+  } catch {
+    return syntheticFlights(to);
+  }
 }
 
 export function formatFlightTime(iso: string) {
   try {
-    return formatLocal(new Date(iso));
+    return `${pad(new Date(iso).getHours())}:${pad(new Date(iso).getMinutes())}`;
   } catch {
     return iso;
   }

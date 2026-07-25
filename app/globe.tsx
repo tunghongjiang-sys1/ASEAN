@@ -75,7 +75,7 @@ export default function GlobeScreen() {
     }
   };
 
-  const endLabel = auth.mode === 'google' ? 'logout' : 'end';
+  const endLabel = compact ? 'logout' : 'log out';
 
   return (
     <View style={[styles.screen, { paddingTop: insets.top }]}>

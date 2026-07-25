@@ -1,5 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
-import Svg, { Circle, Path, Rect } from 'react-native-svg';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { colors } from '../constants/colors';
 
 type Props = {
@@ -11,23 +10,11 @@ export function Logo({ size = 56, showWordmark = true }: Props) {
   return (
     <View style={styles.wrap}>
       <View style={[styles.mark, { width: size, height: size, borderRadius: size * 0.28 }]}>
-        <Svg width={size * 0.62} height={size * 0.62} viewBox="0 0 64 64">
-          <Circle cx="32" cy="32" r="28" fill={colors.aseanBlue} />
-          <Path
-            d="M10 34c8-2 14 4 22 2s14-8 22-4"
-            stroke={colors.aseanYellow}
-            strokeWidth="3"
-            fill="none"
-          />
-          <Path
-            d="M12 24c10 2 16-6 24-4s14 8 18 4"
-            stroke={colors.pureWhite}
-            strokeWidth="2.5"
-            fill="none"
-            opacity="0.9"
-          />
-          <Rect x="28" y="14" width="8" height="8" rx="2" fill={colors.aseanRed} />
-        </Svg>
+        <Image
+          source={require('../../assets/aseantaplogo.png')}
+          style={{ width: size * 0.82, height: size * 0.82 }}
+          resizeMode="contain"
+        />
       </View>
       {showWordmark ? (
         <View>

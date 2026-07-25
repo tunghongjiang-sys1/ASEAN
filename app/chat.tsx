@@ -8,7 +8,7 @@ import { Button } from '../src/components/ui/button';
 import { Title } from '../src/components/ui/text';
 import { colors } from '../src/constants/colors';
 import { useApp } from '../src/context/app-context';
-import { askTravelAgent } from '../src/services/openrouter';
+import { askLocalDesk } from '../src/services/local-chat';
 import type { ChatMessage, Place } from '../src/types/place';
 
 const SUGGESTIONS = [
@@ -33,8 +33,8 @@ export default function ChatScreen() {
       id: 'welcome',
       role: 'assistant',
       content: compact
-        ? 'hi — ask about itineraries, visas, or places in the database.'
-        : 'hello — i am your asean travel desk. ask for itineraries, etiquette, flights from singapore, or details from the indonesia, cambodia, and vietnam database.',
+        ? 'hi — ask about itineraries, visas, or any stop on the map.'
+        : 'hello — i am your asean travel desk. ask for an itinerary, what to wear at temples, how to reach somewhere, or details on any stop across indonesia, cambodia, and vietnam.',
       createdAt: new Date().toISOString(),
     },
   ]);
@@ -73,7 +73,7 @@ export default function ChatScreen() {
     setInput('');
     setBusy(true);
     try {
-      const reply = await askTravelAgent(q, [...messages, userMsg], dbPlaces, notePlaces);
+      const reply = await askLocalDesk(q, dbPlaces, notePlaces);
       setMessages((m) => [
         ...m,
         {
@@ -89,7 +89,7 @@ export default function ChatScreen() {
         {
           id: `e-${Date.now()}`,
           role: 'assistant',
-          content: `sorry — ${e?.message || 'the desk could not reply'}. check your openrouter key.`,
+          content: `sorry — ${e?.message || 'the desk could not reply just now'}.`,
           createdAt: new Date().toISOString(),
         },
       ]);
@@ -154,11 +154,22 @@ export default function ChatScreen() {
         </ScrollView>
         <TextInput
           value={input}
-          onChangeText={setInput}
+          onChangeText={(next) => {
+            if (next.endsWith('\n') || next.endsWith('\r')) {
+              const stripped = next.replace(/[\r\n]+$/, '');
+              setInput('');
+              sendText(stripped);
+              return;
+            }
+            setInput(next);
+          }}
           placeholder={compact ? 'ask anything…' : 'ask about places, visas, or a 3-day plan...'}
           placeholderTextColor={colors.muted}
           style={styles.input}
           multiline
+          returnKeyType="send"
+          blurOnSubmit={false}
+          onSubmitEditing={send}
         />
         {busy ? (
           <ActivityIndicator color={colors.deepNavy} style={{ marginVertical: 8 }} />

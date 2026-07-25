@@ -1,7 +1,7 @@
-import { indonesiaData } from './indonesia';
-import { cambodiaData } from './cambodia';
-import { vietnamData } from './vietnam';
-import { enrichment } from './enrichment';
+import { indonesiaData } from './indonesia.js';
+import { cambodiaData } from './cambodia.js';
+import { vietnamData } from './vietnam.js';
+import { enrichment } from './enrichment.js';
 
 function merge(list) {
   return list.map((p) => {

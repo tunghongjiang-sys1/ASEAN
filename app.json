@@ -27,7 +27,7 @@
       ]
     },
     "web": {
-      "favicon": "./assets/favicon.png",
+      "favicon": "./assets/aseantaplogo.png",
       "bundler": "metro"
     },
     "plugins": [
