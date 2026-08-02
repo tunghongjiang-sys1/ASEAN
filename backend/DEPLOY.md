@@ -17,6 +17,8 @@ when you set `BACKEND_SECRET` in the box. without it, the box is open.
 | `OPENROUTER_MODEL`           | no (default `openai/gpt-4o-mini`)                              |
 | `OPENROUTER_TIMEOUT`         | no (default `30`)                                              |
 | `AVIATIONSTACK_API_KEY`      | no (without it /flights returns synthetic)                      |
+| `AMADEUS_CLIENT_ID`          | no (live flights + prices when set with secret)                |
+| `AMADEUS_CLIENT_SECRET`      | no (live flights + prices when set with id)                    |
 | `BACKEND_SECRET`             | no (without it the box is unauthenticated)                     |
 | `RATE_LIMIT_PER_MIN`         | no (default `30`; `0` disables)                                |
 | `PORT`                       | no (default `8000`; the box MUST honour the provider's port)  |

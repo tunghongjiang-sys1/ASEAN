@@ -6,7 +6,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { filterPlacesByCategories, getPlaceById } from '../data';
 import { GlobeMap } from '../src/components/globe-map';
 import { PlacePanel } from '../src/components/place-panel';
-import { Logo } from '../src/components/logo';
 import { colors, getCategoryColor } from '../src/constants/colors';
 import { useApp } from '../src/context/app-context';
 import type { Place } from '../src/types/place';
@@ -75,22 +74,21 @@ export default function GlobeScreen() {
     }
   };
 
-  const endLabel = compact ? 'logout' : 'log out';
-
   return (
     <View style={[styles.screen, { paddingTop: insets.top }]}>
-      <View style={[styles.topBar, { paddingRight: 12 }]}>
-        <Logo size={compact ? 30 : 36} />
-        <View style={styles.actions}>
+      <View style={styles.topBar}>
+        <View style={styles.navLeft}>
           <TopLink label="notes" onPress={() => router.push('/notes')} />
-          <TopLink label={compact ? 'ai' : 'ai desk'} onPress={() => router.push('/chat')} />
-          <TopLink
-            label={endLabel}
-            onPress={() => {
-              logout();
-              router.replace('/welcome');
-            }}
-          />
+          <TopLink label={compact ? 'ai' : 'ai chat'} onPress={() => router.push('/chat')} />
+          <TopLink label="shop" onPress={() => router.push('/redeem')} />
+        </View>
+        {width >= 700 ? (
+          <View style={styles.navCenter}>
+            <Text style={[styles.globeLabel, { fontSize: wide ? 18 : 15 }]}>globe</Text>
+          </View>
+        ) : null}
+        <View style={styles.navRight}>
+          <TopLink label="logout" onPress={() => { logout(); router.replace('/welcome'); }} />
         </View>
       </View>
 
@@ -135,35 +133,55 @@ export default function GlobeScreen() {
 
 function TopLink({ label, onPress }: { label: string; onPress: () => void }) {
   return (
-    <Pressable onPress={onPress} style={styles.link}>
+    <Pressable onPress={onPress} style={({ pressed }) => [styles.link, pressed && { opacity: 0.75 }]}>
       <Text style={styles.linkText}>{label}</Text>
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.mist },
+  screen: { flex: 1, backgroundColor: '#04140a' },
   topBar: {
-    paddingHorizontal: 16,
-    paddingBottom: 10,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: 8,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    backgroundColor: 'rgba(6,37,14,0.92)',
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255,255,255,0.14)',
   },
-  actions: { flexDirection: 'row', gap: 8, flexWrap: 'wrap', justifyContent: 'flex-end' },
+  navLeft: { flexDirection: 'row', gap: 8, flexWrap: 'wrap' },
+  navCenter: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+    zIndex: 0,
+    pointerEvents: 'none' as const,
+  },
+  navRight: { flexDirection: 'row', gap: 8, marginLeft: 'auto' },
+  globeLabel: {
+    fontFamily: 'Fraunces_600SemiBold',
+    letterSpacing: 1,
+    color: colors.pureWhite,
+    textTransform: 'lowercase',
+  },
   link: {
-    paddingHorizontal: 12,
+    paddingHorizontal: 14,
     paddingVertical: 8,
     borderRadius: 999,
-    backgroundColor: colors.pureWhite,
+    backgroundColor: 'rgba(255,255,255,0.12)',
     borderWidth: 1,
-    borderColor: colors.line,
+    borderColor: 'rgba(255,255,255,0.28)',
   },
   linkText: {
     fontFamily: 'DMSans_500Medium',
     fontSize: 12,
-    color: colors.deepNavy,
+    letterSpacing: 0.8,
+    color: colors.pureWhite,
+    textTransform: 'lowercase',
   },
   stage: { flex: 1, flexDirection: 'row', overflow: 'hidden' },
   side: {

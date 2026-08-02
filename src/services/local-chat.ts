@@ -1,11 +1,13 @@
 import type { Place } from '../types/place';
+import { personalizeGettingThere } from '../utils/place-details';
 
 export async function askLocalDesk(
   question: string,
   dbplaces: Place[],
-  notesplaces: Place[]
+  notesplaces: Place[],
+  originAirport?: string
 ): Promise<string> {
-  return localReply(question, dbplaces, notesplaces);
+  return localReply(question, dbplaces, notesplaces, originAirport);
 }
 
 function norm(value: string | undefined | null): string {
@@ -76,14 +78,14 @@ function placeSnapshot(p: Place): string {
   return `${p.location} (${p.country})`;
 }
 
-function placeReply(p: Place): string {
+function placeReply(p: Place, originAirport?: string): string {
   const lines: string[] = [];
   lines.push(`${placeSnapshot(p)} — ${p.category || 'highlight'}.`);
   lines.push('');
   lines.push(
     bullets([
       ...line('activities', p.primaryActivities),
-      ...line('getting there', p.howToGetThere),
+      ...line('getting there', personalizeGettingThere(p.howToGetThere, originAirport)),
       ...line('visa', p.visaEntry),
       ...line('etiquette', p.cultureEtiquette),
       ...line('dress code', p.dressCode),
@@ -98,7 +100,7 @@ function placeReply(p: Place): string {
   return lines.join('\n').trim();
 }
 
-function itineraryReply(question: string, choices: Place[]): string {
+function itineraryReply(question: string, choices: Place[], originAirport?: string): string {
   const picks = choices.slice(0, 3);
   if (!picks.length) {
     return [
@@ -106,9 +108,10 @@ function itineraryReply(question: string, choices: Place[]): string {
       'for example: "plan 3 days in bali" or "a relaxed itinerary for cambodia".',
     ].join('\n');
   }
+  const from = (originAirport || 'SIN').toUpperCase();
   const items = picks.map(
     (p) =>
-      `${placeSnapshot(p)} — fly via ${p.airport || 'SIN'}. ${norm(p.primaryActivities) || 'a traveller favourite.'}`
+      `${placeSnapshot(p)} — fly ${from} → ${p.airport || '?'}. ${norm(p.primaryActivities) || 'a traveller favourite.'}`
   );
   return ['here is a simple plan:', bullets(items), '', 'tap a suggestion above or ask about a specific place for more detail.'].join('\n');
 }
@@ -126,12 +129,12 @@ function dressReply(p: Place): string {
   ].join('\n');
 }
 
-function reachReply(p: Place): string {
+function reachReply(p: Place, originAirport?: string): string {
   return [
     `${placeSnapshot(p)} — how to get there:`,
     '',
     bullets([
-      ...line('getting there', p.howToGetThere),
+      ...line('getting there', personalizeGettingThere(p.howToGetThere, originAirport)),
       ...line('nearest airport', p.airport),
       ...line('getting around', p.navigationTips),
     ]),
@@ -159,7 +162,7 @@ function noMatchHint(query: string): string {
   ].join('\n');
 }
 
-function localReply(question: string, dbplaces: Place[], notesplaces: Place[]): string {
+function localReply(question: string, dbplaces: Place[], notesplaces: Place[], originAirport?: string): string {
   const q = norm(question);
   if (!q) return greetingReply();
 
@@ -180,13 +183,13 @@ function localReply(question: string, dbplaces: Place[], notesplaces: Place[]): 
         : hits.length > 0
         ? hits.slice(0, 3)
         : dbplaces.slice(0, 3);
-    return itineraryReply(q, chosen);
+    return itineraryReply(q, chosen, originAirport);
   }
 
   if (singleHit) {
     if (isvisa) return visaReply(singleHit);
     if (isdress) return dressReply(singleHit);
-    if (isreach) return reachReply(singleHit);
+    if (isreach) return reachReply(singleHit, originAirport);
     if (isactivities) return activitiesReply(singleHit);
     if (iswhen) {
       return [
@@ -196,7 +199,7 @@ function localReply(question: string, dbplaces: Place[], notesplaces: Place[]): 
         norm(singleHit.accessNeeded) || 'check access notes closer to your travel date.',
       ].join('\n');
     }
-    return placeReply(singleHit);
+    return placeReply(singleHit, originAirport);
   }
 
   if (hits.length > 1) {

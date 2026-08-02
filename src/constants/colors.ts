@@ -1,4 +1,6 @@
 export const colors = {
+  forestGreen: '#06250E',
+  forestGreenSoft: '#0D3B22',
   deepNavy: '#000080',
   midnightNavy: '#403F6F',
   pureWhite: '#FFFFFF',
@@ -14,6 +16,7 @@ export const colors = {
   ink: '#1A1A3A',
   muted: '#6B6B8A',
   mist: '#F4F8FB',
+  paper: '#FBFBF7',
   line: '#D8E6EF',
   success: '#2F9E7F',
   warning: '#E6A700',

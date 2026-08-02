@@ -14,8 +14,8 @@ export function CategoryChip({ label, selected, onPress }: Props) {
       onPress={onPress}
       style={({ pressed }) => [
         styles.chip,
-        selected && { backgroundColor: colors.deepNavy, borderColor: colors.deepNavy },
-        pressed && { opacity: 0.85 },
+        selected && styles.chipOn,
+        pressed && { opacity: 0.85, transform: [{ scale: 0.97 }] },
       ]}
     >
       <View style={[styles.dot, { backgroundColor: selected ? colors.aseanYellow : accent }]} />
@@ -29,12 +29,16 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    paddingVertical: 10,
-    paddingHorizontal: 14,
+    paddingVertical: 11,
+    paddingHorizontal: 16,
     borderRadius: 999,
     backgroundColor: colors.pureWhite,
     borderWidth: 1,
-    borderColor: colors.line,
+    borderColor: colors.forestGreen,
+  },
+  chipOn: {
+    backgroundColor: colors.forestGreen,
+    borderColor: colors.forestGreen,
   },
   dot: {
     width: 8,
@@ -44,8 +48,8 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'DMSans_500Medium',
     fontSize: 13,
-    color: colors.ink,
-    maxWidth: 220,
+    color: colors.forestGreen,
+    maxWidth: 240,
   },
   textOn: {
     color: colors.pureWhite,

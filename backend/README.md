@@ -9,7 +9,7 @@ cp backend/.env.example backend/.env
 pip install -r backend/requirements.txt
 ```
 
-`backend/.env` only needs the secrets you actually use. To opt into live flight data, paste an [aviationstack](https://aviationstack.com/) key into `AVIATIONSTACK_API_KEY=...`. To add authentication + per-client rate limits, set `BACKEND_SECRET=<random string>`. Chat works out of the box with no keys.
+`backend/.env` only needs the secrets you actually use. To opt into live flights **with prices**, set `AMADEUS_CLIENT_ID` + `AMADEUS_CLIENT_SECRET` from the [Amadeus for Developers](https://developers.amadeus.com/) self-service console (the free TEST environment is enough, ~2000 req/mo). If you also have an [aviationstack](https://aviationstack.com/) key, set `AVIATIONSTACK_API_KEY=...` as a secondary live source. Without either, `/flights` returns origin-aware distance-based estimates. To add authentication + per-client rate limits, set `BACKEND_SECRET=<random string>`. Chat works out of the box with no keys.
 
 ## run
 
@@ -56,17 +56,23 @@ response body:
 
 the server shapes a deterministic reply from the in-memory place database (loaded once at startup from `data/places.json`). one point per line, no external ai call, no key required. the helper lives in `backend/prompt.py:local_reply`. history is accepted but only used for context display on the client; replies stay deterministic.
 
-### `GET /flights?to=DPS`
+### `GET /flights?to=DPS&from=SIN`
 
-returns the next 6–8 SIN -> ?. live data when `AVIATIONSTACK_API_KEY` is set, synthetic otherwise. Same `BACKEND_SECRET` + rate-limit guard as `/chat`.
+returns the next 6–8 flights from the traveller's origin airport to the destination. `to` and `from` are IATA codes (3–4 chars); the client sends the user's actual origin (e.g. `from=FRA`) so flights are always shown as `FRA -> SGN`, never a hardcoded SIN.
 
-request: `GET /flights?to=DPS` (IATA, 3–4 chars).
+live data precedence: **Amadeus** (real schedules + prices) → **AviationStack** (live status) → origin-aware distance-based estimates. Same `BACKEND_SECRET` + rate-limit guard as `/chat`.
+
+request: `GET /flights?to=DPS&from=SIN` (IATA, 3–4 chars).
 response body:
 ```json
-{"flights": [{ "flightNumber": "SQ940", "airline": "singapore airlines", "from": "SIN", "to": "DPS", "departure": "…", "arrival": "…", "status": "scheduled", "terminal": "T3" }], "live": false}
+{"flights": [{ "flightNumber": "SQ940", "airline": "singapore airlines", "from": "SIN", "to": "DPS", "departure": "…", "arrival": "…", "status": "scheduled", "terminal": "T3", "price": 185, "currency": "USD" }], "live": true}
 ```
 
-`live: true` means aviationstack returned rows; `live: false` means the server fell back to the synthetic generator (built into `backend/flights.py`).
+`live: true` means amadeus or aviationstack returned rows; `live: false` means the server fell back to the synthetic generator (built into `backend/flights.py`).
+
+### `GET /place-info?query=Angkor%20Wat`
+
+returns google places info for a destination (rating, review count, official website, google maps link, photo) used by the place panel's "find out more" card. requires `GOOGLE_PLACES_API_KEY`. returns the query back with empty fields when not configured or lookup fails (the client hides the card in that case).
 
 ### `GET /health`
 

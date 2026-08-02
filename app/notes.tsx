@@ -8,14 +8,14 @@ import { Body, Title } from '../src/components/ui/text';
 import { colors } from '../src/constants/colors';
 import { useApp } from '../src/context/app-context';
 import type { Place } from '../src/types/place';
-import { expandPlace, getPlaceLinks, parseTransports } from '../src/utils/place-details';
+import { expandPlace, getPlaceLinks, parseTransports, personalizeGettingThere } from '../src/utils/place-details';
 
 export default function NotesScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const { width } = useWindowDimensions();
   const compact = width < 420;
-  const { auth, onboarded, notes, removeNote, updatenotebody, setSelectedPlaceId } = useApp();
+  const { auth, onboarded, notes, removeNote, updatenotebody, setSelectedPlaceId, userLocation } = useApp();
   const [openId, setOpenId] = useState<string | null>(null);
   const [drafts, setDrafts] = useState<Record<string, string>>({});
 
@@ -82,7 +82,10 @@ export default function NotesScreen() {
                     <Body style={styles.block}>getting there:</Body>
                     {transports.map((t, i) => (
                       <Body key={`${t.mode}-${i}`} style={styles.block}>
-                        {t.label}: {t.detail}
+                        {t.label}:{' '}
+                        {t.mode === 'flight'
+                          ? personalizeGettingThere(t.detail, userLocation?.airport)
+                          : t.detail}
                       </Body>
                     ))}
                     <Body style={styles.block}>visa: {place.visaEntry}</Body>

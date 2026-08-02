@@ -5,10 +5,10 @@ import { Redirect, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { BackButton } from '../src/components/ui/back-button';
 import { Button } from '../src/components/ui/button';
-import { Body, Title } from '../src/components/ui/text';
 import { colors } from '../src/constants/colors';
 import { useApp } from '../src/context/app-context';
 import { searchLocalCities, searchWorldCities, type WorldCity } from '../src/data/world-cities';
+import { cleanCityLabel, getAirportCodeForCity } from '../src/utils/place-details';
 
 function soften(lat: number, lng: number) {
   const jitter = 0.02;
@@ -23,6 +23,7 @@ export default function LocationScreen() {
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
   const compact = width < 420;
+  const wide = width >= 900;
   const { auth, setUserLocation, setOnboarded } = useApp();
   const [label, setLabel] = useState('');
   const [loading, setLoading] = useState(false);
@@ -54,9 +55,11 @@ export default function LocationScreen() {
 
   if (!auth) return <Redirect href="/welcome" />;
 
-  const finish = (lat: number, lng: number, name: string) => {
+  const finish = (lat: number, lng: number, name: string, country?: string, city?: string) => {
     const soft = soften(lat, lng);
-    setUserLocation({ ...soft, label: name });
+    const cleanCity = cleanCityLabel(city || name);
+    const airport = getAirportCodeForCity(cleanCity) || undefined;
+    setUserLocation({ ...soft, label: name, country, city: cleanCity || undefined, airport });
     setOnboarded(true);
     router.replace('/globe');
   };
@@ -76,7 +79,28 @@ export default function LocationScreen() {
         return;
       }
       const pos = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
-      finish(pos.coords.latitude, pos.coords.longitude, compact ? 'near you' : 'near you · 5km soft circle');
+      // try to reverse-geocode a city name so flights start from the real airport
+      let cityName: string | undefined;
+      let countryName: string | undefined;
+      try {
+        const r = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${pos.coords.latitude}&lon=${pos.coords.longitude}`,
+          { headers: { Accept: 'application/json', 'User-Agent': 'asean-travel-app/1.0' } }
+        );
+        if (r.ok) {
+          const g = await r.json();
+          const ad = g?.address || {};
+          cityName = ad?.city || ad?.town || ad?.village || ad?.municipality || undefined;
+          countryName = ad?.country || undefined;
+        }
+      } catch {}
+      finish(
+        pos.coords.latitude,
+        pos.coords.longitude,
+        compact ? 'near you' : 'near you · 5km soft circle',
+        countryName,
+        cityName
+      );
     } catch {
       setError(compact ? 'could not read location.' : 'could not read location. try a city name instead.');
     } finally {
@@ -88,7 +112,7 @@ export default function LocationScreen() {
     const display = `${city.name}, ${city.country}`;
     setLabel(display);
     setSuggestions([]);
-    finish(city.lat, city.lng, compact ? display : `${display} · 5km soft circle`);
+    finish(city.lat, city.lng, compact ? display : `${display} · 5km soft circle`, city.country, city.name);
   };
 
   return (
@@ -96,28 +120,27 @@ export default function LocationScreen() {
       <View style={styles.header}>
         <BackButton />
       </View>
-      <View style={styles.body}>
-        <Title style={{ fontSize: compact ? 24 : 28 }}>
-          {compact ? 'starting city?' : 'where are you starting?'}
-        </Title>
-        <Body style={styles.sub}>
-          {compact
-            ? 'we keep a soft 5km circle — never your exact pin.'
-            : 'we keep a soft 5km circle — never your exact pin — so recommendations stay personal without being precise.'}
-        </Body>
+      <View style={[styles.body, { maxWidth: wide ? 760 : undefined, width: '100%', alignSelf: wide ? 'center' : undefined }]}>
+        <Text style={[styles.title, { fontSize: compact ? 32 : wide ? 56 : 44 }]}>
+          Where are you starting?
+        </Text>
+        <Text style={styles.sub}>
+          WE KEEP A SOFT 5KM CIRCLE — NEVER YOUR EXACT PIN — SO RECOMMENDATIONS STAY PERSONAL
+          WITHOUT BEING PRECISE.
+        </Text>
 
         <Button
-          label={compact ? 'use my location' : 'use soft device location'}
+          label={compact ? 'use soft device location' : 'use soft device location'}
           onPress={useDevice}
           disabled={loading}
         />
-        {loading ? <ActivityIndicator color={colors.deepNavy} style={{ marginTop: 12 }} /> : null}
+        {loading ? <ActivityIndicator color={colors.forestGreen} style={{ marginTop: 12 }} /> : null}
 
-        <Body style={styles.or}>{compact ? 'or type a city' : 'or type a city anywhere in the world'}</Body>
+        <Text style={styles.or}>OR TYPE ANY CITY ANYWHERE IN THE WORLD</Text>
         <TextInput
           value={label}
           onChangeText={setLabel}
-          placeholder={compact ? 'new york, bali…' : 'type a city — e.g. new, bali, paris…'}
+          placeholder={compact ? 'new york, bali…' : 'type a city — e.g. new, bali, paris'}
           placeholderTextColor={colors.muted}
           autoCapitalize="none"
           autoCorrect={false}
@@ -144,18 +167,30 @@ export default function LocationScreen() {
           </View>
         ) : null}
 
-        {error ? <Body style={styles.error}>{error}</Body> : null}
+        {error ? <Text style={styles.error}>{error}</Text> : null}
       </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  screen: { flex: 1, backgroundColor: colors.mist, paddingHorizontal: 20 },
+  screen: { flex: 1, backgroundColor: colors.paper, paddingHorizontal: 20 },
   header: { marginBottom: 18 },
-  body: { flex: 1, gap: 10 },
-  sub: { color: colors.midnightNavy, marginBottom: 12 },
-  or: { marginTop: 22, marginBottom: 6, color: colors.muted },
+  body: { flex: 1, gap: 12 },
+  title: {
+    fontFamily: 'Fraunces_600SemiBold',
+    color: colors.forestGreen,
+    letterSpacing: -0.6,
+  },
+  sub: {
+    fontFamily: 'DMSans_500Medium',
+    fontSize: 13,
+    letterSpacing: 1.4,
+    lineHeight: 20,
+    color: colors.forestGreen,
+    marginBottom: 10,
+  },
+  or: { marginTop: 24, marginBottom: 4, fontFamily: 'DMSans_500Medium', fontSize: 12, letterSpacing: 1.4, color: colors.forestGreen },
   input: {
     backgroundColor: colors.pureWhite,
     borderWidth: 1,
@@ -190,7 +225,7 @@ const styles = StyleSheet.create({
   suggestName: {
     fontFamily: 'DMSans_500Medium',
     fontSize: 15,
-    color: colors.deepNavy,
+    color: colors.forestGreen,
   },
   suggestCountry: {
     marginTop: 2,

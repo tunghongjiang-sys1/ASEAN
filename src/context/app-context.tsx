@@ -1,6 +1,6 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import type { AttractionPreference, NoteItem, UserLocation } from '../types/place';
+import type { AttractionPreference, NoteItem, RedeemedVoucher, ShopVoucher, TravellerProfile, UserLocation } from '../types/place';
 
 export type AuthMode = 'guest' | 'google' | 'email';
 
@@ -47,6 +47,13 @@ type AppState = {
   resetJourney: () => void;
   emailHistory: EmailHistoryEntry[];
   removeemailhistoryentry: (email: string) => void;
+  travellerProfile: TravellerProfile | null;
+  setTravellerProfile: (v: TravellerProfile | null) => void;
+  shopPoints: number;
+  addShopPoints: (pts: number) => void;
+  redeemedVoucherIds: string[];
+  redeemVoucher: (voucherId: string, points: number, title: string, category: ShopVoucher['category']) => RedeemedVoucher | null;
+  isVoucherRedeemed: (voucherId: string) => boolean;
 };
 
 const AppContext = createContext<AppState | null>(null);
@@ -56,6 +63,9 @@ const AUTH_KEY = 'asean_travel_auth';
 const ONBOARD_KEY = 'asean_travel_onboarded';
 const LOC_KEY = 'asean_travel_location';
 const emailhistorykey = 'asean_travel_email_history';
+const PROFILE_KEY = 'asean_travel_profile';
+const POINTS_KEY = 'asean_travel_points';
+const REDEEMED_KEY = 'asean_travel_redeemed';
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [auth, setAuth] = useState<AuthUser | null>(null);
@@ -65,18 +75,24 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [selectedPlaceId, setSelectedPlaceId] = useState<string | null>(null);
   const [onboarded, setOnboardedState] = useState(false);
   const [emailhistory, setemailhistory] = useState<EmailHistoryEntry[]>([]);
+  const [travellerProfile, setTravellerProfileState] = useState<TravellerProfile | null>(null);
+  const [shopPoints, setShopPointsState] = useState(0);
+  const [redeemedVoucherIds, setRedeemedVoucherIds] = useState<string[]>([]);
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
     (async () => {
       try {
-        const [n, p, a, o, l, eh] = await Promise.all([
+        const [n, p, a, o, l, eh, pr, sp, rd] = await Promise.all([
           AsyncStorage.getItem(NOTES_KEY),
           AsyncStorage.getItem(PREF_KEY),
           AsyncStorage.getItem(AUTH_KEY),
           AsyncStorage.getItem(ONBOARD_KEY),
           AsyncStorage.getItem(LOC_KEY),
           AsyncStorage.getItem(emailhistorykey),
+          AsyncStorage.getItem(PROFILE_KEY),
+          AsyncStorage.getItem(POINTS_KEY),
+          AsyncStorage.getItem(REDEEMED_KEY),
         ]);
         if (n) {
           const parsed = JSON.parse(n);
@@ -96,6 +112,12 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         if (o === '1') setOnboardedState(true);
         if (l) setUserLocationState(JSON.parse(l));
         if (eh) setemailhistory(JSON.parse(eh));
+        if (pr) setTravellerProfileState(JSON.parse(pr));
+        if (sp) setShopPointsState(Number(sp) || 0);
+        if (rd) {
+          const parsed = JSON.parse(rd);
+          if (Array.isArray(parsed)) setRedeemedVoucherIds(parsed.map(String));
+        }
       } catch {}
       setHydrated(true);
     })();
@@ -263,6 +285,59 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setSelectedPlaceId(null);
   }, [setOnboarded, setUserLocation]);
 
+  const setTravellerProfile = useCallback((v: TravellerProfile | null) => {
+    setTravellerProfileState(v);
+    if (v) AsyncStorage.setItem(PROFILE_KEY, JSON.stringify(v)).catch(() => {});
+    else AsyncStorage.removeItem(PROFILE_KEY).catch(() => {});
+  }, []);
+
+  const addShopPoints = useCallback((pts: number) => {
+    setShopPointsState((prev) => {
+      const next = prev + pts;
+      AsyncStorage.setItem(POINTS_KEY, String(next)).catch(() => {});
+      return next;
+    });
+  }, []);
+
+  const redeemVoucher = useCallback(
+    (voucherId: string, points: number, title: string, category: ShopVoucher['category']): RedeemedVoucher | null => {
+      // already redeemed?
+      if (redeemedVoucherIds.includes(voucherId)) return null;
+
+      let redeemed: RedeemedVoucher | null = null;
+      setShopPointsState((prev) => {
+        if (prev < points) return prev; // not enough points
+        const next = prev - points;
+        AsyncStorage.setItem(POINTS_KEY, String(next)).catch(() => {});
+        redeemed = {
+          voucherId,
+          title,
+          category: category as RedeemedVoucher['category'],
+          pointsSpent: points,
+          redeemedAt: new Date().toISOString(),
+          code: `ASEAN-${voucherId.slice(2).toUpperCase()}-${Math.random().toString(36).slice(2, 8).toUpperCase()}`,
+        };
+        return next;
+      });
+
+      if (!redeemed) return null;
+
+      setRedeemedVoucherIds((prev) => {
+        const next = [...prev, voucherId];
+        AsyncStorage.setItem(REDEEMED_KEY, JSON.stringify(next)).catch(() => {});
+        return next;
+      });
+
+      return redeemed;
+    },
+    [redeemedVoucherIds]
+  );
+
+  const isVoucherRedeemed = useCallback(
+    (voucherId: string) => redeemedVoucherIds.includes(voucherId),
+    [redeemedVoucherIds]
+  );
+
   const value = useMemo(
     () => ({
       auth,
@@ -286,6 +361,13 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       resetJourney,
       emailHistory: emailhistory,
       removeemailhistoryentry,
+      travellerProfile,
+      setTravellerProfile,
+      shopPoints,
+      addShopPoints,
+      redeemedVoucherIds,
+      redeemVoucher,
+      isVoucherRedeemed,
     }),
     [
       auth,
@@ -308,6 +390,13 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       emailhistory,
       removeemailhistoryentry,
       updatenotebody,
+      travellerProfile,
+      setTravellerProfile,
+      shopPoints,
+      addShopPoints,
+      redeemedVoucherIds,
+      redeemVoucher,
+      isVoucherRedeemed,
     ]
   );
 

@@ -14,5 +14,6 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.js"
-  ]
+  ],
+  "exclude": ["node_modules", "dist", ".expo", ".vercel"]
 }

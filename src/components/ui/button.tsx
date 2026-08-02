@@ -1,10 +1,10 @@
-import { Pressable, StyleSheet, Text, View, type ViewStyle } from 'react-native';
+import { Pressable, StyleSheet, Text, type ViewStyle } from 'react-native';
 import { colors } from '../../constants/colors';
 
 type Props = {
   label: string;
   onPress: () => void;
-  variant?: 'primary' | 'secondary' | 'ghost' | 'asean';
+  variant?: 'primary' | 'secondary' | 'ghost' | 'asean' | 'hero';
   disabled?: boolean;
   style?: ViewStyle;
 };
@@ -20,6 +20,7 @@ export function Button({ label, onPress, variant = 'primary', disabled, style }:
         variant === 'secondary' && styles.secondary,
         variant === 'ghost' && styles.ghost,
         variant === 'asean' && styles.asean,
+        variant === 'hero' && styles.hero,
         pressed && styles.pressed,
         disabled && styles.disabled,
         style,
@@ -39,17 +40,19 @@ export function Button({ label, onPress, variant = 'primary', disabled, style }:
 
 const styles = StyleSheet.create({
   base: {
-    minHeight: 48,
-    paddingHorizontal: 20,
-    borderRadius: 14,
+    minHeight: 52,
+    paddingHorizontal: 28,
+    borderRadius: 999,
     alignItems: 'center',
     justifyContent: 'center',
   },
   primary: {
-    backgroundColor: colors.deepNavy,
+    backgroundColor: colors.forestGreen,
   },
   secondary: {
-    backgroundColor: colors.silentBlue,
+    backgroundColor: colors.paper,
+    borderWidth: 1,
+    borderColor: colors.forestGreen,
   },
   ghost: {
     backgroundColor: 'transparent',
@@ -58,6 +61,11 @@ const styles = StyleSheet.create({
   },
   asean: {
     backgroundColor: colors.aseanBlue,
+  },
+  hero: {
+    backgroundColor: 'rgba(255,255,255,0.16)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.55)',
   },
   pressed: {
     opacity: 0.88,
@@ -68,11 +76,12 @@ const styles = StyleSheet.create({
   },
   label: {
     fontFamily: 'DMSans_500Medium',
-    fontSize: 15,
+    fontSize: 13,
+    letterSpacing: 1.4,
     color: colors.pureWhite,
-    textTransform: 'lowercase',
+    textTransform: 'uppercase',
   },
   labelDark: {
-    color: colors.deepNavy,
+    color: colors.forestGreen,
   },
 });

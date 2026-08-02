@@ -9,6 +9,7 @@ import { Title } from '../src/components/ui/text';
 import { colors } from '../src/constants/colors';
 import { useApp } from '../src/context/app-context';
 import { askLocalDesk } from '../src/services/local-chat';
+import { askTravelAgent } from '../src/services/openrouter';
 import type { ChatMessage, Place } from '../src/types/place';
 
 const SUGGESTIONS = [
@@ -18,6 +19,10 @@ const SUGGESTIONS = [
   'family-friendly vietnam',
   'how to reach raja ampat',
   'what to wear at temples',
+  'hidden gems in cambodia',
+  'local food to try in hanoi',
+  'any festivals this month?',
+  'recommend a beach destination',
 ];
 
 export default function ChatScreen() {
@@ -25,16 +30,18 @@ export default function ChatScreen() {
   const { width } = useWindowDimensions();
   const compact = width < 420;
   const { seed } = useLocalSearchParams<{ seed?: string }>();
-  const { auth, onboarded, notes, preferences } = useApp();
+  const { auth, onboarded, notes, preferences, travellerProfile, userLocation } = useApp();
   const [input, setInput] = useState(typeof seed === 'string' ? seed : '');
   const [busy, setBusy] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'welcome',
       role: 'assistant',
-      content: compact
-        ? 'hi — ask about itineraries, visas, or any stop on the map.'
-        : 'hello — i am your asean travel desk. ask for an itinerary, what to wear at temples, how to reach somewhere, or details on any stop across indonesia, cambodia, and vietnam.',
+      content: travellerProfile
+        ? `hello ${travellerProfile.mode === 'solo' ? 'solo traveller' : `group of ${travellerProfile.groupSize || '?'}`}! i'm your asean travel desk. ask me about ${travellerProfile.placeTypes?.slice(0, 3).join(', ') || 'destinations, itineraries, or local tips'} across indonesia, cambodia, and vietnam. what country or vibe are you looking for?`
+        : compact
+          ? 'hi — which country or type of attraction interests you?'
+          : 'hello — i am your asean travel desk. tell me which country you would like to visit, or the kind of attractions you enjoy (beaches, temples, jungles, food…), and i will recommend places, hidden gems, and activities from the database.',
       createdAt: new Date().toISOString(),
     },
   ]);
@@ -73,7 +80,37 @@ export default function ChatScreen() {
     setInput('');
     setBusy(true);
     try {
-      const reply = await askLocalDesk(q, dbPlaces, notePlaces);
+      // Prepend traveller profile context for personalized recommendations
+      let contextualizedQ = q;
+      if (travellerProfile) {
+        const ctx: string[] = [];
+        if (travellerProfile.mode === 'group') ctx.push(`i am travelling in a group of ${travellerProfile.groupSize}`);
+        else ctx.push('i am travelling solo');
+        if (travellerProfile.placeTypes?.length) ctx.push(`i like: ${travellerProfile.placeTypes.join(', ')}`);
+        if (travellerProfile.transportPreference) ctx.push(`i prefer ${travellerProfile.transportPreference} transport`);
+        if (travellerProfile.foodAllergies) ctx.push(`i have food restrictions: ${travellerProfile.foodAllergies}`);
+        if (travellerProfile.hasElderly) ctx.push('travelling with elderly');
+        if (travellerProfile.hasChildren) ctx.push('travelling with children');
+        if (ctx.length) contextualizedQ = `[traveller profile: ${ctx.join('. ')}] ${q}`;
+      }
+
+      // Try OpenRouter/backend first, fallback to local
+      let reply: string;
+      const agentReply = await askTravelAgent(
+        contextualizedQ,
+        messages,
+        dbPlaces,
+        notePlaces,
+        userLocation,
+        travellerProfile
+      );
+      // If the agent reply contains a fallback hint (backend unreachable), use local desk
+      if (agentReply.includes('chat backend unreachable') || agentReply.includes('network error')) {
+        reply = await askLocalDesk(contextualizedQ, dbPlaces, notePlaces, userLocation?.airport);
+      } else {
+        reply = agentReply;
+      }
+
       setMessages((m) => [
         ...m,
         {

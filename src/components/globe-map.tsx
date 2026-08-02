@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Platform, StyleSheet, View } from 'react-native';
 import { WebView, type WebViewMessageEvent } from 'react-native-webview';
 import { getCategoryColor } from '../constants/colors';
@@ -55,9 +55,21 @@ export function GlobeMap({
   }, [places, send]);
 
   useEffect(() => {
-    if (!ready.current) return;
+    // always re-send places whenever they change — the iframe stores the last
+    // payload and renders on map load, so markers survive a missed 'ready' handshake.
     pushPlaces();
   }, [pushPlaces]);
+
+  // fallback: if the iframe never reports 'ready' (CDN hiccup, extension, slow
+  // load), push the places anyway after a few seconds so markers still render.
+  const [readyTimedOut, setReadyTimedOut] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setReadyTimedOut(true), 6000);
+    return () => clearTimeout(t);
+  }, []);
+  useEffect(() => {
+    if (readyTimedOut) pushPlaces();
+  }, [readyTimedOut, pushPlaces]);
 
   useEffect(() => {
     if (!ready.current || !userLocation) return;
