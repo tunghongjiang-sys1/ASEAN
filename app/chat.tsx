@@ -80,7 +80,6 @@ export default function ChatScreen() {
     setInput('');
     setBusy(true);
     try {
-      // Prepend traveller profile context for personalized recommendations
       let contextualizedQ = q;
       if (travellerProfile) {
         const ctx: string[] = [];
@@ -94,7 +93,6 @@ export default function ChatScreen() {
         if (ctx.length) contextualizedQ = `[traveller profile: ${ctx.join('. ')}] ${q}`;
       }
 
-      // Try OpenRouter/backend first, fallback to local
       let reply: string;
       const agentReply = await askTravelAgent(
         contextualizedQ,
@@ -104,7 +102,6 @@ export default function ChatScreen() {
         userLocation,
         travellerProfile
       );
-      // If the agent reply contains a fallback hint (backend unreachable), use local desk
       if (agentReply.includes('chat backend unreachable') || agentReply.includes('network error')) {
         reply = await askLocalDesk(contextualizedQ, dbPlaces, notePlaces, userLocation?.airport);
       } else {

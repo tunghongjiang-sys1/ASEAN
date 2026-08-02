@@ -1,4 +1,3 @@
-"""loads data/places.json once at import time. pure-stdlib."""
 from __future__ import annotations
 
 import json

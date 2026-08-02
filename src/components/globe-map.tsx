@@ -55,13 +55,9 @@ export function GlobeMap({
   }, [places, send]);
 
   useEffect(() => {
-    // always re-send places whenever they change — the iframe stores the last
-    // payload and renders on map load, so markers survive a missed 'ready' handshake.
     pushPlaces();
   }, [pushPlaces]);
 
-  // fallback: if the iframe never reports 'ready' (CDN hiccup, extension, slow
-  // load), push the places anyway after a few seconds so markers still render.
   const [readyTimedOut, setReadyTimedOut] = useState(false);
   useEffect(() => {
     const t = setTimeout(() => setReadyTimedOut(true), 6000);

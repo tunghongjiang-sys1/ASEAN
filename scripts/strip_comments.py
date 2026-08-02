@@ -1,10 +1,3 @@
-"""comment-stripper orchestrator.
-python  : tokenize.generate_tokens + tokenize.untokenize.
-js/ts    : npx terser (already in node_modules) with --compress=false --mangle=false; preserves the AST, drops comments.
-html/css : inline regex (<!-- -->, /* */).
-shell   : line scanner that keeps the shebang.
-template literals with embedded html/css/js: post-pass that strips comments inside the literal.
-"""
 from __future__ import annotations
 
 import io
@@ -100,8 +93,6 @@ def strip_template_literal_comments(src: str) -> str:
 
 
 def strip_js_inline(src: str) -> str:
-    """strip // and /* */ comments outside of strings, regex literals, and template literals.
-    Also handles https:// URLs (the ::// stays untouched when // is inside a string)."""
     out: list[str] = []
     i = 0
     n = len(src)

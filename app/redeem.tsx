@@ -126,7 +126,6 @@ export default function RedeemScreen() {
           text: 'confirm redeem',
           style: 'default',
           onPress: () => {
-            // Look up the original voucher to get clean data
             const result = redeemVoucher(v.id, v.points, v.title, v.category);
             if (result) {
               setReceipt(result);
@@ -208,9 +207,9 @@ export default function RedeemScreen() {
                     <Text style={styles.cardBadgeText}>{v.country}</Text>
                   </View>
                   <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}>
-                  <Text style={styles.cardPoints}>
-                    {v.points.toLocaleString()} pts
-                  </Text>
+                    <Text style={styles.cardPoints}>
+                      {v.points.toLocaleString()} pts
+                    </Text>
                     {redeemed ? (
                       <View style={styles.redeemedBtn}>
                         <Text style={styles.redeemedText}>redeemed ✓</Text>
@@ -234,7 +233,6 @@ export default function RedeemScreen() {
         </View>
       </ScrollView>
 
-      {/* ─── Receipt Modal ─── */}
       <Modal
         visible={!!receipt}
         transparent
@@ -243,7 +241,6 @@ export default function RedeemScreen() {
       >
         <View style={styles.modalOverlay}>
           <View style={[styles.receiptCard, { width: wide ? 480 : '90%' }]}>
-            {/* perforation line */}
             <View style={styles.perfLine} />
 
             <Text style={styles.receiptTitle}>voucher redeemed</Text>
@@ -454,7 +451,6 @@ const styles = StyleSheet.create({
     letterSpacing: 0.6,
     textTransform: 'uppercase',
   },
-  // ─── Receipt Modal ───
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.55)',

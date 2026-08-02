@@ -69,20 +69,18 @@ function getCuratedReviews(place: Place): PlaceReview[] {
   const now = new Date().toISOString();
   const reviews: PlaceReview[] = [];
 
-  // Generate 4-5 reviews with varied names per place
   const count = 4 + (seed % 2);
   for (let i = 0; i < count; i++) {
     const nameIdx = (seed + i * 7) % REVIEW_FIRST_NAMES.length;
     const lastIdx = (seed + i * 13) % REVIEW_LAST_INITS.length;
     const templateIdx = (seed + i * 3) % REVIEW_TEMPLATES.length;
 
-    // Make ~40% of reviews anonymous
     const isAnon = (seed + i * 11) % 5 < 2;
     const author = isAnon
       ? `anonymous traveller`
       : `${REVIEW_FIRST_NAMES[nameIdx]} ${REVIEW_LAST_INITS[lastIdx]}`;
 
-    const rating = 4 + ((seed + i * 17) % 2); // 4 or 5 stars
+    const rating = 4 + ((seed + i * 17) % 2);
 
     reviews.push({
       author,
@@ -127,7 +125,6 @@ export function PlacePanel({ place, onClose }: Props) {
   );
   const infoLinks = useMemo(() => getPlaceLinks(detailed), [detailed]);
 
-  // Determine origin from user location (stored airport code wins; fall back to label parsing)
   const originAirport = useMemo(() => {
     if (userLocation?.airport) return userLocation.airport;
     if (userLocation?.label) {
@@ -137,7 +134,6 @@ export function PlacePanel({ place, onClose }: Props) {
     return 'SIN';
   }, [userLocation]);
 
-  // whether the origin is genuinely known (so we never show a misleading SIN)
   const originKnown = useMemo(() => {
     if (!userLocation) return false;
     if (userLocation.airport) return true;
@@ -175,7 +171,6 @@ export function PlacePanel({ place, onClose }: Props) {
     };
   }, [detailed.airport, originAirport]);
 
-  // Google Places destination info (rating / website / maps link)
   useEffect(() => {
     let alive = true;
     getPlaceInfo(`${detailed.location}, ${detailed.country}`).then((info) => {
@@ -219,7 +214,6 @@ export function PlacePanel({ place, onClose }: Props) {
         <Text style={styles.category}>{detailed.category.toLowerCase()}</Text>
         <Text style={styles.body}>{detailed.primaryActivities}</Text>
 
-        {/* Google Places destination info (rating / website / maps) */}
         {placeInfo && placeInfo.name ? (
           <View style={styles.placeInfoCard}>
             {placeInfo.photoUrl ? (
@@ -266,7 +260,6 @@ export function PlacePanel({ place, onClose }: Props) {
           </View>
         ) : null}
 
-        {/* Official Tourism Link */}
         {officialTourism ? (
           <Pressable
             onPress={() => Linking.openURL(officialTourism.url)}
@@ -281,7 +274,6 @@ export function PlacePanel({ place, onClose }: Props) {
           </Pressable>
         ) : null}
 
-        {/* Visitor Reviews */}
         <Text style={styles.section}>what visitors say</Text>
         {reviews.map((r, i) => (
           <View key={i} style={styles.reviewCard}>

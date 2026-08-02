@@ -1,18 +1,3 @@
-"""origin-aware flights: amadeus (schedules + prices) -> aviationstack -> synthetic.
-
-works for ANY origin->destination pair:
-
-- if AMADEUS_CLIENT_ID + AMADEUS_CLIENT_SECRET are set, real schedules AND prices
-  for the exact dep/arr pair are fetched from the Amadeus flight-offers API
-  (test env is free, ~2000 req/mo);
-- else if AVIATIONSTACK_API_KEY is set, live status rows are used;
-- otherwise a synthetic generator computes the great-circle distance between the
-  origin and destination airports, derives a realistic flight time + estimated
-  price, picks airlines from the origin/destination countries, and emits plausible
-  flight numbers.
-
-the client hits /flights?to=DPS&from=FRA and gets rows labelled with the real codes.
-"""
 from __future__ import annotations
 
 import datetime as _dt
@@ -27,24 +12,18 @@ import urllib.request
 from typing import Any, Dict, List, Optional, Tuple
 
 AVIATIONSTACK_URL = "https://api.aviationstack.com/v1/flights"
-AMADEUS_BASE = "https://test.api.amadeus.com"  # production: https://api.amadeus.com
+SERPAPI_URL = "https://serpapi.com/search"
+AMADEUS_BASE = "https://test.api.amadeus.com"
 AMADEUS_TOKEN_URL = AMADEUS_BASE + "/v1/security/oauth2/token"
 AMADEUS_OFFERS_URL = AMADEUS_BASE + "/v2/shopping/flight-offers"
 DEFAULT_TIMEOUT = float(os.environ.get("AMADEUS_TIMEOUT", os.environ.get("AVIATIONSTACK_TIMEOUT", "15")))
 
-# in-memory oauth token cache (amadeus tokens live ~30 min)
 _amadeus_token_cache: Dict[str, Any] = {"token": None, "expires_at": 0.0}
 
-# short-TTL cache for live flight lookups (aviationstack free tier is ~100 req/mo)
-_FLIGHT_CACHE_TTL_SECONDS = float(os.environ.get("FLIGHT_CACHE_TTL", "900"))  # 15 min
+_FLIGHT_CACHE_TTL_SECONDS = float(os.environ.get("FLIGHT_CACHE_TTL", "900"))
 _flight_cache: Dict[str, Tuple[float, List[Dict[str, Any]]]] = {}
 
-# ---------------------------------------------------------------------------
-# airport coordinate + country tables (IATA -> (lat, lng)); used for distance
-# ---------------------------------------------------------------------------
-
 _AIRPORTS: Dict[str, Tuple[float, float]] = {
-    # asean / southeast asia
     "SIN": (1.3644, 103.9915),
     "KUL": (2.7456, 101.7099),
     "BKK": (13.6900, 100.7501),
@@ -74,7 +53,6 @@ _AIRPORTS: Dict[str, Tuple[float, float]] = {
     "VTE": (18.0031, 102.6529),
     "RGN": (16.9073, 96.1331),
     "BWN": (4.9442, 114.9284),
-    # east asia
     "NRT": (35.7720, 140.3929),
     "HND": (35.5494, 139.7798),
     "ICN": (37.4602, 126.4407),
@@ -82,14 +60,11 @@ _AIRPORTS: Dict[str, Tuple[float, float]] = {
     "SHA": (31.1979, 121.3363),
     "PEK": (40.0799, 116.6031),
     "TPE": (25.0777, 121.2328),
-    # south asia
     "DEL": (28.5562, 77.1000),
     "BOM": (19.0896, 72.8656),
-    # middle east
     "DXB": (25.2532, 55.3657),
     "AUH": (24.4330, 54.6511),
     "DOH": (25.2731, 51.6081),
-    # europe
     "LHR": (51.4700, -0.4543),
     "LGW": (51.1537, -0.1821),
     "CDG": (49.0097, 2.5479),
@@ -114,7 +89,6 @@ _AIRPORTS: Dict[str, Tuple[float, float]] = {
     "PRG": (50.1008, 14.2600),
     "BUD": (47.4298, 19.2611),
     "OSL": (60.1976, 11.1004),
-    # americas
     "JFK": (40.6413, -73.7781),
     "EWR": (40.6895, -74.1745),
     "LAX": (33.9416, -118.4085),
@@ -122,7 +96,6 @@ _AIRPORTS: Dict[str, Tuple[float, float]] = {
     "ORD": (41.9742, -87.9073),
     "YYZ": (43.6777, -79.6248),
     "YVR": (49.1967, -123.1815),
-    # oceania
     "SYD": (-33.9399, 151.1753),
     "MEL": (-37.6690, 144.8410),
     "PER": (-31.9403, 115.9673),
@@ -152,10 +125,8 @@ _AIRPORT_COUNTRY: Dict[str, str] = {
     "SYD": "AU", "MEL": "AU", "PER": "AU", "AKL": "NZ",
 }
 
-# reverse map: IATA carrier code -> airline display name (built from the table below)
 _CARRIER_NAMES: Dict[str, str] = {}
 
-# country -> likely airlines flying out of that country (carrier, iata prefix)
 _COUNTRY_AIRLINES: Dict[str, List[Tuple[str, str]]] = {
     "SG": [("singapore airlines", "SQ"), ("scoot", "TR")],
     "MY": [("malaysia airlines", "MH"), ("airasia", "AK")],
@@ -204,7 +175,6 @@ for _airlines in _COUNTRY_AIRLINES.values():
     for _name, _code in _airlines:
         _CARRIER_NAMES[_code] = _name
 
-# every destination the app knows about should appear here so we always have coords
 for _code in [
     "SIN", "KUL", "BKK", "DMK", "HKG", "MNL", "DPS", "CGK", "SUB", "UPG",
     "KNO", "JOG", "BDJ", "BPN", "DJJ", "KDI", "LBJ", "SOQ", "PNH", "REP",
@@ -240,7 +210,6 @@ def _estimate_flight_minutes(origin: str, to: str) -> int:
     if not a or not b:
         return 180
     km = _haversine_km(a, b)
-    # ~850 km/h cruise + 45 min taxi/boarding overhead
     return max(40, int(km / 850.0 * 60) + 45)
 
 
@@ -256,7 +225,6 @@ def _airlines_for_route(origin: str, to: str) -> List[Tuple[str, str]]:
                 seen.add(name)
                 out.append((name, code))
 
-    # origin flag carrier first, then destination flag carrier, then regional fillers
     if oc:
         _add(oc)
     if tc and tc != oc:
@@ -275,7 +243,6 @@ def _route_seed(origin: str, to: str) -> int:
 
 
 def synthetic_flights(to: str, origin: str, count: int = 6) -> List[Dict[str, Any]]:
-    """distance-based synthetic flights for origin -> to (works for any origin)."""
     airlines = _airlines_for_route(origin, to)
     duration_min = _estimate_flight_minutes(origin, to)
     seed = _route_seed(origin, to)
@@ -287,7 +254,6 @@ def synthetic_flights(to: str, origin: str, count: int = 6) -> List[Dict[str, An
         dep = now + (i + 1) * 55_000 + i * 90_000 + (i % 3) * 18_000
         arr = dep + duration_min * 60_000
         statuses = ["scheduled", "on time", "boarding soon", "check-in open", "scheduled", "on time"]
-        # rough USD estimate: ~$0.12/km + $60 base, scaled a bit per index
         est_price = round(60 + (_estimate_flight_minutes(origin, to) * 1.35) + i * 17)
         out.append(
             {
@@ -306,8 +272,83 @@ def synthetic_flights(to: str, origin: str, count: int = 6) -> List[Dict[str, An
     return out
 
 
+def serpapi_flights(
+    api_key: str,
+    to: str,
+    origin: str,
+    departure_date: Optional[str] = None,
+) -> Optional[List[Dict[str, Any]]]:
+    if not api_key:
+        return None
+    key = f"SP:{origin.upper()}->{to.upper()}"
+    now = _time.time()
+    hit = _flight_cache.get(key)
+    if hit and now < hit[0]:
+        return hit[1]
+    if not departure_date:
+        departure_date = (_dt.date.today() + _dt.timedelta(days=1)).isoformat()
+    params = urllib.parse.urlencode(
+        {
+            "engine": "google_flights",
+            "departure_id": origin,
+            "arrival_id": to,
+            "outbound_date": departure_date,
+            "currency": "USD",
+            "hl": "en",
+    "type": "2",
+    "adults": "1",
+            "api_key": api_key,
+        }
+    )
+    try:
+        req = urllib.request.Request(f"{SERPAPI_URL}?{params}", headers={"Accept": "application/json"})
+        with urllib.request.urlopen(req, timeout=DEFAULT_TIMEOUT) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+    except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError, json.JSONDecodeError):
+        return None
+    if not isinstance(data, dict) or data.get("error"):
+        return None
+    offers = data.get("best_flights") or []
+    offers = (offers + (data.get("other_flights") or []))[:8]
+    if not offers:
+        return None
+    out: List[Dict[str, Any]] = []
+    for offer in offers:
+        if not isinstance(offer, dict):
+            continue
+        segs = offer.get("flights") or []
+        if not segs:
+            continue
+        first = segs[0]
+        last = segs[-1]
+        dep = first.get("departure_airport") or {}
+        arr = last.get("arrival_airport") or {}
+        carrier = first.get("airline") or "airline"
+        flight_no = str(first.get("flight_number") or "").strip()
+        price = offer.get("price")
+        flight_number = flight_no.replace(" ", "") if flight_no else "—"
+        dep_time = str(dep.get("time") or "").replace(" ", "T") or _iso_from_ms(_now_ms())
+        arr_time = str(arr.get("time") or "").replace(" ", "T") or _iso_from_ms(_now_ms())
+        out.append(
+            {
+                "flightNumber": flight_number,
+                "airline": carrier.lower(),
+                "from": dep.get("id") or origin,
+                "to": arr.get("id") or to,
+                "departure": dep_time,
+                "arrival": arr_time,
+                "status": "scheduled",
+                "terminal": first.get("terminal") or None,
+                "price": round(float(price)) if isinstance(price, (int, float)) else None,
+                "currency": "USD",
+            }
+        )
+    if out:
+        _flight_cache[key] = (now + _FLIGHT_CACHE_TTL_SECONDS, out)
+    return out or None
+
+
 def _amadeus_token(client_id: str, client_secret: str) -> Optional[str]:
-    """oauth2 client-credentials token, cached until expiry."""
     now = _time.time()
     if _amadeus_token_cache["token"] and now < _amadeus_token_cache["expires_at"]:
         return _amadeus_token_cache["token"]
@@ -340,7 +381,6 @@ def amadeus_flights(
     origin: str,
     departure_date: Optional[str] = None,
 ) -> Optional[List[Dict[str, Any]]]:
-    """real schedules + prices from amadeus flight-offers for origin -> to."""
     if not client_id or not client_secret:
         return None
     token = _amadeus_token(client_id, client_secret)
@@ -378,8 +418,6 @@ def amadeus_flights(
         segments = itinerary.get("segments") or []
         if not segments:
             continue
-        # use the first leg's departure and the LAST leg's arrival so a
-        # connection (FRA -> DOH -> SGN) still reads as FRA -> SGN
         first = segments[0]
         last = segments[-1]
         dep = first.get("departure") or {}
@@ -454,13 +492,13 @@ def get_flights_to(
     origin: str = "SIN",
     amadeus_client_id: str = "",
     amadeus_client_secret: str = "",
+    serpapi_key: str = "",
 ) -> Tuple[List[Dict[str, Any]], bool]:
-    """returns (flights, used_live_data) so the caller can label the response.
-
-    precedence: amadeus (schedules + prices) -> aviationstack (live status) -> synthetic.
-    """
     code = (to or "DPS").upper().strip() or "DPS"
     orig = (origin or "SIN").upper().strip() or "SIN"
+    live = serpapi_flights(serpapi_key, code, orig)
+    if live:
+        return live, True
     live = amadeus_flights(amadeus_client_id, amadeus_client_secret, code, orig)
     if live:
         return live, True

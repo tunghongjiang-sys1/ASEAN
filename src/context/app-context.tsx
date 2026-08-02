@@ -301,12 +301,11 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
 
   const redeemVoucher = useCallback(
     (voucherId: string, points: number, title: string, category: ShopVoucher['category']): RedeemedVoucher | null => {
-      // already redeemed?
       if (redeemedVoucherIds.includes(voucherId)) return null;
 
       let redeemed: RedeemedVoucher | null = null;
       setShopPointsState((prev) => {
-        if (prev < points) return prev; // not enough points
+        if (prev < points) return prev;
         const next = prev - points;
         AsyncStorage.setItem(POINTS_KEY, String(next)).catch(() => {});
         redeemed = {

@@ -38,7 +38,6 @@ const COMMON_ALLERGENS = [
   'spicy foods',
 ];
 
-// categories is a static import — compute once at module level
 const categoryList = (categories as string[]).slice().sort();
 
 export default function AttractionsScreen() {
@@ -127,12 +126,14 @@ export default function AttractionsScreen() {
           },
         ]}
       >
-        {/* Q1: Solo or Group */}
         {step === 0 && (
           <ScrollView contentContainerStyle={styles.question} showsVerticalScrollIndicator={false}>
-            <Text style={[styles.qTitle, { fontSize: compact ? 28 : wide ? 48 : 36 }]}>
-              Are you travelling{'\n'}solo or in a group?
+            <Text style={[styles.qTitle, { fontSize: compact ? 30 : wide ? 48 : 36 }]}>
+              Are you travelling solo or in a
             </Text>
+            ‎ ‎ ‎         
+            <Text style={[styles.qTitle, { fontSize: compact ? 28 : wide ? 48 : 36 }]}>group?</Text>
+            ‎ 
             <View style={styles.toggleRow}>
               <Pressable
                 onPress={() => setSolo(true)}
@@ -188,12 +189,14 @@ export default function AttractionsScreen() {
           </ScrollView>
         )}
 
-        {/* Q2: Transport Preference */}
         {step === 1 && (
           <ScrollView contentContainerStyle={styles.question} showsVerticalScrollIndicator={false}>
             <Text style={[styles.qTitle, { fontSize: compact ? 28 : wide ? 48 : 36 }]}>
-              How do you prefer{'\n'}to get around?
+              How do you prefer to get 
             </Text>
+            ‎ ‎ ‎ 
+            <Text style={[styles.qTitle, { fontSize: compact ? 28 : wide ? 48 : 36 }]}>around?</Text>
+            ‎ 
             <Text style={styles.qSub}>PICK ONE TRANSPORT MODE</Text>
             <View style={styles.transportGrid}>
               {TRANSPORT_OPTIONS.map((opt) => (
@@ -217,12 +220,14 @@ export default function AttractionsScreen() {
           </ScrollView>
         )}
 
-        {/* Q3: Food Allergies */}
         {step === 2 && (
           <ScrollView contentContainerStyle={styles.question} showsVerticalScrollIndicator={false}>
             <Text style={[styles.qTitle, { fontSize: compact ? 26 : wide ? 48 : 34 }]}>
-              Any food allergies{'\n'}or restrictions?
+              Any food allergies
             </Text>
+            ‎ 
+            <Text style={[styles.qTitle, { fontSize: compact ? 26 : wide ? 48 : 34 }]}>or dietary needs?</Text>
+            ‎ 
             <Text style={styles.qSub}>ADD YOUR OWN OR TAP COMMON ALLERGENS</Text>
             <TextInput
               value={allergies}
@@ -251,12 +256,14 @@ export default function AttractionsScreen() {
           </ScrollView>
         )}
 
-        {/* Q4: Place Types */}
         {step === 3 && (
           <ScrollView contentContainerStyle={styles.question} showsVerticalScrollIndicator={false}>
             <Text style={[styles.qTitle, { fontSize: compact ? 26 : wide ? 48 : 34 }]}>
-              What kind of places{'\n'}do you want to visit?
+              What kind of places
             </Text>
+            ‎ 
+            <Text style={[styles.qTitle, { fontSize: compact ? 26 : wide ? 48 : 34 }]}>do you want to visit?</Text>
+            ‎ 
             <Text style={styles.qSub}>SELECT ALL THAT APPLY</Text>
             <View style={styles.chips}>
               {categoryList.map((c) => {

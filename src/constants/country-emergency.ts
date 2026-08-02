@@ -1,6 +1,3 @@
-// Country-level emergency contact numbers.
-// Used as a fallback when a specific place has no emergencyNumbers of its own,
-// so every location pressed in a country still shows that country's details.
 export const countryEmergencyNumbers: Record<string, string> = {
   Indonesia:
     'Medical Emergency / Ambulance: 119 · Police: 110 · Fire & Rescue: 113 · Search & Rescue (BASARNAS): 115 · Disaster Emergency (BNPB): 117 · Tourist Police: 110',

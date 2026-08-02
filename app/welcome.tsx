@@ -89,7 +89,6 @@ export default function WelcomeScreen() {
     }
   }, [google.profile]);
 
-  // ---- rotating hero carousel (random photos from the country folders) ----
   const [heroImages, setHeroImages] = useState<number[]>(() =>
     pickRandom(homepagePhotos, HERO_COUNT)
   );
@@ -104,7 +103,6 @@ export default function WelcomeScreen() {
       const next = (prev + 1) % heroImages.length;
       idxRef.current = next;
       if (next === 0) {
-        // full cycle done — reshuffle with a fresh random set
         setHeroImages(pickRandom(homepagePhotos, HERO_COUNT));
       }
       Animated.timing(fades[prev], { toValue: 0, duration: 900, useNativeDriver: true }).start();
@@ -125,7 +123,6 @@ export default function WelcomeScreen() {
     return () => loop.stop();
   }, [zoom]);
 
-  // ---- smooth scroll parallax ----
   const scrollRef = useRef<ScrollView>(null);
   const scrollY = useRef(new Animated.Value(0)).current;
   const onScroll = Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], {
@@ -153,7 +150,6 @@ export default function WelcomeScreen() {
       contentContainerStyle={styles.scrollContent}
       style={styles.screen}
     >
-      {/* ---------- HERO (pages 1–4) ---------- */}
       <View style={[styles.hero, { height }]}>
         {heroImages.map((src, i) => (
           <Animated.Image
@@ -322,7 +318,6 @@ export default function WelcomeScreen() {
         </Animated.View>
       </View>
 
-      {/* ---------- WHAT IS ASEANFINDER? (page 9) ---------- */}
       <View style={styles.section}>
         <View style={[styles.aboutRow, wide && { flexDirection: 'row', alignItems: 'center', gap: 64 }]}>
           <Text style={[styles.sectionHeading, wide && { flex: 1 }]}>
@@ -343,7 +338,6 @@ export default function WelcomeScreen() {
         </View>
       </View>
 
-      {/* ---------- NOT YOUR BORING TRAVEL AGENT (page 10) ---------- */}
       <View style={[styles.section, styles.sectionGreen]}>
         <Text style={[styles.sectionHeading, { fontSize: wide ? 58 : 34 }]}>
           Not Your Boring{'\n'}Travel Agent
@@ -353,11 +347,11 @@ export default function WelcomeScreen() {
         </Text>
         <Button
           label="get started"
-            onPress={() => {
-              scrollRef.current?.scrollTo({ y: 0, animated: true });
-            }}
-            style={{ alignSelf: 'flex-start', marginTop: 18 }}
-          />
+          onPress={() => {
+            scrollRef.current?.scrollTo({ y: 0, animated: true });
+          }}
+          style={{ alignSelf: 'flex-start', marginTop: 18 }}
+        />
         <View style={[styles.wordCardRow, wide && { flexDirection: 'row', gap: 20 }]}>
           <View style={styles.wordCard}>
             <Text style={styles.wordCardIcon}>🌏</Text>
@@ -377,7 +371,6 @@ export default function WelcomeScreen() {
         </View>
       </View>
 
-      {/* ---------- OUR PURPOSE & AIM (page 11) ---------- */}
       <View style={styles.section}>
         <Text style={[styles.sectionHeading, wide && styles.headingWide]}>Our Purpose & Aim</Text>
         <View style={[styles.purposeGrid, wide && { flexDirection: 'row', gap: 20 }]}>
@@ -405,7 +398,6 @@ export default function WelcomeScreen() {
         </View>
       </View>
 
-      {/* ---------- FOOTER ---------- */}
       <View style={styles.footer}>
         <Text style={styles.disclaimer}>
           THIS IS A BETA SAMPLE WEBSITE, SO SOME INFORMATION MAY BE INCOMPLETE, INACCURATE, OR
@@ -461,7 +453,11 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255,255,255,0.35)',
   },
   historyBlock: { gap: 6 },
-  historyLabel: { color: colors.muted, fontSize: 12, fontFamily: 'DMSans_400Regular' },
+  historyLabel: {
+    color: colors.muted,
+    fontSize: 12,
+    fontFamily: 'DMSans_400Regular',
+  },
   historyRow: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   historyChip: {
     flexDirection: 'row',
@@ -493,8 +489,17 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     color: colors.muted,
   },
-  historyEmail: { fontFamily: 'DMSans_500Medium', fontSize: 12, color: colors.forestGreen },
-  historyTime: { fontFamily: 'DMSans_400Regular', fontSize: 10, color: colors.muted, marginTop: 2 },
+  historyEmail: {
+    fontFamily: 'DMSans_500Medium',
+    fontSize: 12,
+    color: colors.forestGreen,
+  },
+  historyTime: {
+    fontFamily: 'DMSans_400Regular',
+    fontSize: 10,
+    color: colors.muted,
+    marginTop: 2,
+  },
   input: {
     backgroundColor: colors.pureWhite,
     borderRadius: 14,

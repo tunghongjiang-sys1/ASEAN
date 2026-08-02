@@ -17,6 +17,7 @@ when you set `BACKEND_SECRET` in the box. without it, the box is open.
 | `OPENROUTER_MODEL`           | no (default `openai/gpt-4o-mini`)                              |
 | `OPENROUTER_TIMEOUT`         | no (default `30`)                                              |
 | `AVIATIONSTACK_API_KEY`      | no (without it /flights returns synthetic)                      |
+| `SERPAPI_API_KEY`            | no (live flights + prices via Google Flights)                  |
 | `AMADEUS_CLIENT_ID`          | no (live flights + prices when set with secret)                |
 | `AMADEUS_CLIENT_SECRET`      | no (live flights + prices when set with id)                    |
 | `BACKEND_SECRET`             | no (without it the box is unauthenticated)                     |

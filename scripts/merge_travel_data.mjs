@@ -1,5 +1,3 @@
-// Merge user-provided travel detail tables into data/indonesia.js, data/cambodia.js, data/vietnam.js
-// Run: node scripts/merge_travel_data.mjs
 import { writeFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -11,7 +9,6 @@ const { indonesiaData } = await import('../data/indonesia.js');
 const { cambodiaData } = await import('../data/cambodia.js');
 const { vietnamData } = await import('../data/vietnam.js');
 
-// Row shape: R(payment, culture, dress, gettingAround, food, stay, transport, cost, hours, emergency, hospitals, water, shops)
 const R = (payment, culture, dress, arnd, food, stay, transport, cost, hours, emerg, hosp, water, shops) => ({
   paymentMethods: payment,
   cultureEtiquette: culture,
@@ -28,9 +25,6 @@ const R = (payment, culture, dress, arnd, food, stay, transport, cost, hours, em
   shops,
 });
 
-// ---------------------------------------------------------------------------
-// INDONESIA
-// ---------------------------------------------------------------------------
 const IND = {
   'indonesia-bali': R(
     'Cash (IDR), Credit/Debit Card, QRIS',
@@ -934,7 +928,6 @@ const IND = {
   ),
 };
 
-// Base fields for brand-new Indonesia places
 const IND_NEW_BASE = {
   'indonesia-mendut': {
     country: 'Indonesia',
@@ -998,7 +991,6 @@ const IND_NEW_BASE = {
   },
 };
 
-// Rename combined places to their split destinations
 const IND_RENAME = {
   'indonesia-rajaampatresorts': 'Papua Paradise Eco Resort (Raja Ampat)',
   'indonesia-riauoverwater': 'Telunas Beach Resort (Riau Islands)',
@@ -1006,9 +998,6 @@ const IND_RENAME = {
   'indonesia-prailirende': 'Prailiu Village (East Sumba)',
 };
 
-// ---------------------------------------------------------------------------
-// CAMBODIA
-// ---------------------------------------------------------------------------
 const KHM = {
   'cambodia-kohrong': R(
     'Cash (KHR/USD), Credit/Debit Card',
@@ -1627,9 +1616,6 @@ const KHM = {
   ),
 };
 
-// ---------------------------------------------------------------------------
-// VIETNAM
-// ---------------------------------------------------------------------------
 const VNM = {
   'vietnam-halongbay': R(
     'Cash (VND), Credit/Debit Card',
@@ -2263,9 +2249,6 @@ const VNM = {
   ),
 };
 
-// ---------------------------------------------------------------------------
-// Merge logic
-// ---------------------------------------------------------------------------
 const NEW_FIELD_ORDER = [
   'paymentMethods',
   'cultureEtiquette',
@@ -2285,7 +2268,6 @@ const NEW_FIELD_ORDER = [
 function applyRows(list, rows, { newBase = {}, renames = {}, renameId = {} } = {}) {
   const byId = new Map(list.map((p) => [p.id, p]));
 
-  // rename ids first (e.g. cambodia-phoum Kandal -> cambodia-phoumkandal)
   for (const [oldId, newId] of Object.entries(renameId)) {
     const p = byId.get(oldId);
     if (p) {
@@ -2295,7 +2277,6 @@ function applyRows(list, rows, { newBase = {}, renames = {}, renameId = {} } = {
     }
   }
 
-  // apply rows to existing places
   for (const [id, fields] of Object.entries(rows)) {
     const p = byId.get(id);
     if (!p) continue;
@@ -2304,13 +2285,11 @@ function applyRows(list, rows, { newBase = {}, renames = {}, renameId = {} } = {
     }
   }
 
-  // rename combined places (location only)
   for (const [id, location] of Object.entries(renames)) {
     const p = byId.get(id);
     if (p) p.location = location;
   }
 
-  // add brand-new places
   for (const [id, fields] of Object.entries(newBase)) {
     if (byId.has(id)) continue;
     const base = { id, ...fields };
@@ -2322,7 +2301,6 @@ function applyRows(list, rows, { newBase = {}, renames = {}, renameId = {} } = {
     byId.set(id, base);
   }
 
-  // reorder keys: existing keys first (minus new fields), then new fields, dropping empties
   const out = [];
   for (const p of list) {
     const next = {};
@@ -2336,7 +2314,6 @@ function applyRows(list, rows, { newBase = {}, renames = {}, renameId = {} } = {
     }
     out.push(next);
   }
-  // new places appended at the end
   for (const id of Object.keys(newBase)) {
     const p = byId.get(id);
     if (!p || list.includes(p)) continue;

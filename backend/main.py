@@ -1,4 +1,3 @@
-"""asean-travel python backend. local chat (database-derived) + flights proxy."""
 from __future__ import annotations
 
 import hashlib
@@ -13,8 +12,6 @@ from fastapi import FastAPI, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
-# load backend/.env (OPENROUTER_API_KEY, GOOGLE_PLACES_API_KEY, ...)
-# explicit path so it works no matter which cwd the server is started from
 load_dotenv(Path(__file__).resolve().parent / ".env")
 
 from data_loader import PLACES, CATEGORIES, get_place_by_id, places_for_categories
@@ -25,11 +22,11 @@ import httpx
 
 AVIATIONSTACK_API_KEY = os.environ.get("AVIATIONSTACK_API_KEY", "").strip()
 
-# amadeus self-service (test env is free, ~2000 req/mo). set both id + secret in backend/.env
+SERPAPI_API_KEY = os.environ.get("SERPAPI_API_KEY", "").strip()
+
 AMADEUS_CLIENT_ID = os.environ.get("AMADEUS_CLIENT_ID", "").strip()
 AMADEUS_CLIENT_SECRET = os.environ.get("AMADEUS_CLIENT_SECRET", "").strip()
 
-# set in backend/.env (or the deploy env). the key is never shipped to the client.
 OPENROUTER_API_KEY = os.environ.get("OPENROUTER_API_KEY", "").strip()
 OPENROUTER_MODEL = os.environ.get("OPENROUTER_MODEL", "openai/gpt-4o-mini").strip()
 GOOGLE_PLACES_API_KEY = os.environ.get("GOOGLE_PLACES_API_KEY", "").strip()
@@ -67,8 +64,6 @@ def _check_rate_limit(client_id: str) -> bool:
     return True
 
 
-                                                                         
-
 class ChatRequest(BaseModel):
     question: str = Field(..., min_length=1)
     preferred_categories: List[str] = Field(default_factory=list)
@@ -91,8 +86,6 @@ def _resolve(saved_ids: List[str], categories: List[str]):
     context_places = places_for_categories(categories)
     return saved_places, context_places
 
-
-                                                                          
 
 class FlightInfo(BaseModel):
     flightNumber: str
@@ -154,6 +147,7 @@ def health() -> Dict[str, Any]:
         "places": len(PLACES),
         "categories": len(CATEGORIES),
         "aviationstack_configured": bool(AVIATIONSTACK_API_KEY),
+        "serpapi_configured": bool(SERPAPI_API_KEY),
         "amadeus_configured": bool(AMADEUS_CLIENT_ID and AMADEUS_CLIENT_SECRET),
         "openrouter_configured": bool(OPENROUTER_API_KEY),
         "google_places_configured": bool(GOOGLE_PLACES_API_KEY),
@@ -170,7 +164,6 @@ async def chat(req: ChatRequest, request: Request) -> ChatReply:
 
     saved_places, context_places = _resolve(req.saved_place_ids, req.preferred_categories)
 
-    # Try OpenRouter if configured, fall back to local reply
     if OPENROUTER_API_KEY:
         try:
             loc = req.user_location or {}
@@ -214,7 +207,6 @@ async def chat(req: ChatRequest, request: Request) -> ChatReply:
             full_system = f"{system_prompt}\n\nAvailable places (use these for recommendations):\n{place_context}"
 
             messages: List[Dict[str, str]] = [{"role": "system", "content": full_system}]
-            # send the last ~8 turns of conversation so the model remembers context
             for m in (req.history or [])[-8:]:
                 role = m.get("role")
                 content = m.get("content")
@@ -247,7 +239,6 @@ async def chat(req: ChatRequest, request: Request) -> ChatReply:
 
 @app.get("/place-info", response_model=PlaceInfoReply)
 async def place_info(query: str = Query(..., min_length=1, description="place name to look up")) -> PlaceInfoReply:
-    """google places text search -> name, rating, website + google maps link."""
     if not GOOGLE_PLACES_API_KEY:
         return PlaceInfoReply(name=query)
     try:
@@ -310,7 +301,7 @@ def flights(
         raise HTTPException(status_code=429, detail="rate limit exceeded; slow down")
 
     flights_list, used_live = flights_to(
-        AVIATIONSTACK_API_KEY, to, origin, AMADEUS_CLIENT_ID, AMADEUS_CLIENT_SECRET
+        AVIATIONSTACK_API_KEY, to, origin, AMADEUS_CLIENT_ID, AMADEUS_CLIENT_SECRET, SERPAPI_API_KEY
     )
     return FlightReply(
         flights=[FlightInfo(**f) for f in flights_list],

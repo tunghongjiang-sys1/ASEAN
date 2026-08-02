@@ -6,7 +6,6 @@ const BACKEND_URL =
 
 const BACKEND_SECRET = (process.env.EXPO_PUBLIC_BACKEND_SECRET || '').trim();
 
-// Route airlines keyed by destination airport; flight durations vary by origin
 const ROUTE_DURATIONS: Record<string, { airline: string; code: string; baseMin: number }[]> = {
   DPS: [
     { airline: 'singapore airlines', code: 'SQ', baseMin: 150 },
@@ -63,7 +62,6 @@ const ASEAN_AIRLINES = [
   'philippine airlines', 'lion air', 'citilink',
 ];
 
-// IATA -> (lat, lng) used for great-circle distance in the offline fallback
 const AIRPORT_COORDS: Record<string, [number, number]> = {
   SIN: [1.3644, 103.9915], KUL: [2.7456, 101.7099], BKK: [13.69, 100.7501],
   HKG: [22.308, 113.9185], MNL: [14.5086, 121.0196],

@@ -1,13 +1,6 @@
-"""local database-derived chat reply helper.
-
-no external ai. pulls rows from the loaded data and shapes a deterministic
-reply string from the user's question + saved places + preferred categories.
-Includes seasonal festivals and personalized recommendations.
-"""
 import re
 from typing import Any, Dict, List
 
-# country-level emergency numbers used as a fallback when a place has none
 COUNTRY_EMERGENCY = {
     "Indonesia": (
         "Medical Emergency / Ambulance: 119 · Police: 110 · Fire & Rescue: 113 · "
@@ -39,14 +32,12 @@ FESTIVALS = [
 
 
 def _get_festivals_for_query(q: str) -> str:
-    """Return festival information matching the query"""
     q_lower = q.lower()
     matches = []
     for f in FESTIVALS:
         if f["country"].lower() in q_lower or f["name"].lower() in q_lower or f["location"].lower() in q_lower:
             matches.append(f)
     if not matches:
-        # Return festivals for current month-equivalent if asking generally
         if any(w in q_lower for w in ["festival", "festivals", "event", "events", "celebration"]):
             matches = FESTIVALS[:3]
     if not matches:
@@ -61,12 +52,10 @@ def _get_festivals_for_query(q: str) -> str:
 
 
 def _get_hidden_gems(places, q: str) -> str:
-    """Recommend lesser-known places matching the query"""
     q_lower = q.lower()
     if not any(w in q_lower for w in ["hidden gem", "hidden gems", "off the beaten", "less known", "secret"]):
         return ""
 
-    # Pick 3 places that are less common (not Bali, Angkor, HaLong)
     popular_ids = {"indonesia-bali", "cambodia-angkorwat", "vietnam-halongbay"}
     hidden = [p for p in places if p.get("id") not in popular_ids][:3]
     if not hidden:

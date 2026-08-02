@@ -9,7 +9,7 @@ cp backend/.env.example backend/.env
 pip install -r backend/requirements.txt
 ```
 
-`backend/.env` only needs the secrets you actually use. To opt into live flights **with prices**, set `AMADEUS_CLIENT_ID` + `AMADEUS_CLIENT_SECRET` from the [Amadeus for Developers](https://developers.amadeus.com/) self-service console (the free TEST environment is enough, ~2000 req/mo). If you also have an [aviationstack](https://aviationstack.com/) key, set `AVIATIONSTACK_API_KEY=...` as a secondary live source. Without either, `/flights` returns origin-aware distance-based estimates. To add authentication + per-client rate limits, set `BACKEND_SECRET=<random string>`. Chat works out of the box with no keys.
+`backend/.env` only needs the secrets you actually use. To opt into live flights **with real prices**, set `SERPAPI_API_KEY` from [SerpAPI](https://serpapi.com/) (Google Flights — free tier ~100 searches/mo, instant signup). Optional alternates: `AMADEUS_CLIENT_ID` + `AMADEUS_CLIENT_SECRET` from [Amadeus for Developers](https://developers.amadeus.com/) (free TEST env ~2000 req/mo), or `AVIATIONSTACK_API_KEY` (live status, no prices). Precedence: SerpAPI → Amadeus → AviationStack → distance-based estimates. To add authentication + per-client rate limits, set `BACKEND_SECRET=<random string>`. Chat works out of the box with no keys.
 
 ## run
 
@@ -60,7 +60,7 @@ the server shapes a deterministic reply from the in-memory place database (loade
 
 returns the next 6–8 flights from the traveller's origin airport to the destination. `to` and `from` are IATA codes (3–4 chars); the client sends the user's actual origin (e.g. `from=FRA`) so flights are always shown as `FRA -> SGN`, never a hardcoded SIN.
 
-live data precedence: **Amadeus** (real schedules + prices) → **AviationStack** (live status) → origin-aware distance-based estimates. Same `BACKEND_SECRET` + rate-limit guard as `/chat`.
+live data precedence: **SerpAPI / Google Flights** (real schedules + prices) → **Amadeus** (schedules + prices) → **AviationStack** (live status) → origin-aware distance-based estimates. Same `BACKEND_SECRET` + rate-limit guard as `/chat`.
 
 request: `GET /flights?to=DPS&from=SIN` (IATA, 3–4 chars).
 response body:

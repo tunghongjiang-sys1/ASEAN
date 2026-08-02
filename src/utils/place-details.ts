@@ -11,7 +11,6 @@ export type PlaceLink = {
   url: string;
 };
 
-// City name → IATA airport code mapping
 const CITY_AIRPORT_MAP: Record<string, string> = {
   'singapore': 'SIN',
   'kuala lumpur': 'KUL',
@@ -78,12 +77,11 @@ const CITY_AIRPORT_MAP: Record<string, string> = {
   'athens': 'ATH',
 };
 
-// strips " · 5km soft circle" style suffixes and country parts from a label
 export function cleanCityLabel(label: string | null | undefined): string {
   const trimmed = (label || '').trim();
   if (!trimmed) return '';
   return trimmed
-    .replace(/\s*\u00b7.*$/i, '') // everything after "·"
+    .replace(/\s*\u00b7.*$/i, '')
     .replace(/\s*-\s*(\d+)km.*$/i, '')
     .split(',')[0]
     .trim();
@@ -92,13 +90,10 @@ export function cleanCityLabel(label: string | null | undefined): string {
 export function getAirportCodeForCity(cityName: string): string | null {
   const cleaned = cleanCityLabel(cityName).toLowerCase();
   if (!cleaned || cleaned.includes('near you')) return null;
-  // Direct match
   if (CITY_AIRPORT_MAP[cleaned]) return CITY_AIRPORT_MAP[cleaned];
-  // Partial match (multi-word, e.g. "ho chi minh city")
   for (const [key, code] of Object.entries(CITY_AIRPORT_MAP)) {
     if (cleaned.includes(key) || key.includes(cleaned)) return code;
   }
-  // Default: take first 3 letters uppercase (best effort)
   const alpha = cleaned.replace(/[^a-zA-Z]/g, '');
   return alpha.length >= 3 ? alpha.slice(0, 3).toUpperCase() : null;
 }
@@ -236,7 +231,6 @@ export function getPlaceLinks(place: Place): PlaceLink[] {
   ];
 }
 
-// rewrite "Fly SIN -> X" style data text to use the traveller's real origin airport
 export function personalizeGettingThere(text: string | null | undefined, originAirport?: string): string {
   const from = (originAirport || 'SIN').toUpperCase();
   return (text || '').toString().replace(/\bSIN\b/g, from);
@@ -279,8 +273,6 @@ export function getFlightSearchLinks(
   ];
 }
 
-// deep link for ONE flight: embeds the route + date so the booking site
-// (google flights) opens pre-filled for that specific departure.
 export function getFlightDetailLink(
   from: string,
   to: string,

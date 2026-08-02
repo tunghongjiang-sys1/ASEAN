@@ -79,7 +79,6 @@ export default function LocationScreen() {
         return;
       }
       const pos = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
-      // try to reverse-geocode a city name so flights start from the real airport
       let cityName: string | undefined;
       let countryName: string | undefined;
       try {
@@ -190,7 +189,14 @@ const styles = StyleSheet.create({
     color: colors.forestGreen,
     marginBottom: 10,
   },
-  or: { marginTop: 24, marginBottom: 4, fontFamily: 'DMSans_500Medium', fontSize: 12, letterSpacing: 1.4, color: colors.forestGreen },
+  or: {
+    marginTop: 24,
+    marginBottom: 4,
+    fontFamily: 'DMSans_500Medium',
+    fontSize: 12,
+    letterSpacing: 1.4,
+    color: colors.forestGreen,
+  },
   input: {
     backgroundColor: colors.pureWhite,
     borderWidth: 1,
@@ -233,5 +239,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: colors.muted,
   },
-  error: { marginTop: 12, color: colors.aseanRed },
+  error: {
+    marginTop: 12,
+    color: colors.aseanRed,
+  },
 });
