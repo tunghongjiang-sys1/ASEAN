@@ -6,9 +6,19 @@ import { colors, getCategoryColor } from '../constants/colors';
 import { getCountryEmergencyNumbers } from '../constants/country-emergency';
 import { getLocalPlaceImage } from '../data/place-images';
 import { useApp } from '../context/app-context';
-import type { FlightInfo, Place, PlaceInfo, PlaceReview } from '../types/place';
-import { getFlightsTo, formatFlightDate, formatFlightTime, isASEANAirline } from '../services/flights';
-import { getPlaceInfo } from '../services/place-info';
+import type { FlightInfo, HotelItem, HotelsReply, Place, PlaceInfo, PlaceReview } from '../types/place';
+import {
+  addDays,
+  formatDateLong,
+  formatFlightDate,
+  formatFlightTime,
+  getFlightsTo,
+  toISODate,
+} from '../services/flights';
+import { getPlaceInfo, getPlaceReviews } from '../services/place-info';
+import { getHotelsNear } from '../services/hotels';
+import { ScrollDatePicker } from './ui/scroll-dates';
+import { detectUserCurrency, formatCostPerDay } from '../services/currency';
 import { findMinigameForPlace } from '../utils/minigame';
 import {
   cleanCityLabel,
@@ -21,78 +31,8 @@ import {
   personalizeGettingThere,
   getAirportCodeForCity,
 } from '../utils/place-details';
+import { titleCase } from '../utils/text';
 import { Button } from './ui/button';
-
-function hashString(s: string): number {
-  let h = 0;
-  for (let i = 0; i < s.length; i++) {
-    h = ((h << 5) - h + s.charCodeAt(i)) | 0;
-  }
-  return Math.abs(h);
-}
-
-const REVIEW_FIRST_NAMES = [
-  'Sarah', 'Marco', 'Priya', 'James', 'Aiko', 'Liam', 'Fatima', 'Carlos',
-  'Mei', 'Omar', 'Sofia', 'Raj', 'Hannah', 'Yuki', 'David', 'Amara',
-];
-
-const REVIEW_LAST_INITS = ['L.', 'T.', 'K.', 'M.', 'S.', 'W.', 'B.', 'N.', 'H.', 'R.', 'C.', 'P.'];
-
-const REVIEW_TEMPLATES = [
-  (loc: string, country: string) =>
-    `Absolutely stunning experience at ${loc}. The views were breathtaking and the local guides were incredibly knowledgeable. A must-visit in ${country}!`,
-
-  (loc: string, country: string) =>
-    `${loc} exceeded my expectations. Great for photos and soaking in the local culture. Would recommend going early to avoid crowds.`,
-
-  (loc: string, country: string) =>
-    `One of the highlights of my ${country} trip. The atmosphere is magical and the surrounding area has so much to explore. Don't miss the local food nearby!`,
-
-  (loc: string, country: string) =>
-    `${loc} is a gem! The history and architecture are remarkable. Go with a guide to get the full story — it makes a huge difference.`,
-
-  (loc: string, country: string) =>
-    `Honestly, I wasn't sure what to expect but ${loc} blew me away. Peaceful, beautiful, and the people were so welcoming. 10/10 would return.`,
-
-  (loc: string, country: string) =>
-    `My favourite spot in ${country}. Whether you're into nature, culture, or just good food nearby, ${loc} delivers on every level.`,
-
-  (loc: string, country: string) =>
-    `Visited ${loc} on a whim and it became the highlight of my trip. The sunrise there is something I'll never forget. Absolutely recommend.`,
-
-  (loc: string, country: string) =>
-    `${loc} is well worth the journey. Authentic, not too touristy, and rich with local character. Perfect for travellers who want the real experience.`,
-];
-
-function getCuratedReviews(place: Place): PlaceReview[] {
-  const seed = hashString(place.id || place.location);
-  const now = new Date().toISOString();
-  const reviews: PlaceReview[] = [];
-
-  const count = 4 + (seed % 2);
-  for (let i = 0; i < count; i++) {
-    const nameIdx = (seed + i * 7) % REVIEW_FIRST_NAMES.length;
-    const lastIdx = (seed + i * 13) % REVIEW_LAST_INITS.length;
-    const templateIdx = (seed + i * 3) % REVIEW_TEMPLATES.length;
-
-    const isAnon = (seed + i * 11) % 5 < 2;
-    const author = isAnon
-      ? `anonymous traveller`
-      : `${REVIEW_FIRST_NAMES[nameIdx]} ${REVIEW_LAST_INITS[lastIdx]}`;
-
-    const rating = 4 + ((seed + i * 17) % 2);
-
-    reviews.push({
-      author,
-      source: 'curated',
-      rating,
-      text: REVIEW_TEMPLATES[templateIdx](place.location, place.country),
-      date: now,
-    });
-  }
-
-  return reviews;
-}
 
 function renderStars(rating: number): string {
   return '★'.repeat(rating) + '☆'.repeat(5 - rating);
@@ -105,11 +45,25 @@ type Props = {
 
 export function PlacePanel({ place, onClose }: Props) {
   const router = useRouter();
-  const { addNote, removeNote, hasNote, userLocation, addShopPoints } = useApp();
+  const { addNote, removeNote, hasNote, userLocation } = useApp();
   const [flights, setFlights] = useState<FlightInfo[]>([]);
+  const [returnFlights, setReturnFlights] = useState<FlightInfo[]>([]);
   const [flightsLive, setFlightsLive] = useState(false);
   const [loadingFlights, setLoadingFlights] = useState(true);
+  const [exactDates, setExactDates] = useState(true);
+  const [nearestOutbound, setNearestOutbound] = useState('');
+  const [nearestReturn, setNearestReturn] = useState('');
+  const [hotels, setHotels] = useState<HotelsReply | null>(null);
+  const [hotelsLoading, setHotelsLoading] = useState(true);
+  const today = useMemo(() => {
+    const t = new Date();
+    return new Date(t.getFullYear(), t.getMonth(), t.getDate());
+  }, []);
+  const [outboundDate, setOutboundDate] = useState(() => addDays(today, 1));
+  const [returnDate, setReturnDate] = useState(() => addDays(today, 5));
   const [placeInfo, setPlaceInfo] = useState<PlaceInfo | null>(null);
+  const [realReviews, setRealReviews] = useState<PlaceReview[] | null>(null);
+  const [reviewsMeta, setReviewsMeta] = useState<{ placeName?: string; mapsUrl?: string }>({});
   const saved = hasNote(place.id);
 
   const detailed = useMemo(
@@ -119,6 +73,7 @@ export function PlacePanel({ place, onClose }: Props) {
   const localImage = useMemo(() => getLocalPlaceImage(detailed.id), [detailed.id]);
   const game = findMinigameForPlace(detailed);
   const accent = getCategoryColor(detailed.category);
+  const userCurrency = useMemo(() => detectUserCurrency(userLocation), [userLocation]);
   const transports = useMemo(
     () => parseTransports(detailed.howToGetThere),
     [detailed.howToGetThere]
@@ -147,29 +102,36 @@ export function PlacePanel({ place, onClose }: Props) {
     [detailed.airport, originAirport, originCityName]
   );
   const officialTourism = useMemo(() => getOfficialTourismUrl(detailed.country), [detailed.country]);
-  const reviews = useMemo(() => getCuratedReviews(detailed), [detailed]);
 
   useEffect(() => {
     let alive = true;
     setLoadingFlights(true);
-    getFlightsTo(detailed.airport, originAirport).then(
+    getFlightsTo(detailed.airport, originAirport, toISODate(outboundDate), toISODate(returnDate)).then(
       (reply) => {
         if (!alive) return;
         setFlights(reply.flights || []);
+        setReturnFlights(reply.returnFlights || []);
         setFlightsLive(!!reply.live);
+        setExactDates(reply.exactDates !== false);
+        setNearestOutbound(reply.nearestOutboundDate || '');
+        setNearestReturn(reply.nearestReturnDate || '');
         setLoadingFlights(false);
       },
       () => {
         if (!alive) return;
         setFlights([]);
+        setReturnFlights([]);
         setFlightsLive(false);
+        setExactDates(true);
+        setNearestOutbound('');
+        setNearestReturn('');
         setLoadingFlights(false);
       }
     );
     return () => {
       alive = false;
     };
-  }, [detailed.airport, originAirport]);
+  }, [detailed.airport, originAirport, outboundDate, returnDate]);
 
   useEffect(() => {
     let alive = true;
@@ -182,11 +144,53 @@ export function PlacePanel({ place, onClose }: Props) {
     };
   }, [detailed.location, detailed.country]);
 
-  const handleASEANFlight = (f: FlightInfo) => {
-    if (isASEANAirline(f.airline)) {
-      addShopPoints(10);
-    }
-  };
+  useEffect(() => {
+    let alive = true;
+    getPlaceReviews(`${detailed.location}, ${detailed.country}`).then((res) => {
+      if (!alive || !res || !res.reviews.length) return;
+      setRealReviews(res.reviews);
+      setReviewsMeta({ placeName: res.placeName, mapsUrl: res.mapsUrl });
+    });
+    return () => {
+      alive = false;
+    };
+  }, [detailed.location, detailed.country]);
+
+  useEffect(() => {
+    let alive = true;
+    setHotelsLoading(true);
+    getHotelsNear(detailed.location, toISODate(outboundDate), toISODate(returnDate)).then((h) => {
+      if (!alive) return;
+      setHotels(h);
+      setHotelsLoading(false);
+    });
+    return () => {
+      alive = false;
+    };
+  }, [detailed.location, outboundDate, returnDate]);
+
+  const FlightCard = ({ f }: { f: FlightInfo }) => (
+    <Pressable
+      style={styles.flight}
+      onPress={() => Linking.openURL(getFlightDetailLink(f.from, f.to, f.departure))}
+    >
+      <View style={styles.flightTop}>
+        <Text style={styles.flightNo}>{f.flightNumber}</Text>
+        <Text style={styles.flightStatus}>{f.status}</Text>
+      </View>
+      <Text style={styles.flightMeta}>
+        {f.from} → {f.to} · {titleCase(f.airline)} · {formatFlightDate(f.departure)} ·{' '}
+        {formatFlightTime(f.departure)} → {formatFlightTime(f.arrival)}
+        {f.terminal ? ` · ${f.terminal}` : ''}
+      </Text>
+      {f.price != null ? (
+        <Text style={styles.flightPrice}>
+          {f.currency || 'USD'} {Number(f.price).toLocaleString()}
+        </Text>
+      ) : null}
+      <Text style={styles.flightLink}>view this flight on google flights →</Text>
+    </Pressable>
+  );
 
   return (
     <View style={styles.panel}>
@@ -209,10 +213,47 @@ export function PlacePanel({ place, onClose }: Props) {
           style={styles.image}
           resizeMode="cover"
         />
-        <Text style={styles.country}>{detailed.country.toLowerCase()}</Text>
+        <Text style={styles.country}>{titleCase(detailed.country)}</Text>
         <Text style={styles.title}>{detailed.location}</Text>
-        <Text style={styles.category}>{detailed.category.toLowerCase()}</Text>
+        <Text style={styles.category}>{titleCase(detailed.category)}</Text>
         <Text style={styles.body}>{detailed.primaryActivities}</Text>
+
+        <Pressable
+          onPress={() =>
+            Linking.openURL(
+              `https://en.wikipedia.org/wiki/Special:Search?search=${encodeURIComponent(detailed.location)}`
+            )
+          }
+          style={[styles.moreInfoBtn, { borderColor: accent }]}
+        >
+          <Text style={[styles.moreInfoIcon, { color: accent }]}>📖</Text>
+          <Text style={styles.moreInfoText}>
+            more about {titleCase(detailed.location)} →
+          </Text>
+        </Pressable>
+
+        {detailed.food ? (
+          <View style={styles.foodCard}>
+            <View style={styles.foodCardHeader}>
+              <Text style={styles.foodCardIcon}>🍜</Text>
+              <View style={{ flex: 1 }}>
+                <Text style={styles.foodCardTitle}>local delicacies</Text>
+                <Text style={styles.foodCardSub}>recommended food to try here</Text>
+              </View>
+            </View>
+            <View style={styles.foodChips}>
+              {detailed.food
+                .split(',')
+                .map((d) => d.trim())
+                .filter(Boolean)
+                .map((dish) => (
+                  <View key={dish} style={styles.foodChip}>
+                    <Text style={styles.foodChipText}>{dish}</Text>
+                  </View>
+                ))}
+            </View>
+          </View>
+        ) : null}
 
         {placeInfo && placeInfo.name ? (
           <View style={styles.placeInfoCard}>
@@ -275,22 +316,41 @@ export function PlacePanel({ place, onClose }: Props) {
         ) : null}
 
         <Text style={styles.section}>what visitors say</Text>
-        {reviews.map((r, i) => (
-          <View key={i} style={styles.reviewCard}>
-            <View style={styles.reviewTop}>
-              <Text style={styles.reviewAuthor}>{r.author}</Text>
-              <Text style={styles.reviewStars}>{renderStars(r.rating)}</Text>
-            </View>
-            <Text style={styles.reviewText}>{r.text}</Text>
-            <View style={styles.reviewMeta}>
-              <Text style={styles.reviewSource}>
-                {r.author.startsWith('anonymous')
-                  ? 'Anonymous review'
-                  : 'Verified visitor'}
-              </Text>
-            </View>
-          </View>
-        ))}
+        {realReviews && realReviews.length ? (
+          <>
+            {realReviews.map((r, i) => (
+              <View key={`${r.author}-${i}`} style={styles.reviewCard}>
+                <View style={styles.reviewTop}>
+                  <Text style={styles.reviewAuthor}>{r.author}</Text>
+                  <Text style={styles.reviewStars}>{renderStars(r.rating)}</Text>
+                </View>
+                <Text style={styles.reviewText}>{r.text}</Text>
+                <View style={styles.reviewMeta}>
+                  <Text style={styles.reviewSource}>
+                    google maps{r.date ? ` · ${r.date}` : ''}
+                  </Text>
+                  {r.url ? (
+                    <Pressable onPress={() => Linking.openURL(r.url!)}>
+                      <Text style={styles.reviewLink}>read on google maps →</Text>
+                    </Pressable>
+                  ) : null}
+                </View>
+              </View>
+            ))}
+            {reviewsMeta.mapsUrl ? (
+              <Pressable
+                onPress={() => Linking.openURL(reviewsMeta.mapsUrl!)}
+                style={styles.reviewAllLink}
+              >
+                <Text style={styles.reviewAllLinkText}>
+                  see all google maps reviews for {reviewsMeta.placeName || detailed.location} →
+                </Text>
+              </Pressable>
+            ) : null}
+          </>
+        ) : (
+          <Text style={styles.body}>real traveller reviews from google maps will appear here.</Text>
+        )}
 
         <Text style={styles.section}>getting there — all transports</Text>
         {transports.map((leg, i) => (
@@ -304,17 +364,23 @@ export function PlacePanel({ place, onClose }: Props) {
           </View>
         ))}
 
-        <Section title="visa & entry" text={detailed.visaEntry} />
         <Section title="culture & etiquette" text={detailed.cultureEtiquette} />
         <Section title="dress code" text={detailed.dressCode} />
         <Section title="payment" text={detailed.paymentMethods} />
         <Section title="access" text={detailed.accessNeeded} />
         <Section title="navigation" text={detailed.navigationTips} />
-        <Section title="local food to try" text={detailed.food} />
         <Section title="where to stay" text={detailed.stay} />
         <Section title="getting around" text={detailed.gettingAround} />
         <Section title="transport" text={detailed.transport} />
-        <Section title="cost per day (1 person)" text={detailed.costPerDay} />
+        {(() => {
+          const cost = formatCostPerDay(detailed.costPerDay, detailed.country, userCurrency);
+          return cost ? (
+            <View style={{ marginTop: 14 }}>
+              <Text style={styles.section}>cost per day (1 person)</Text>
+              <Text style={styles.body}>{cost}</Text>
+            </View>
+          ) : null;
+        })()}
         <Section title="opening hours" text={detailed.openingHours} />
         <Section
           title="emergency numbers"
@@ -353,16 +419,37 @@ export function PlacePanel({ place, onClose }: Props) {
           ))}
         </View>
 
-        <Text style={styles.section}>
-          flights · {originKnown ? (originCityName ? `${originCityName} (${originAirport})` : originAirport) : 'origin unknown'} → {detailed.airport}
-        </Text>
-        <Text style={styles.flightLive}>
-          {!originKnown
-            ? 'set your starting city on the location screen to personalise flights.'
-            : flightsLive
-              ? '● live flight data'
-              : '○ estimated schedule — open a flight to see live options & prices'}
-        </Text>
+        <Text style={styles.section}>flights</Text>
+        {!originKnown ? (
+          <Text style={styles.flightHint}>
+            set your starting city on the location screen to personalise flights.
+          </Text>
+        ) : (
+          <>
+            <Text style={styles.flightRoute}>
+              when would you like to travel? scroll the wheels to pick your going and return dates.
+            </Text>
+            <Text style={styles.dateLabel}>
+              {originCityName ? `${originCityName} (${originAirport})` : originAirport} → {detailed.airport}
+            </Text>
+            <ScrollDatePicker
+              start={outboundDate}
+              end={returnDate}
+              minDate={today}
+              maxDate={addDays(today, 180)}
+              onChange={(s, e) => {
+                setOutboundDate(s);
+                setReturnDate(e > s ? e : addDays(s, 1));
+              }}
+            />
+            <Text style={styles.flightLive}>
+              {flightsLive
+                ? '● live options via google flights'
+                : '○ estimated schedule — tap a flight to see live options & prices'}
+            </Text>
+          </>
+        )}
+
         <View style={styles.links}>
           {flightLinks.map((link) => (
             <Pressable key={link.url} onPress={() => Linking.openURL(link.url)} style={styles.linkChipFlight}>
@@ -370,47 +457,97 @@ export function PlacePanel({ place, onClose }: Props) {
             </Pressable>
           ))}
         </View>
+
         {loadingFlights ? (
           <ActivityIndicator color={colors.deepNavy} />
-        ) : flights.length === 0 ? (
-          <Text style={styles.body}>no flights found for this route at the moment.</Text>
         ) : (
-          flights.map((f) => {
-            const asean = isASEANAirline(f.airline);
-            const detailUrl = getFlightDetailLink(f.from, f.to, f.departure);
-            return (
-              <Pressable
-                key={f.flightNumber + f.departure}
-                style={[styles.flight, asean && styles.flightASEAN]}
-                onPress={() => {
-                  handleASEANFlight(f);
-                  Linking.openURL(detailUrl);
-                }}
-              >
-                <View style={styles.flightTop}>
-                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
-                    <Text style={styles.flightNo}>{f.flightNumber}</Text>
-                    {asean && <Text style={styles.aseanBadge}>ASEAN</Text>}
-                  </View>
-                  <Text style={styles.flightStatus}>{f.status}</Text>
-                </View>
-                <Text style={styles.flightMeta}>
-                  {f.from} → {f.to} · {f.airline} · {formatFlightDate(f.departure)} ·{' '}
-                  {formatFlightTime(f.departure)} → {formatFlightTime(f.arrival)}
-                  {f.terminal ? ` · ${f.terminal}` : ''}
+          <>
+            {!exactDates && (flights.length || returnFlights.length) ? (
+              <Text style={styles.noFlightsNote}>
+                no flights for your exact dates yet — schedules usually open closer to travel.
+                here are options on the nearest available dates:
+              </Text>
+            ) : null}
+            {flights.length ? (
+              <>
+                <Text style={styles.groupTitle}>
+                  going ·{' '}
+                  {formatDateLong(nearestOutbound ? new Date(`${nearestOutbound}T00:00:00`) : outboundDate)}
                 </Text>
-                {f.price != null ? (
-                  <Text style={styles.flightPrice}>
-                    {f.currency || 'USD'} {Number(f.price).toLocaleString()}
-                  </Text>
+                {flights.map((f) => (
+                  <FlightCard key={`out-${f.flightNumber}-${f.departure}`} f={f} />
+                ))}
+              </>
+            ) : null}
+            {returnFlights.length ? (
+              <>
+                <Text style={styles.groupTitle}>
+                  back ·{' '}
+                  {formatDateLong(nearestReturn ? new Date(`${nearestReturn}T00:00:00`) : returnDate)}
+                </Text>
+                {returnFlights.map((f) => (
+                  <FlightCard key={`ret-${f.flightNumber}-${f.departure}`} f={f} />
+                ))}
+              </>
+            ) : null}
+            {!flights.length && !returnFlights.length ? (
+              <Text style={styles.body}>
+                {!exactDates
+                  ? 'no flights are available for those dates yet — airline schedules usually open a few months out. try dates closer to today on the calendar, and check back again later.'
+                  : flightsLive
+                    ? 'no flights available for this route on those dates — try moving your dates on the calendar.'
+                    : 'no flights found for this route on those dates.'}
+              </Text>
+            ) : null}
+          </>
+        )}
+
+        <Text style={styles.section}>hotels & homestays</Text>
+        {hotelsLoading ? (
+          <ActivityIndicator color={colors.deepNavy} />
+        ) : hotels ? (
+          <>
+            <Text style={styles.flightRoute}>
+              bookable stays for your dates — {formatDateLong(new Date(`${hotels.checkin}T00:00:00`))} to{' '}
+              {formatDateLong(new Date(`${hotels.checkout}T00:00:00`))}. tap a stay to check rates and book.
+            </Text>
+            {hotels.hotels.map((h: HotelItem, i: number) => (
+              <Pressable
+                key={`${h.name}-${i}`}
+                style={styles.hotel}
+                onPress={() => (h.link ? Linking.openURL(h.link) : undefined)}
+              >
+                {h.thumbnail ? (
+                  <Image source={{ uri: h.thumbnail }} style={styles.hotelThumb} resizeMode="cover" />
                 ) : null}
-                {asean && (
-                  <Text style={styles.aseanPoints}>+10 shop points · ASEAN partner airline</Text>
-                )}
-                <Text style={styles.flightLink}>view this flight →</Text>
+                <View style={{ flex: 1, gap: 3 }}>
+                  <Text style={styles.hotelName}>{h.name}</Text>
+                  {h.description ? (
+                    <Text style={styles.hotelDesc} numberOfLines={2}>
+                      {h.description}
+                    </Text>
+                  ) : null}
+                  <View style={styles.hotelMeta}>
+                    {h.hotelClass ? (
+                      <Text style={styles.hotelMetaText}>{'★'.repeat(h.hotelClass)}</Text>
+                    ) : null}
+                    {h.rating ? (
+                      <Text style={styles.hotelMetaText}>★ {h.rating.toFixed(1)}</Text>
+                    ) : null}
+                    {h.reviews ? (
+                      <Text style={styles.hotelMetaText}>({h.reviews.toLocaleString()} reviews)</Text>
+                    ) : null}
+                  </View>
+                  {h.price ? <Text style={styles.hotelPrice}>{h.price}/night</Text> : null}
+                  {h.link ? <Text style={styles.hotelLink}>view & book →</Text> : null}
+                </View>
               </Pressable>
-            );
-          })
+            ))}
+          </>
+        ) : (
+          <Text style={styles.body}>
+            bookable hotels & homestays near {detailed.location} will appear here for your dates.
+          </Text>
         )}
 
         {game ? (
@@ -529,6 +666,46 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginBottom: 8,
   },
+  foodCard: {
+    marginTop: 14,
+    padding: 14,
+    borderRadius: 16,
+    backgroundColor: colors.warmCream,
+    borderWidth: 1.5,
+    borderColor: colors.warning,
+  },
+  foodCardHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginBottom: 10,
+  },
+  foodCardIcon: { fontSize: 26 },
+  foodCardTitle: {
+    fontFamily: 'Fraunces_600SemiBold',
+    fontSize: 16,
+    color: colors.deepNavy,
+  },
+  foodCardSub: {
+    fontFamily: 'DMSans_400Regular',
+    fontSize: 12,
+    color: colors.muted,
+    marginTop: 2,
+  },
+  foodChips: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+  foodChip: {
+    backgroundColor: colors.pureWhite,
+    paddingHorizontal: 12,
+    paddingVertical: 7,
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: colors.line,
+  },
+  foodChipText: {
+    fontFamily: 'DMSans_500Medium',
+    fontSize: 13,
+    color: colors.deepNavy,
+  },
   body: {
     fontFamily: 'DMSans_400Regular',
     fontSize: 14,
@@ -568,6 +745,25 @@ const styles = StyleSheet.create({
     color: colors.muted,
     marginTop: 2,
   },
+  reviewLink: {
+    fontFamily: 'DMSans_500Medium',
+    fontSize: 12,
+    color: colors.aseanBlue,
+  },
+  reviewAllLink: {
+    marginTop: 4,
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderRadius: 12,
+    backgroundColor: colors.subtleBlue,
+    alignSelf: 'flex-start',
+  },
+  reviewAllLinkText: {
+    fontFamily: 'DMSans_500Medium',
+    fontSize: 12,
+    color: colors.deepNavy,
+    letterSpacing: 0.4,
+  },
   officialLinkArrow: {
     fontSize: 18,
     color: colors.muted,
@@ -606,6 +802,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     flexDirection: 'row',
     gap: 8,
+    flexWrap: 'wrap',
   },
   reviewSource: {
     fontFamily: 'DMSans_400Regular',
@@ -622,7 +819,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: colors.aseanBlue,
     marginBottom: 4,
-    textTransform: 'lowercase',
   },
   tags: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 8 },
   tag: {
@@ -668,26 +864,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.pureWhite,
     marginBottom: 8,
   },
-  flightASEAN: {
-    borderColor: colors.aseanYellow,
-    backgroundColor: '#FFFEF0',
-  },
   flightTop: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
   flightNo: {
     fontFamily: 'DMSans_500Medium',
     fontSize: 14,
     color: colors.deepNavy,
-  },
-  aseanBadge: {
-    fontFamily: 'DMSans_500Medium',
-    fontSize: 10,
-    color: colors.pureWhite,
-    backgroundColor: colors.aseanBlue,
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    borderRadius: 999,
-    letterSpacing: 0.6,
-    overflow: 'hidden',
   },
   flightStatus: {
     fontFamily: 'DMSans_400Regular',
@@ -700,11 +881,72 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: colors.muted,
   },
+  flightLink: {
+    marginTop: 4,
+    fontFamily: 'DMSans_500Medium',
+    fontSize: 12,
+    color: colors.aseanBlue,
+  },
+  flightRoute: {
+    fontFamily: 'DMSans_400Regular',
+    fontSize: 13,
+    lineHeight: 19,
+    color: colors.ink,
+    marginBottom: 10,
+  },
+  flightHint: {
+    fontFamily: 'DMSans_400Regular',
+    fontSize: 13,
+    lineHeight: 19,
+    color: colors.ink,
+  },
+  dateLabel: {
+    fontFamily: 'DMSans_500Medium',
+    fontSize: 12,
+    color: colors.midnightNavy,
+    letterSpacing: 0.4,
+    marginTop: 10,
+    marginBottom: 6,
+  },
+  dateRow: { gap: 8, paddingBottom: 4, paddingRight: 12 },
+  dateChip: {
+    paddingHorizontal: 14,
+    paddingVertical: 9,
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: colors.line,
+    backgroundColor: colors.pureWhite,
+  },
+  dateChipOn: {
+    backgroundColor: colors.aseanBlue,
+    borderColor: colors.aseanBlue,
+  },
+  dateChipText: {
+    fontFamily: 'DMSans_500Medium',
+    fontSize: 12,
+    color: colors.deepNavy,
+  },
+  dateChipTextOn: {
+    color: colors.pureWhite,
+  },
+  groupTitle: {
+    fontFamily: 'Fraunces_600SemiBold',
+    fontSize: 16,
+    color: colors.deepNavy,
+    marginTop: 14,
+    marginBottom: 8,
+  },
   flightLive: {
     fontFamily: 'DMSans_500Medium',
     fontSize: 11,
     color: colors.muted,
-    marginBottom: 8,
+    marginTop: 10,
+  },
+  flightPrice: {
+    marginTop: 4,
+    fontFamily: 'Fraunces_600SemiBold',
+    fontSize: 15,
+    color: colors.deepNavy,
   },
   placeInfoCard: {
     marginTop: 14,
@@ -758,20 +1000,75 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: colors.deepNavy,
   },
-  aseanPoints: {
-    marginTop: 4,
+  noFlightsNote: {
     fontFamily: 'DMSans_500Medium',
-    fontSize: 11,
-    color: colors.aseanBlue,
+    fontSize: 13,
+    lineHeight: 19,
+    color: colors.warning,
+    backgroundColor: colors.warmCream,
+    borderWidth: 1,
+    borderColor: colors.warning,
+    borderRadius: 12,
+    padding: 12,
+    marginBottom: 10,
   },
-  flightPrice: {
-    marginTop: 4,
-    fontFamily: 'Fraunces_600SemiBold',
-    fontSize: 15,
+  moreInfoBtn: {
+    marginTop: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    alignSelf: 'flex-start',
+    paddingHorizontal: 14,
+    paddingVertical: 9,
+    borderRadius: 999,
+    borderWidth: 1.5,
+    backgroundColor: colors.mist,
+  },
+  moreInfoIcon: { fontSize: 16 },
+  moreInfoText: {
+    fontFamily: 'DMSans_500Medium',
+    fontSize: 13,
     color: colors.deepNavy,
   },
-  flightLink: {
-    marginTop: 4,
+  hotel: {
+    flexDirection: 'row',
+    gap: 12,
+    padding: 12,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: colors.line,
+    backgroundColor: colors.pureWhite,
+    marginBottom: 8,
+  },
+  hotelThumb: {
+    width: 72,
+    height: 72,
+    borderRadius: 12,
+    backgroundColor: colors.silentBlue,
+  },
+  hotelName: {
+    fontFamily: 'DMSans_500Medium',
+    fontSize: 14,
+    color: colors.deepNavy,
+  },
+  hotelDesc: {
+    fontFamily: 'DMSans_400Regular',
+    fontSize: 12,
+    lineHeight: 16,
+    color: colors.muted,
+  },
+  hotelMeta: { flexDirection: 'row', gap: 8, flexWrap: 'wrap' },
+  hotelMetaText: {
+    fontFamily: 'DMSans_400Regular',
+    fontSize: 11,
+    color: colors.muted,
+  },
+  hotelPrice: {
+    fontFamily: 'Fraunces_600SemiBold',
+    fontSize: 14,
+    color: colors.forestGreen,
+  },
+  hotelLink: {
     fontFamily: 'DMSans_500Medium',
     fontSize: 12,
     color: colors.aseanBlue,

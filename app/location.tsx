@@ -124,8 +124,8 @@ export default function LocationScreen() {
           Where are you starting?
         </Text>
         <Text style={styles.sub}>
-          WE KEEP A SOFT 5KM CIRCLE — NEVER YOUR EXACT PIN — SO RECOMMENDATIONS STAY PERSONAL
-          WITHOUT BEING PRECISE.
+          We Keep A Soft 5km Circle — Never Your Exact Pin — So Recommendations Stay Personal
+          Without Being Precise.
         </Text>
 
         <Button
@@ -135,7 +135,7 @@ export default function LocationScreen() {
         />
         {loading ? <ActivityIndicator color={colors.forestGreen} style={{ marginTop: 12 }} /> : null}
 
-        <Text style={styles.or}>OR TYPE ANY CITY ANYWHERE IN THE WORLD</Text>
+        <Text style={styles.or}>Or Type Any City Anywhere In The World</Text>
         <TextInput
           value={label}
           onChangeText={setLabel}

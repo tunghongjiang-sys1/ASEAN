@@ -48,6 +48,5 @@ const styles = StyleSheet.create({
     fontFamily: 'DMSans_500Medium',
     fontSize: 14,
     color: colors.midnightNavy,
-    textTransform: 'lowercase',
   },
 });

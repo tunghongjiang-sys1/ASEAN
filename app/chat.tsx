@@ -10,6 +10,7 @@ import { colors } from '../src/constants/colors';
 import { useApp } from '../src/context/app-context';
 import { askLocalDesk } from '../src/services/local-chat';
 import { askTravelAgent } from '../src/services/openrouter';
+import { foodSafeForAllergies } from '../src/utils/allergies';
 import type { ChatMessage, Place } from '../src/types/place';
 
 const SUGGESTIONS = [
@@ -41,7 +42,7 @@ export default function ChatScreen() {
         ? `hello ${travellerProfile.mode === 'solo' ? 'solo traveller' : `group of ${travellerProfile.groupSize || '?'}`}! i'm your asean travel desk. ask me about ${travellerProfile.placeTypes?.slice(0, 3).join(', ') || 'destinations, itineraries, or local tips'} across indonesia, cambodia, and vietnam. what country or vibe are you looking for?`
         : compact
           ? 'hi — which country or type of attraction interests you?'
-          : 'hello — i am your asean travel desk. tell me which country you would like to visit, or the kind of attractions you enjoy (beaches, temples, jungles, food…), and i will recommend places, hidden gems, and activities from the database.',
+          : 'hello — i am your asean travel desk. tell me which country you would like to visit, or the kind of attractions you enjoy (beaches, temples, jungles, food…), and i will recommend places, hidden gems, and activities across the region.',
       createdAt: new Date().toISOString(),
     },
   ]);
@@ -49,12 +50,15 @@ export default function ChatScreen() {
 
   const dbPlaces = useMemo(() => {
     const pref = preferences.map((p) => p.toLowerCase());
-    const filtered =
+    const byCategory =
       pref.length === 0
         ? (allPlaces as Place[])
         : (allPlaces as Place[]).filter((p) => pref.includes(p.category.toLowerCase()));
-    return filtered;
-  }, [preferences]);
+    const allergies = travellerProfile?.foodAllergies || '';
+    return allergies
+      ? byCategory.filter((p) => foodSafeForAllergies(p.food, allergies))
+      : byCategory;
+  }, [preferences, travellerProfile]);
 
   const notePlaces = useMemo(
     () =>
@@ -103,7 +107,14 @@ export default function ChatScreen() {
         travellerProfile
       );
       if (agentReply.includes('chat backend unreachable') || agentReply.includes('network error')) {
-        reply = await askLocalDesk(contextualizedQ, dbPlaces, notePlaces, userLocation?.airport);
+        reply = await askLocalDesk(
+          contextualizedQ,
+          dbPlaces,
+          notePlaces,
+          userLocation?.airport,
+          userLocation?.country,
+          travellerProfile
+        );
       } else {
         reply = agentReply;
       }

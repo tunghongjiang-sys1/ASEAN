@@ -9,6 +9,7 @@ import { colors } from '../src/constants/colors';
 import { useApp } from '../src/context/app-context';
 import type { Place } from '../src/types/place';
 import { expandPlace, getPlaceLinks, parseTransports, personalizeGettingThere } from '../src/utils/place-details';
+import { titleCase } from '../src/utils/text';
 
 export default function NotesScreen() {
   const insets = useSafeAreaInsets();
@@ -71,7 +72,7 @@ export default function NotesScreen() {
                   <View style={{ flex: 1 }}>
                     <Text style={styles.name}>{place.location}</Text>
                     <Text style={styles.meta}>
-                      {place.country.toLowerCase()} · {place.category.toLowerCase()}
+                      {titleCase(place.country)} · {titleCase(place.category)}
                     </Text>
                   </View>
                   <Text style={styles.chev}>{open ? '–' : '+'}</Text>

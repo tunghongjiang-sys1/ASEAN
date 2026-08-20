@@ -64,6 +64,7 @@ export type PlaceReview = {
   rating: number;
   text: string;
   date: string;
+  url?: string;
 };
 
 export type SeasonalFestival = {
@@ -126,8 +127,34 @@ export type FlightInfo = {
 
 export type FlightReply = {
   flights: FlightInfo[];
+  returnFlights: FlightInfo[];
   live: boolean;
+  /** False when the live provider had no flights on the exact dates and the
+   * closest available dates were returned instead. */
+  exactDates?: boolean;
+  nearestOutboundDate?: string;
+  nearestReturnDate?: string;
 };
+
+export type HotelItem = {
+  name: string;
+  description: string;
+  price: string;
+  priceValue: number | null;
+  rating: number | null;
+  reviews: number | null;
+  hotelClass: number | null;
+  link: string;
+  thumbnail: string;
+};
+
+export type HotelsReply = {
+  hotels: HotelItem[];
+  live: boolean;
+  checkin: string;
+  checkout: string;
+};
+
 
 export type MinigameType =
   | 'runner'

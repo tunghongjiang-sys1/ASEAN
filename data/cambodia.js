@@ -999,5 +999,29 @@ export const cambodiaData = [
     hospitals: "Battambang Provincial Referral Hospital",
     waterSource: "Groundwater, Bottled Water",
     shops: "Battambang Central Market"
+  },
+  {
+    id: "cambodia-angkorwat",
+    country: "Cambodia",
+    category: "Ancient ruins",
+    location: "Angkor Wat",
+    primaryActivities: "World's largest religious monument; sunrise over the iconic lotus towers",
+    howToGetThere: "Fly SIN → Siem Reap (REP); tuk-tuk, bicycle or car into the Angkor Archaeological Park",
+    visaEntry: "Visa‑free up to 30 days (tourism) or e-visa on arrival",
+    accessNeeded: "Angkor Park pass (1/3/7-day); modest dress; guides recommended",
+    navigationTips: "Tuk-tuk or Grab; park pass required; guides recommended",
+    paymentMethods: "Cash (KHR/USD), Credit/Debit Card",
+    cultureEtiquette: "Dress modestly and keep voices low inside temple galleries; never touch or climb the carvings",
+    dressCode: "Modest clothing; shoulders and knees covered",
+    gettingAround: "Tuk-tuk, Bicycle, Car",
+    food: "Fish Amok, Khmer Curry, Lok Lak",
+    stay: "Hotel, Boutique Hotel, Guesthouse",
+    transport: "Plane, Car",
+    costPerDay: "US$60",
+    openingHours: "05:00–17:30",
+    emergencyNumbers: "",
+    hospitals: "Siem Reap Provincial Referral Hospital",
+    waterSource: "Groundwater, Bottled Water",
+    shops: "Angkor Night Market, Siem Reap Old Market"
   }
 ];

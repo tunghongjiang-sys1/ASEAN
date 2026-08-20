@@ -6,47 +6,8 @@ import { BackButton } from '../src/components/ui/back-button';
 import { Button } from '../src/components/ui/button';
 import { colors } from '../src/constants/colors';
 import { useApp } from '../src/context/app-context';
+import { convertAmount, detectUserCurrency } from '../src/services/currency';
 import type { RedeemedVoucher, ShopVoucher } from '../src/types/place';
-
-const COUNTRY_CURRENCY: Record<string, { code: string; symbol: string; rate: number }> = {
-  singapore: { code: 'SGD', symbol: 'S$', rate: 1 },
-  'united states': { code: 'USD', symbol: '$', rate: 0.75 },
-  'europe': { code: 'EUR', symbol: '€', rate: 0.69 },
-  'united kingdom': { code: 'GBP', symbol: '£', rate: 0.59 },
-  'australia': { code: 'AUD', symbol: 'A$', rate: 1.13 },
-  'china': { code: 'CNY', symbol: '¥', rate: 5.4 },
-  'japan': { code: 'JPY', symbol: '¥', rate: 111 },
-  'south korea': { code: 'KRW', symbol: '₩', rate: 1000 },
-  'india': { code: 'INR', symbol: '₹', rate: 62 },
-  'indonesia': { code: 'IDR', symbol: 'Rp', rate: 11700 },
-  'vietnam': { code: 'VND', symbol: '₫', rate: 18750 },
-  'cambodia': { code: 'KHR', symbol: '៛', rate: 3075 },
-  'malaysia': { code: 'MYR', symbol: 'RM', rate: 3.5 },
-  'thailand': { code: 'THB', symbol: '฿', rate: 26.5 },
-  'philippines': { code: 'PHP', symbol: '₱', rate: 42 },
-  'france': { code: 'EUR', symbol: '€', rate: 0.69 },
-  'germany': { code: 'EUR', symbol: '€', rate: 0.69 },
-  'italy': { code: 'EUR', symbol: '€', rate: 0.69 },
-  'spain': { code: 'EUR', symbol: '€', rate: 0.69 },
-  'netherlands': { code: 'EUR', symbol: '€', rate: 0.69 },
-  'canada': { code: 'CAD', symbol: 'C$', rate: 1.02 },
-  'brazil': { code: 'BRL', symbol: 'R$', rate: 3.75 },
-  'uae': { code: 'AED', symbol: 'د.إ', rate: 2.75 },
-};
-
-function detectUserCurrency(userLocation: { label: string; country?: string } | null): {
-  code: string;
-  symbol: string;
-  rate: number;
-} {
-  if (!userLocation) return COUNTRY_CURRENCY.singapore;
-  const label = (userLocation.label || '').toLowerCase();
-  const country = (userLocation.country || '').toLowerCase();
-  for (const [key, val] of Object.entries(COUNTRY_CURRENCY)) {
-    if (country.includes(key) || label.includes(key)) return val;
-  }
-  return COUNTRY_CURRENCY.singapore;
-}
 
 const VOUCHERS_RAW: Array<Omit<ShopVoucher, 'points'> & { pointsSGD: number }> = [
   { id: 'v-att-bali', category: 'attraction', title: 'Bali Temples Pass', description: '20% off entrance fees to 5 major Balinese temples', pointsSGD: 200, country: 'Indonesia' },
@@ -106,7 +67,7 @@ export default function RedeemScreen() {
     () =>
       VOUCHERS_RAW.map((v) => ({
         ...v,
-        points: Math.round(v.pointsSGD * currency.rate),
+        points: Math.round(convertAmount(v.pointsSGD, 'SGD', currency.code)),
       })),
     [currency]
   );
@@ -166,7 +127,7 @@ export default function RedeemScreen() {
 
         <Text style={[styles.title, { fontSize: compact ? 28 : wide ? 48 : 36 }]}>shop</Text>
         <Text style={[styles.sub, { maxWidth: wide ? 640 : undefined }]}>
-          REDEEM YOUR POINTS FOR TRAVEL DISCOUNTS, VOUCHERS, AND EXCLUSIVE DEALS ACROSS SOUTHEAST
+          Redeem Your Points For Travel Discounts, Vouchers, And Exclusive Deals Across Southeast
           ASIA.
         </Text>
 
@@ -310,7 +271,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     letterSpacing: 1.4,
     color: 'rgba(255,255,255,0.7)',
-    textTransform: 'uppercase',
   },
   pointsValue: {
     fontFamily: 'Fraunces_600SemiBold',
@@ -432,7 +392,6 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: colors.muted,
     letterSpacing: 0.8,
-    textTransform: 'uppercase',
   },
   redeemedBtn: {
     minHeight: 34,
@@ -449,7 +408,6 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: colors.forestGreen,
     letterSpacing: 0.6,
-    textTransform: 'uppercase',
   },
   modalOverlay: {
     flex: 1,
@@ -478,7 +436,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     letterSpacing: 2,
     color: colors.muted,
-    textTransform: 'uppercase',
     textAlign: 'center',
     marginBottom: 12,
   },
@@ -511,7 +468,6 @@ const styles = StyleSheet.create({
     fontFamily: 'DMSans_400Regular',
     fontSize: 13,
     color: colors.muted,
-    textTransform: 'lowercase',
   },
   receiptValue: {
     fontFamily: 'DMSans_500Medium',

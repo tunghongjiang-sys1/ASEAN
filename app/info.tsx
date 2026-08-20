@@ -28,14 +28,14 @@ export default function InfoScreen() {
           </Text>
           <View style={wide ? { flex: 1.2 } : undefined}>
             <Text style={styles.bodyText}>
-              ASEANFINDER IS AN ALL-IN-ONE TRAVEL COMPANION DESIGNED TO PROMOTE TOURISM ACROSS
-              SOUTHEAST ASIA. THE PLATFORM HELPS TRAVELERS EXPLORE DESTINATIONS BASED ON THEIR
-              INTERESTS, DISCOVER LOCAL CULTURE AND HIDDEN GEMS, PLAN THEIR JOURNEYS, AND EARN
-              REWARDS THROUGH INTERACTIVE MINIGAMES.
+              ASEANfinder Is An All-In-One Travel Companion Designed To Promote Tourism Across
+              Southeast Asia. The Platform Helps Travelers Explore Destinations Based On Their
+              Interests, Discover Local Culture And Hidden Gems, Plan Their Journeys, And Earn
+              Rewards Through Interactive Minigames.
             </Text>
             <Text style={[styles.bodyText, { marginTop: 16 }]}>
-              WITH AI-POWERED GUIDANCE AND ESSENTIAL TRAVEL INFORMATION, ASEANFINDER MAKES
-              EXPLORING THE ASEAN REGION EASIER, SMARTER, AND MORE ENGAGING.
+              With AI-Powered Guidance And Essential Travel Information, ASEANfinder Makes
+              Exploring The ASEAN Region Easier, Smarter, And More Engaging.
             </Text>
           </View>
         </View>

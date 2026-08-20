@@ -55,13 +55,6 @@ const ROUTE_DURATIONS: Record<string, { airline: string; code: string; baseMin: 
   SOQ: [{ airline: 'garuda indonesia', code: 'GA', baseMin: 360 }],
 };
 
-const ASEAN_AIRLINES = [
-  'singapore airlines', 'scoot', 'garuda indonesia', 'batik air',
-  'cambodia airways', 'vietnam airlines', 'malaysia airlines',
-  'thai airways', 'bangkok airways', 'airasia', 'cebu pacific',
-  'philippine airlines', 'lion air', 'citilink',
-];
-
 const AIRPORT_COORDS: Record<string, [number, number]> = {
   SIN: [1.3644, 103.9915], KUL: [2.7456, 101.7099], BKK: [13.69, 100.7501],
   HKG: [22.308, 113.9185], MNL: [14.5086, 121.0196],
@@ -89,16 +82,52 @@ const AIRPORT_COORDS: Record<string, [number, number]> = {
   PER: [-31.9403, 115.9673], AKL: [-37.0082, 174.785],
 };
 
-export function isASEANAirline(airline: string): boolean {
-  return ASEAN_AIRLINES.some((a) => airline.toLowerCase().includes(a));
-}
-
-function pad(n: number) {
+export function pad(n: number): string {
   return String(n).padStart(2, '0');
 }
 
-function addMinutes(d: Date, m: number) {
-  return new Date(d.getTime() + m * 60000);
+export function addDays(date: Date, days: number): Date {
+  const d = new Date(date);
+  d.setDate(d.getDate() + days);
+  return d;
+}
+
+export function toISODate(d: Date): string {
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+}
+
+function minToTimeIso(dateStr: string, minutes: number): string {
+  const d = new Date(`${dateStr}T00:00:00Z`);
+  return new Date(d.getTime() + minutes * 60000).toISOString();
+}
+
+function syntheticFlights(to: string, origin: string, dateStr: string, count = 5): FlightInfo[] {
+  const routes = ROUTE_DURATIONS[to] || [
+    { airline: 'regional carrier', code: 'XX', baseMin: 180 },
+  ];
+  const a = AIRPORT_COORDS[origin];
+  const b = AIRPORT_COORDS[to];
+  const distanceMin = a && b ? Math.max(40, Math.round(haversineKm(a, b) / 850 * 60) + 45) : null;
+  const out: FlightInfo[] = [];
+  for (let i = 0; i < count; i++) {
+    const meta = routes[i % routes.length];
+    const durationMin = distanceMin ?? Math.round(meta.baseMin);
+    const dep = 6 * 60 + i * 95 + (i % 2) * 40;
+    const num = `${meta.code}${900 + ((to.length * 7 + i * 7) % 90)}`;
+    out.push({
+      flightNumber: num,
+      airline: meta.airline,
+      from: origin,
+      to,
+      departure: minToTimeIso(dateStr, dep),
+      arrival: minToTimeIso(dateStr, dep + durationMin),
+      status: i === 0 ? 'boarding soon' : i < 2 ? 'on time' : 'scheduled',
+      terminal: i % 2 === 0 ? 'T3' : 'T2',
+      price: Math.round(60 + durationMin * 1.35 + i * 15),
+      currency: 'USD',
+    });
+  }
+  return out;
 }
 
 function haversineKm(a: [number, number], b: [number, number]): number {
@@ -112,62 +141,53 @@ function haversineKm(a: [number, number], b: [number, number]): number {
   return 2 * R * Math.asin(Math.sqrt(h));
 }
 
-function syntheticFlights(to: string, origin: string, count = 6): FlightInfo[] {
-  const routes = ROUTE_DURATIONS[to] || [
-    { airline: 'regional carrier', code: 'XX', baseMin: 180 },
-  ];
-  const a = AIRPORT_COORDS[origin];
-  const b = AIRPORT_COORDS[to];
-  const distanceMin = a && b ? Math.max(40, Math.round(haversineKm(a, b) / 850 * 60) + 45) : null;
-  const now = new Date();
-  const out: FlightInfo[] = [];
-  for (let i = 0; i < count; i++) {
-    const meta = routes[i % routes.length];
-    const durationMin = distanceMin ?? Math.round(meta.baseMin);
-    const dep = addMinutes(now, 45 + i * 95 + (i % 3) * 20);
-    const arr = addMinutes(dep, durationMin);
-    const num = `${meta.code}${900 + ((to.length * 7 + i * 7) % 90)}`;
-    out.push({
-      flightNumber: num,
-      airline: meta.airline,
-      from: origin,
-      to,
-      departure: dep.toISOString(),
-      arrival: arr.toISOString(),
-      status: i === 0 ? 'boarding soon' : i < 2 ? 'on time' : 'scheduled',
-      terminal: i % 2 === 0 ? 'T3' : 'T2',
-      price: Math.round(60 + durationMin * 1.35 + i * 17),
-      currency: 'USD',
-    });
-  }
-  return out;
-}
-
 export async function getFlightsTo(
   airport: string,
-  origin = 'SIN'
+  origin = 'SIN',
+  outboundDate?: string,
+  returnDate?: string
 ): Promise<FlightReply> {
   const to = (airport || 'DPS').toUpperCase();
   const from = (origin || 'SIN').toUpperCase();
+  const going = outboundDate || toISODate(addDays(new Date(), 1));
+  const back = returnDate || toISODate(addDays(new Date(), 5));
 
   const headers: Record<string, string> = { Accept: 'application/json' };
   if (BACKEND_SECRET) headers.Authorization = `Bearer ${BACKEND_SECRET}`;
 
   try {
     const res = await fetch(
-      `${BACKEND_URL}/flights?to=${encodeURIComponent(to)}&from=${encodeURIComponent(from)}`,
+      `${BACKEND_URL}/flights?to=${encodeURIComponent(to)}&from=${encodeURIComponent(
+        from
+      )}&outbound_date=${encodeURIComponent(going)}&return_date=${encodeURIComponent(back)}`,
       {
         method: 'GET',
         headers,
       }
     );
-    if (!res.ok) return { flights: syntheticFlights(to, from), live: false };
+    if (!res.ok) return { flights: syntheticFlights(to, from, going), returnFlights: syntheticFlights(from, to, back), live: false };
     const data = (await res.json()) as FlightReply;
-    return Array.isArray(data.flights) && data.flights.length
-      ? data
-      : { flights: syntheticFlights(to, from), live: false };
+    const exact = data.exactDates !== false;
+    const exactOut = Array.isArray(data.flights) ? data.flights : [];
+    const exactRet = Array.isArray(data.returnFlights) ? data.returnFlights : [];
+    const outbound =
+      exact && !exactOut.length ? syntheticFlights(to, from, going) : exactOut;
+    const returns =
+      exact && !exactRet.length ? syntheticFlights(from, to, back) : exactRet;
+    return {
+      flights: outbound,
+      returnFlights: returns,
+      live: !!data.live,
+      exactDates: exact,
+      nearestOutboundDate: data.nearestOutboundDate || undefined,
+      nearestReturnDate: data.nearestReturnDate || undefined,
+    };
   } catch {
-    return { flights: syntheticFlights(to, from), live: false };
+    return {
+      flights: syntheticFlights(to, from, going),
+      returnFlights: syntheticFlights(from, to, back),
+      live: false,
+    };
   }
 }
 
@@ -186,4 +206,17 @@ export function formatFlightDate(iso: string) {
   } catch {
     return iso;
   }
+}
+
+const WEEKDAYS = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+const MONTHS = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+
+/** Short human label for a date chip, e.g. "Fri 21 aug". */
+export function formatDateChip(d: Date): string {
+  return `${WEEKDAYS[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth()]}`;
+}
+
+/** "Fri 21 aug 2026" style label for section headers. */
+export function formatDateLong(d: Date): string {
+  return `${WEEKDAYS[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
 }

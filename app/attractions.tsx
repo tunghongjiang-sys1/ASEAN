@@ -18,6 +18,7 @@ import { ScrollPicker } from '../src/components/ui/scroll-picker';
 import { colors, getCategoryColor } from '../src/constants/colors';
 import { useApp } from '../src/context/app-context';
 import type { TravellerProfile } from '../src/types/place';
+import { titleCase } from '../src/utils/text';
 
 type Step = 0 | 1 | 2 | 3;
 
@@ -46,17 +47,25 @@ export default function AttractionsScreen() {
   const { width } = useWindowDimensions();
   const compact = width < 420;
   const wide = width >= 900;
-  const { auth, preferences, setPreferences, setTravellerProfile } = useApp();
+  const { auth, preferences, setPreferences, setTravellerProfile, travellerProfile } = useApp();
 
+  const savedAllergies = (travellerProfile?.foodAllergies ?? '')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
   const [step, setStep] = useState<Step>(0);
-  const [solo, setSolo] = useState(true);
-  const [groupSize, setGroupSize] = useState(2);
-  const [hasElderly, setHasElderly] = useState(false);
-  const [hasChildren, setHasChildren] = useState(false);
-  const [specialNeeds, setSpecialNeeds] = useState('');
-  const [transport, setTransport] = useState('');
-  const [allergies, setAllergies] = useState('');
-  const [selectedAllergens, setSelectedAllergens] = useState<string[]>([]);
+  const [solo, setSolo] = useState(travellerProfile?.mode !== 'group');
+  const [groupSize, setGroupSize] = useState(travellerProfile?.groupSize ?? 2);
+  const [hasElderly, setHasElderly] = useState(travellerProfile?.hasElderly ?? false);
+  const [hasChildren, setHasChildren] = useState(travellerProfile?.hasChildren ?? false);
+  const [specialNeeds, setSpecialNeeds] = useState(travellerProfile?.specialNeeds ?? '');
+  const [transport, setTransport] = useState(travellerProfile?.transportPreference ?? '');
+  const [allergies, setAllergies] = useState(
+    savedAllergies.filter((a) => !COMMON_ALLERGENS.includes(a)).join(', ')
+  );
+  const [selectedAllergens, setSelectedAllergens] = useState<string[]>(
+    savedAllergies.filter((a) => COMMON_ALLERGENS.includes(a))
+  );
   const [selectedCategories, setSelectedCategories] = useState<string[]>(preferences);
 
   const fadeAnim = useRef(new Animated.Value(1)).current;
@@ -129,11 +138,9 @@ export default function AttractionsScreen() {
         {step === 0 && (
           <ScrollView contentContainerStyle={styles.question} showsVerticalScrollIndicator={false}>
             <Text style={[styles.qTitle, { fontSize: compact ? 30 : wide ? 48 : 36 }]}>
-              Are you travelling solo or in a
+              Are you travelling solo or in a group?
             </Text>
-            ‎ ‎ ‎         
-            <Text style={[styles.qTitle, { fontSize: compact ? 28 : wide ? 48 : 36 }]}>group?</Text>
-            ‎ 
+            ‎ // empty space
             <View style={styles.toggleRow}>
               <Pressable
                 onPress={() => setSolo(true)}
@@ -152,7 +159,7 @@ export default function AttractionsScreen() {
             {!solo && (
               <View style={styles.groupSection}>
                 <Text style={styles.groupLabel}>How many travellers?</Text>
-                <ScrollPicker min={2} max={30} value={groupSize} onValueChange={setGroupSize} />
+                <ScrollPicker min={2} max={500} value={groupSize} onValueChange={setGroupSize} />
 
                 <View style={styles.checkRow}>
                   <Pressable
@@ -192,12 +199,9 @@ export default function AttractionsScreen() {
         {step === 1 && (
           <ScrollView contentContainerStyle={styles.question} showsVerticalScrollIndicator={false}>
             <Text style={[styles.qTitle, { fontSize: compact ? 28 : wide ? 48 : 36 }]}>
-              How do you prefer to get 
+              How do you prefer{'\n'}to get around?
             </Text>
-            ‎ ‎ ‎ 
-            <Text style={[styles.qTitle, { fontSize: compact ? 28 : wide ? 48 : 36 }]}>around?</Text>
-            ‎ 
-            <Text style={styles.qSub}>PICK ONE TRANSPORT MODE</Text>
+            <Text style={styles.qSub}>Pick One Transport Mode</Text>
             <View style={styles.transportGrid}>
               {TRANSPORT_OPTIONS.map((opt) => (
                 <Pressable
@@ -223,12 +227,9 @@ export default function AttractionsScreen() {
         {step === 2 && (
           <ScrollView contentContainerStyle={styles.question} showsVerticalScrollIndicator={false}>
             <Text style={[styles.qTitle, { fontSize: compact ? 26 : wide ? 48 : 34 }]}>
-              Any food allergies
+              Any food allergies{'\n'}or dietary needs?
             </Text>
-            ‎ 
-            <Text style={[styles.qTitle, { fontSize: compact ? 26 : wide ? 48 : 34 }]}>or dietary needs?</Text>
-            ‎ 
-            <Text style={styles.qSub}>ADD YOUR OWN OR TAP COMMON ALLERGENS</Text>
+            <Text style={styles.qSub}>Add Your Own Or Tap Common Allergens</Text>
             <TextInput
               value={allergies}
               onChangeText={setAllergies}
@@ -259,12 +260,9 @@ export default function AttractionsScreen() {
         {step === 3 && (
           <ScrollView contentContainerStyle={styles.question} showsVerticalScrollIndicator={false}>
             <Text style={[styles.qTitle, { fontSize: compact ? 26 : wide ? 48 : 34 }]}>
-              What kind of places
+              What kind of places{'\n'}do you want to visit?
             </Text>
-            ‎ 
-            <Text style={[styles.qTitle, { fontSize: compact ? 26 : wide ? 48 : 34 }]}>do you want to visit?</Text>
-            ‎ 
-            <Text style={styles.qSub}>SELECT ALL THAT APPLY</Text>
+            <Text style={styles.qSub}>Select All That Apply</Text>
             <View style={styles.chips}>
               {categoryList.map((c) => {
                 const accent = getCategoryColor(c);
@@ -280,7 +278,7 @@ export default function AttractionsScreen() {
                     style={[styles.placeChip, sel && { backgroundColor: accent, borderColor: accent }]}
                   >
                     <Text style={[styles.placeChipText, sel && { color: colors.pureWhite }]}>
-                      {c.toLowerCase()}
+                      {titleCase(c)}
                     </Text>
                   </Pressable>
                 );
@@ -341,9 +339,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   question: {
-    paddingTop: 24,
-    paddingBottom: 24,
-    gap: 16,
+    paddingTop: 28,
+    paddingBottom: 32,
+    gap: 22,
   },
   qTitle: {
     fontFamily: 'Fraunces_600SemiBold',
@@ -356,7 +354,8 @@ const styles = StyleSheet.create({
     fontSize: 12,
     letterSpacing: 1.4,
     color: colors.forestGreen,
-    marginBottom: 4,
+    marginBottom: 6,
+    marginTop: -6,
   },
   toggleRow: {
     flexDirection: 'row',
@@ -384,8 +383,8 @@ const styles = StyleSheet.create({
     color: colors.pureWhite,
   },
   groupSection: {
-    gap: 14,
-    marginTop: 4,
+    gap: 18,
+    marginTop: 8,
   },
   groupLabel: {
     fontFamily: 'DMSans_500Medium',
@@ -408,7 +407,7 @@ const styles = StyleSheet.create({
   },
   checkChipOn: {
     borderColor: colors.forestGreen,
-    backgroundColor: colors.forestGreenSoft,
+    backgroundColor: colors.forestGreen,
   },
   checkText: {
     fontFamily: 'DMSans_500Medium',
@@ -416,7 +415,7 @@ const styles = StyleSheet.create({
     color: colors.midnightNavy,
   },
   checkTextOn: {
-    color: colors.forestGreen,
+    color: colors.pureWhite,
   },
   textInput: {
     backgroundColor: colors.pureWhite,
@@ -501,7 +500,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     paddingHorizontal: 20,
-    paddingTop: 8,
+    paddingTop: 14,
     flexDirection: 'row',
     gap: 12,
   },

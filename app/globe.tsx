@@ -3,7 +3,7 @@ import { Dimensions, Pressable, StyleSheet, Text, View, useWindowDimensions } fr
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { Redirect, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { filterPlacesByCategories, getPlaceById } from '../data';
+import { filterPlacesByProfile, getPlaceById } from '../data';
 import { GlobeMap } from '../src/components/globe-map';
 import { PlacePanel } from '../src/components/place-panel';
 import { colors, getCategoryColor } from '../src/constants/colors';
@@ -20,6 +20,7 @@ export default function GlobeScreen() {
     auth,
     logout,
     preferences,
+    travellerProfile,
     userLocation,
     selectedPlaceId,
     setSelectedPlaceId,
@@ -32,8 +33,8 @@ export default function GlobeScreen() {
   } | null>(null);
 
   const places = useMemo(
-    () => filterPlacesByCategories(preferences) as Place[],
-    [preferences]
+    () => filterPlacesByProfile(preferences, travellerProfile) as Place[],
+    [preferences, travellerProfile]
   );
 
   const selected = selectedPlaceId ? (getPlaceById(selectedPlaceId) as Place | undefined) : null;
@@ -166,7 +167,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Fraunces_600SemiBold',
     letterSpacing: 1,
     color: colors.pureWhite,
-    textTransform: 'lowercase',
   },
   link: {
     paddingHorizontal: 14,
@@ -181,7 +181,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     letterSpacing: 0.8,
     color: colors.pureWhite,
-    textTransform: 'lowercase',
   },
   stage: { flex: 1, flexDirection: 'row', overflow: 'hidden' },
   side: {

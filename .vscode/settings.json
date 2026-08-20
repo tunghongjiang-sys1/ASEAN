@@ -25,5 +25,8 @@
         "titleBar.inactiveBackground": "#ff000099",
         "titleBar.inactiveForeground": "#e7e7e799"
     },
-    "peacock.color": "red"
+    "peacock.color": "red",
+    "python.analysis.extraPaths": [
+        "/Users/tunghongjiang/.vscode/extensions/polymatepteltd.marlin-controller-1.0.2/dist"
+    ]
 }

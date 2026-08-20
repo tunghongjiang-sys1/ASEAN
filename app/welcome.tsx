@@ -16,8 +16,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Button } from '../src/components/ui/button';
 import { colors } from '../src/constants/colors';
 import { useApp } from '../src/context/app-context';
-import { useGoogleAuth } from '../src/services/use-google-auth';
 import { homepagePhotos } from '../src/data/place-images';
+import { useGoogleAuth } from '../src/services/use-google-auth';
 
 const HERO_COUNT = 4;
 
@@ -58,6 +58,42 @@ export default function WelcomeScreen() {
   const [emailInput, setEmailInput] = useState('');
   const [emailOpen, setEmailOpen] = useState(false);
 
+  const [heroImages, setHeroImages] = useState<number[]>(() =>
+    pickRandom(homepagePhotos, HERO_COUNT)
+  );
+  const fades = useRef(heroImages.map((_, i) => new Animated.Value(i === 0 ? 1 : 0))).current;
+  const zoom = useRef(new Animated.Value(1)).current;
+  const idxRef = useRef(0);
+
+  // Crossfade the hero photos every 5s; swap in a fresh random set on each lap.
+  useEffect(() => {
+    const id = setInterval(() => {
+      const prev = idxRef.current;
+      const next = (prev + 1) % heroImages.length;
+      idxRef.current = next;
+      if (next === 0) {
+        setHeroImages(pickRandom(homepagePhotos, HERO_COUNT));
+      }
+      Animated.parallel([
+        Animated.timing(fades[prev], { toValue: 0, duration: 900, useNativeDriver: true }),
+        Animated.timing(fades[next], { toValue: 1, duration: 1200, useNativeDriver: true }),
+      ]).start();
+    }, 5000);
+    return () => clearInterval(id);
+  }, [fades, heroImages.length]);
+
+  // Slow Ken Burns zoom so the photos feel alive between crossfades.
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(zoom, { toValue: 1.06, duration: 10000, useNativeDriver: true }),
+        Animated.timing(zoom, { toValue: 1, duration: 10000, useNativeDriver: true }),
+      ])
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [zoom]);
+
   const [now, setnow] = useState(() => Date.now());
   useEffect(() => {
     const id = setInterval(() => setnow(Date.now()), 60_000);
@@ -88,40 +124,6 @@ export default function WelcomeScreen() {
       loginWithGoogle(google.profile);
     }
   }, [google.profile]);
-
-  const [heroImages, setHeroImages] = useState<number[]>(() =>
-    pickRandom(homepagePhotos, HERO_COUNT)
-  );
-  const fades = useRef(heroImages.map(() => new Animated.Value(0))).current;
-  const zoom = useRef(new Animated.Value(1)).current;
-  const idxRef = useRef(0);
-
-  useEffect(() => {
-    fades[0].setValue(1);
-    const id = setInterval(() => {
-      const prev = idxRef.current;
-      const next = (prev + 1) % heroImages.length;
-      idxRef.current = next;
-      if (next === 0) {
-        setHeroImages(pickRandom(homepagePhotos, HERO_COUNT));
-      }
-      Animated.timing(fades[prev], { toValue: 0, duration: 900, useNativeDriver: true }).start();
-      fades[next].setValue(0);
-      Animated.timing(fades[next], { toValue: 1, duration: 1200, useNativeDriver: true }).start();
-    }, 5000);
-    return () => clearInterval(id);
-  }, [fades, heroImages.length]);
-
-  useEffect(() => {
-    const loop = Animated.loop(
-      Animated.sequence([
-        Animated.timing(zoom, { toValue: 1.06, duration: 10000, useNativeDriver: true }),
-        Animated.timing(zoom, { toValue: 1, duration: 10000, useNativeDriver: true }),
-      ])
-    );
-    loop.start();
-    return () => loop.stop();
-  }, [zoom]);
 
   const scrollRef = useRef<ScrollView>(null);
   const scrollY = useRef(new Animated.Value(0)).current;
@@ -155,7 +157,11 @@ export default function WelcomeScreen() {
           <Animated.Image
             key={i}
             source={src}
-            style={[StyleSheet.absoluteFill, styles.heroImg, { opacity: fades[i], transform: [{ scale: zoom }] }]}
+            style={[
+              StyleSheet.absoluteFill,
+              styles.heroImg,
+              { opacity: fades[i], transform: [{ scale: zoom }] },
+            ]}
             resizeMode="cover"
           />
         ))}
@@ -181,23 +187,18 @@ export default function WelcomeScreen() {
               ASEANfinder
             </Text>
             <Text style={[styles.tagline, { maxWidth: wide ? 720 : 380, fontSize: compact ? 13 : 17 }]}>
-              YOUR SOUTHEAST ASIA TRAVEL DESK. PLAN YOUR TRIP ACROSS INDONESIA, CAMBODIA, AND
-              VIETNAM WITH FLIGHTS, TRAVEL NOTES, MINIGAMES, AND AN AI GUIDE.
+              Your Southeast Asia Travel Desk. Plan Your Trip Across Indonesia, Cambodia And Vietnam
+              With Flights, Travel Notes, Minigames, And An AI Guide.
             </Text>
             {!auth ? (
-              <Text style={styles.saveHint}>LOG IN TO SAVE PROGRESS</Text>
+              <Text style={styles.saveHint}>Log In To Save Progress</Text>
             ) : null}
           </View>
 
-          <View style={styles.heroBottom}>
+          <View style={styles.heroMid}>
             {!auth ? (
               <>
-                <View style={[styles.loginRow, wide && styles.loginRowWide]}>
-                  <Button
-                    variant="hero"
-                    label={emailOpen ? 'hide email' : 'continue with email'}
-                    onPress={() => setEmailOpen((o) => !o)}
-                  />
+                <View style={styles.loginStack}>
                   <Button
                     variant="hero"
                     label={googleLabel}
@@ -205,6 +206,11 @@ export default function WelcomeScreen() {
                       void google.signIn();
                     }}
                     disabled={google.loading || !google.configured}
+                  />
+                  <Button
+                    variant="hero"
+                    label={emailOpen ? 'hide email' : 'continue with email'}
+                    onPress={() => setEmailOpen((o) => !o)}
                   />
                   <Button variant="hero" label="continue as guest" onPress={loginAsGuest} />
                 </View>
@@ -293,8 +299,8 @@ export default function WelcomeScreen() {
                   Start Planning
                 </Text>
                 <Text style={[styles.deskBody, { fontSize: compact ? 13 : 15 }]}>
-                  PICK THE KINDS OF PLACES YOU LOVE, SOFTEN YOUR CITY INTO A QUIET 5KM CIRCLE,
-                  THEN EXPLORE A 3D EARTH OF SOUTHEAST ASIA.
+                  Pick The Kinds Of Places You Love, Soften Your City Into A Quiet 5km Circle, Then
+                  Explore A 3D Earth Of Southeast Asia.
                 </Text>
                 <Text style={styles.signedIn}>
                   {auth.mode === 'guest' ? 'signed in as guest' : `signed in as ${auth.email || auth.name}`}
@@ -325,14 +331,14 @@ export default function WelcomeScreen() {
           </Text>
           <View style={wide ? { flex: 1.1 } : undefined}>
             <Text style={styles.sectionBody}>
-              ASEANFINDER IS AN ALL-IN-ONE TRAVEL COMPANION DESIGNED TO PROMOTE TOURISM ACROSS
-              SOUTHEAST ASIA. THE PLATFORM HELPS TRAVELERS EXPLORE DESTINATIONS BASED ON THEIR
-              INTERESTS, DISCOVER LOCAL CULTURE AND HIDDEN GEMS, PLAN THEIR JOURNEYS, AND EARN
-              REWARDS THROUGH INTERACTIVE MINIGAMES.
+              ASEANfinder Is An All-In-One Travel Companion Designed To Promote Tourism Across
+              Southeast Asia. The Platform Helps Travelers Explore Destinations Based On Their
+              Interests, Discover Local Culture And Hidden Gems, Plan Their Journeys, And Earn
+              Rewards Through Interactive Minigames.
             </Text>
             <Text style={[styles.sectionBody, { marginTop: 14 }]}>
-              WITH AI-POWERED GUIDANCE AND ESSENTIAL TRAVEL INFORMATION, ASEANFINDER MAKES
-              EXPLORING THE ASEAN REGION EASIER, SMARTER, AND MORE ENGAGING.
+              With AI-Powered Guidance And Essential Travel Information, ASEANfinder Makes
+              Exploring The ASEAN Region Easier, Smarter, And More Engaging.
             </Text>
           </View>
         </View>
@@ -343,7 +349,7 @@ export default function WelcomeScreen() {
           Not Your Boring{'\n'}Travel Agent
         </Text>
         <Text style={[styles.sectionBody, { marginTop: 10, maxWidth: wide ? 720 : undefined }]}>
-          WE PLAN CHILL AND CURATED TRIPS BASED ON EACH USER'S PREFERENCE
+          We Plan Chill And Curated Trips Based On Each User's Preference
         </Text>
         <Button
           label="get started"
@@ -400,8 +406,8 @@ export default function WelcomeScreen() {
 
       <View style={styles.footer}>
         <Text style={styles.disclaimer}>
-          THIS IS A BETA SAMPLE WEBSITE, SO SOME INFORMATION MAY BE INCOMPLETE, INACCURATE, OR
-          SUBJECT TO CHANGE.
+          This Is A Beta Sample Website, So Some Information May Be Incomplete, Inaccurate, Or
+          Subject To Change.
         </Text>
       </View>
     </Animated.ScrollView>
@@ -411,10 +417,11 @@ export default function WelcomeScreen() {
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: colors.forestGreen },
   scrollContent: { backgroundColor: colors.paper },
-  hero: { width: '100%', backgroundColor: '#04140a' },
+  hero: { width: '100%', backgroundColor: '#04140a', overflow: 'hidden' },
   heroImg: { width: '100%', height: '100%' },
-  heroInner: { flex: 1, justifyContent: 'space-between' },
+  heroInner: { flex: 1 },
   heroTop: { gap: 14 },
+  heroMid: { flex: 1, justifyContent: 'center', gap: 12 },
   wordmark: {
     fontFamily: 'Fraunces_600SemiBold',
     color: colors.pureWhite,
@@ -441,9 +448,7 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 6,
   },
-  heroBottom: { gap: 12 },
-  loginRow: { gap: 12 },
-  loginRowWide: { flexDirection: 'row', gap: 16 },
+  loginStack: { gap: 12, width: '100%', maxWidth: 420, alignSelf: 'center' },
   emailPanel: {
     backgroundColor: colors.paper,
     borderRadius: 18,
@@ -451,6 +456,8 @@ const styles = StyleSheet.create({
     gap: 10,
     borderWidth: 1,
     borderColor: 'rgba(255,255,255,0.35)',
+    alignSelf: 'center',
+    maxWidth: 560,
   },
   historyBlock: { gap: 6 },
   historyLabel: {

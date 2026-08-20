@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     letterSpacing: 1.4,
     color: colors.pureWhite,
-    textTransform: 'uppercase',
   },
   labelDark: {
     color: colors.forestGreen,
