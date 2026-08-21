@@ -6,6 +6,29 @@ const BACKEND_URL =
 
 const BACKEND_SECRET = (process.env.EXPO_PUBLIC_BACKEND_SECRET || '').trim();
 
+export async function getVisaInfo(
+  nationality: string,
+  destination: string
+): Promise<{ answer: string; live: boolean } | null> {
+  if (!nationality || !destination) return null;
+  const headers: Record<string, string> = { Accept: 'application/json' };
+  if (BACKEND_SECRET) headers.Authorization = `Bearer ${BACKEND_SECRET}`;
+  try {
+    const res = await fetch(
+      `${BACKEND_URL}/visa?nationality=${encodeURIComponent(nationality)}&destination=${encodeURIComponent(
+        destination
+      )}`,
+      { headers }
+    );
+    if (!res.ok) return null;
+    const data = (await res.json()) as { answer?: string; live?: boolean };
+    if (!data || !data.answer) return null;
+    return { answer: data.answer, live: !!data.live };
+  } catch {
+    return null;
+  }
+}
+
 export async function getPlaceInfo(query: string): Promise<PlaceInfo | null> {
   if (!query) return null;
   const headers: Record<string, string> = { Accept: 'application/json' };

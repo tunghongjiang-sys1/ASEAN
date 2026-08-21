@@ -34,6 +34,7 @@ function Wheel({
 }) {
   const listRef = useRef<FlatList<Date>>(null);
   const offsetRef = useRef(0);
+  const commitTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const indexOf = useCallback(
     (d: Date) => {
       const days = Math.round(
@@ -65,9 +66,21 @@ function Wheel({
       offsetRef.current = e.nativeEvent.contentOffset.y;
       const idx = Math.round(offsetRef.current / ITEM_HEIGHT);
       setActiveIndex(Math.max(0, Math.min(dates.length - 1, idx)));
+      // Web (mouse wheel) never fires momentum/drag-end events, so the pick
+      // only commits when the wheel stops scrolling. Debounce a commit here
+      // so the summary + flights update to the date the traveller actually
+      // scrolled to on every platform.
+      if (commitTimer.current) clearTimeout(commitTimer.current);
+      commitTimer.current = setTimeout(commit, 250);
     },
-    [dates.length]
+    [dates.length, commit]
   );
+
+  useEffect(() => {
+    return () => {
+      if (commitTimer.current) clearTimeout(commitTimer.current);
+    };
+  }, []);
 
   return (
     <View style={styles.wheel}>

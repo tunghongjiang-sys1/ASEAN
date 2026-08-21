@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import logging
 import os
 import re
 import time
@@ -21,6 +22,7 @@ from prompt import (
     food_unsafe_for_allergies,
     is_database_question,
     local_reply,
+    personalize_visa_query,
     title_case,
     web_reply,
 )
@@ -41,6 +43,8 @@ GOOGLE_PLACES_API_KEY = os.environ.get("GOOGLE_PLACES_API_KEY", "").strip()
 BACKEND_SECRET = os.environ.get("BACKEND_SECRET", "").strip()
 RATE_LIMIT_PER_MIN = int(os.environ.get("RATE_LIMIT_PER_MIN", "30"))
 PORT = int(os.environ.get("PORT", "8081"))
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
 
 app = FastAPI(title="asean travel - local chat + flights backend")
 
@@ -168,6 +172,11 @@ class HotelsReply(BaseModel):
     checkout: str = ""
 
 
+class VisaReply(BaseModel):
+    answer: str = ""
+    live: bool = False
+
+
 def _require_auth(request: Request) -> None:
     if not BACKEND_SECRET:
         return
@@ -277,7 +286,24 @@ async def chat(req: ChatRequest, request: Request) -> ChatReply:
                 f"Food: {p.get('food', 'N/A')}."
                 for p in context_places[:24]
             )
+            # Include live web search context so the model can answer questions
+            # the place database does not cover (visas, weather, events, prices...).
+            # NOTE: this must run BEFORE the system message is baked into the
+            # messages list, or the search context never reaches the model.
+            visa_q = personalize_visa_query(req.question, user_country)
+            web = await _serpapi_web_search(visa_q or req.question)
+            web_lines = [web["answer"]] if web.get("answer") else []
+            web_lines += [
+                f"- {s.get('title')}: {s.get('snippet')} ({s.get('url')})"
+                for s in (web.get("snippets") or [])
+                if s.get("snippet") or s.get("title")
+            ]
             full_system = f"{system_prompt}\n\nKnown places in the region (use these for recommendations):\n{place_context}"
+            if web_lines:
+                full_system += (
+                    "\n\nLive web search results for this question — use them when the "
+                    "known places list doesn't cover it:\n" + "\n".join(web_lines[:5])
+                )
 
             messages: List[Dict[str, str]] = [{"role": "system", "content": full_system}]
             for m in (req.history or [])[-10:]:
@@ -286,21 +312,6 @@ async def chat(req: ChatRequest, request: Request) -> ChatReply:
                 if role in ("user", "assistant") and content:
                     messages.append({"role": role, "content": content})
             messages.append({"role": "user", "content": req.question})
-
-            # Include live web search context so the model can answer questions
-            # the place database does not cover (visas, weather, events, prices...).
-            web = await _serpapi_web_search(req.question)
-            web_lines = [web["answer"]] if web.get("answer") else []
-            web_lines += [
-                f"- {s.get('title')}: {s.get('snippet')} ({s.get('url')})"
-                for s in (web.get("snippets") or [])
-                if s.get("snippet") or s.get("title")
-            ]
-            if web_lines:
-                full_system += (
-                    "\n\nLive web search results for this question — use them when the "
-                    "known places list doesn't cover it:\n" + "\n".join(web_lines[:5])
-                )
 
             async with httpx.AsyncClient(timeout=30.0) as client:
                 resp = await client.post(
@@ -321,12 +332,27 @@ async def chat(req: ChatRequest, request: Request) -> ChatReply:
                     reply = data["choices"][0]["message"]["content"].strip()
                     if reply:
                         return ChatReply(reply=title_case(reply))
+                # Surface failures in the server log instead of silently
+                # serving the keyword-based fallback with no trace.
+                logging.error(
+                    "openrouter %s failed: status=%s body=%s",
+                    OPENROUTER_MODEL,
+                    resp.status_code,
+                    resp.text[:300],
+                )
         except Exception:
-            pass
+            logging.exception("openrouter request raised an exception")
 
     # No LLM available. Answer from the local database first; when the question
     # is outside the database (visa, weather, events, live prices...), answer
-    # from a live google search instead.
+    # from a live google search instead. Visa questions are personalized with
+    # the traveller's home country (e.g. Spain -> Vietnam) via a web search.
+    visa_q = personalize_visa_query(req.question, user_country)
+    if visa_q:
+        web = await _serpapi_web_search(visa_q)
+        web_text = web_reply(visa_q, web)
+        if web_text:
+            return ChatReply(reply=web_text)
     if is_database_question(req.question, context_places or saved_places):
         return ChatReply(reply=local_reply(
             req.question,
@@ -560,6 +586,35 @@ async def _serpapi_web_search(question: str) -> Dict[str, Any]:
             return result
     except Exception:
         return {}
+
+
+VISA_CACHE_TTL_SECONDS = float(os.environ.get("VISA_CACHE_TTL", "86400"))
+_visa_cache: Dict[str, Tuple[float, VisaReply]] = {}
+
+
+@app.get("/visa", response_model=VisaReply)
+async def visa(
+    nationality: str = Query(..., min_length=1, description="traveller's home country, e.g. Spain"),
+    destination: str = Query(..., min_length=1, description="destination country, e.g. Vietnam"),
+) -> VisaReply:
+    """Whether a traveller from `nationality` needs a visa for `destination`,
+    answered from a live google search via SerpAPI."""
+    if not SERPAPI_API_KEY:
+        return VisaReply(answer="", live=False)
+    key = f"{nationality.strip().lower()}|{destination.strip().lower()}"
+    now = time.time()
+    hit = _visa_cache.get(key)
+    if hit and now < hit[0]:
+        return hit[1]
+    try:
+        query = f"visa requirements for citizens of {nationality} visiting {destination}"
+        web = await _serpapi_web_search(query)
+        text = web_reply(query, web)
+        reply = VisaReply(answer=text, live=bool(text))
+        _visa_cache[key] = (now + VISA_CACHE_TTL_SECONDS, reply)
+        return reply
+    except Exception:
+        return VisaReply(answer="", live=False)
 
 
 HOTEL_CACHE_TTL_SECONDS = float(os.environ.get("HOTEL_CACHE_TTL", "21600"))

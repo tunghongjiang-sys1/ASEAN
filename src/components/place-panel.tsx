@@ -15,7 +15,7 @@ import {
   getFlightsTo,
   toISODate,
 } from '../services/flights';
-import { getPlaceInfo, getPlaceReviews } from '../services/place-info';
+import { getPlaceInfo, getPlaceReviews, getVisaInfo } from '../services/place-info';
 import { getHotelsNear } from '../services/hotels';
 import { ScrollDatePicker } from './ui/scroll-dates';
 import { detectUserCurrency, formatCostPerDay } from '../services/currency';
@@ -64,6 +64,8 @@ export function PlacePanel({ place, onClose }: Props) {
   const [placeInfo, setPlaceInfo] = useState<PlaceInfo | null>(null);
   const [realReviews, setRealReviews] = useState<PlaceReview[] | null>(null);
   const [reviewsMeta, setReviewsMeta] = useState<{ placeName?: string; mapsUrl?: string }>({});
+  const [visaInfo, setVisaInfo] = useState<{ answer: string; live: boolean } | null>(null);
+  const [visaLoading, setVisaLoading] = useState(false);
   const saved = hasNote(place.id);
 
   const detailed = useMemo(
@@ -155,6 +157,25 @@ export function PlacePanel({ place, onClose }: Props) {
       alive = false;
     };
   }, [detailed.location, detailed.country]);
+
+  const travellerCountry = userLocation?.country?.trim();
+  useEffect(() => {
+    let alive = true;
+    setVisaInfo(null);
+    if (!travellerCountry || !detailed.country) {
+      setVisaLoading(false);
+      return;
+    }
+    setVisaLoading(true);
+    getVisaInfo(travellerCountry, detailed.country).then((v) => {
+      if (!alive) return;
+      setVisaInfo(v);
+      setVisaLoading(false);
+    });
+    return () => {
+      alive = false;
+    };
+  }, [travellerCountry, detailed.country]);
 
   useEffect(() => {
     let alive = true;
@@ -314,6 +335,31 @@ export function PlacePanel({ place, onClose }: Props) {
             <Text style={styles.officialLinkArrow}>→</Text>
           </Pressable>
         ) : null}
+
+        <View style={styles.visaCard}>
+          <Text style={styles.visaIcon}>🛂</Text>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.visaTitle}>
+              {travellerCountry
+                ? `visa from ${titleCase(travellerCountry)}`
+                : 'visa & entry requirements'}
+            </Text>
+            {detailed.visaEntry ? (
+              <Text style={styles.visaDb}>{detailed.visaEntry}</Text>
+            ) : null}
+            {travellerCountry ? (
+              visaLoading ? (
+                <ActivityIndicator color={colors.deepNavy} style={{ marginTop: 8 }} />
+              ) : visaInfo?.answer ? (
+                <Text style={styles.visaLive}>{visaInfo.answer}</Text>
+              ) : (
+                <Text style={styles.visaHint}>
+                  check official entry rules before you fly.
+                </Text>
+              )
+            ) : null}
+          </View>
+        </View>
 
         <Text style={styles.section}>what visitors say</Text>
         {realReviews && realReviews.length ? (
@@ -941,6 +987,48 @@ const styles = StyleSheet.create({
     fontSize: 11,
     color: colors.muted,
     marginTop: 10,
+  },
+  visaCard: {
+    marginTop: 14,
+    flexDirection: 'row',
+    gap: 12,
+    padding: 14,
+    borderRadius: 16,
+    backgroundColor: colors.warmCream,
+    borderWidth: 1.5,
+    borderColor: colors.aseanBlue,
+  },
+  visaIcon: { fontSize: 26 },
+  visaTitle: {
+    fontFamily: 'DMSans_500Medium',
+    fontSize: 13,
+    color: colors.deepNavy,
+    letterSpacing: 0.4,
+  },
+  visaDb: {
+    marginTop: 4,
+    fontFamily: 'DMSans_400Regular',
+    fontSize: 13,
+    lineHeight: 19,
+    color: colors.ink,
+  },
+  visaLive: {
+    marginTop: 8,
+    fontFamily: 'DMSans_400Regular',
+    fontSize: 13,
+    lineHeight: 19,
+    color: colors.deepNavy,
+    backgroundColor: colors.pureWhite,
+    borderRadius: 10,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: colors.line,
+  },
+  visaHint: {
+    marginTop: 6,
+    fontFamily: 'DMSans_400Regular',
+    fontSize: 12,
+    color: colors.muted,
   },
   flightPrice: {
     marginTop: 4,

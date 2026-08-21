@@ -272,27 +272,51 @@ def synthetic_flights(to: str, origin: str, count: int = 6) -> List[Dict[str, An
     return out
 
 
-def _leg_to_flight(
-    seg: Dict[str, Any],
+def _itinerary_to_flight(
+    segs: List[Dict[str, Any]],
     fallback_from: str,
     fallback_to: str,
-) -> Dict[str, Any]:
-    dep = seg.get("departure_airport") or {}
-    arr = seg.get("arrival_airport") or {}
-    carrier = seg.get("airline") or "airline"
-    flight_no = str(seg.get("flight_number") or "").strip().replace(" ", "")
+    priced: Dict[str, Any] | None = None,
+) -> Dict[str, Any] | None:
+    """Collapse a SerpAPI Google Flights itinerary (possibly multi-leg, e.g.
+    DPS -> CGK -> SIN) into one card: show the true origin -> destination,
+    the first leg's departure time and flight number, the last leg's arrival
+    time, and the airline(s) involved. Never show a half-route like
+    'DPS -> CGK' as if it were the whole trip."""
+    segs = [s for s in (segs or []) if isinstance(s, dict)]
+    if not segs:
+        return None
+    first = segs[0]
+    last = segs[-1]
+    dep = first.get("departure_airport") or {}
+    arr = last.get("arrival_airport") or {}
+
+    airlines: List[str] = []
+    for s in segs:
+        carrier = str(s.get("airline") or "").strip()
+        if carrier and carrier not in airlines:
+            airlines.append(carrier)
+    airline_label = " · ".join(a.lower() for a in airlines) or "airline"
+
+    # One flight number when it's a single leg; otherwise 'ID6509 · ID7159'.
+    numbers = [str(s.get("flight_number") or "").strip().replace(" ", "") for s in segs]
+    flight_no = " · ".join(n for n in numbers if n) or "—"
+
     dep_time = str(dep.get("time") or "").replace(" ", "T") or _iso_from_ms(_now_ms())
     arr_time = str(arr.get("time") or "").replace(" ", "T") or _iso_from_ms(_now_ms())
-    return {
-        "flightNumber": flight_no or "—",
-        "airline": carrier.lower(),
+    flight: Dict[str, Any] = {
+        "flightNumber": flight_no,
+        "airline": airline_label,
         "from": dep.get("id") or fallback_from,
         "to": arr.get("id") or fallback_to,
         "departure": dep_time,
         "arrival": arr_time,
         "status": "scheduled",
-        "terminal": seg.get("terminal") or None,
+        "terminal": first.get("terminal") or None,
     }
+    if priced:
+        flight.update(priced)
+    return flight
 
 
 def serpapi_flights(
@@ -354,18 +378,13 @@ def serpapi_flights(
             continue
         price = offer.get("price")
         priced = {"price": round(float(price)) if isinstance(price, (int, float)) else None, "currency": "USD"}
-        segs = offer.get("flights") or []
-        if segs:
-            first = segs[0]
-            flight = _leg_to_flight(first, origin, to)
-            flight.pop("price", None)
-            outbound.append({**flight, **priced})
+        flight = _itinerary_to_flight(offer.get("flights") or [], origin, to, priced)
+        if flight:
+            outbound.append(flight)
         if rt:
-            ret_segs = offer.get("return_flights") or []
-            if ret_segs:
-                flight = _leg_to_flight(ret_segs[0], to, origin)
-                flight.pop("price", None)
-                returns.append({**flight, **priced})
+            ret_flight = _itinerary_to_flight(offer.get("return_flights") or [], to, origin, priced)
+            if ret_flight:
+                returns.append(ret_flight)
     if not outbound and not returns:
         return None
     result = {"outbound": outbound, "return": returns}

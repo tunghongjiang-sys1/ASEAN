@@ -696,6 +696,25 @@ def local_reply(
         allergies = (traveller_profile or {}).get("foodAllergies") or ""
         return _food_reply(hit, allergies)
 
+    # "Recommend a beach / best temples / where to dive..." — answer from the
+    # matching database category instead of a generic worldwide web result.
+    cat = _category_for_query(q)
+    if cat:
+        cat_places = [
+            p for p in (places or [])
+            if (p.get("category") or "").strip().lower() == cat.strip().lower()
+        ]
+        if cat_places:
+            picks = cat_places[:4]
+            lines = [f"here are {cat.lower()} picks across the region:"]
+            for p in picks:
+                lines.append(
+                    f"• {p.get('location')} ({p.get('country')}) — {p.get('primaryActivities', 'a traveller favourite')}"
+                )
+            lines.append("")
+            lines.append("ask about any of these for the full rundown, or ask for a plan.")
+            return title_case("\n".join(lines))
+
     if hit:
         how_to = re.sub(r"\bSIN\b", origin, hit.get("howToGetThere") or "")
         lines = [
@@ -750,6 +769,67 @@ _NATIONALITY_RE = re.compile(
     re.I,
 )
 
+_DESTINATION_RE = re.compile(
+    r"\b(vietnam|cambodia|indonesia|bali|siem reap|angkor|phnom penh|hanoi|ho chi minh|saigon|"
+    r"da nang|halong|ha long|phu quoc|nha trang|jakarta|yogyakarta|ubud|komodo|raja ampat|battambang)\b",
+    re.I,
+)
+
+# Vibe words -> database categories, so questions like "recommend a beach" or
+# "best temple in vietnam" answer from the place database instead of a generic
+# worldwide web result (Puerto Rico beaches, etc.).
+_CATEGORY_KEYWORDS = {
+    "ancient ruins": ["temple", "temples", "ruin", "ruins", "ancient", "wat", "angkor", "borobudur", "prambanan"],
+    "coastline/islands": ["beach", "beaches", "island", "islands", "coast", "coastal", "sea", "shore", "sand"],
+    "wildlife sanctuaries": ["wildlife", "sanctuary", "sanctuaries", "orangutan", "elephant", "animals", "nature reserve"],
+    "forest and jungles": ["jungle", "forest", "rainforest", "trek", "trekking", "hike", "hiking", "trail"],
+    "underwater worlds": ["dive", "diving", "snorkel", "snorkeling", "reef", "coral", "underwater"],
+    "volcanoes and craters": ["volcano", "volcanoes", "crater", "crater lake"],
+    "caves and underground": ["cave", "caves", "underground"],
+    "mountain and wetlands": ["mountain", "mountains", "peak", "highland", "hills", "wetland", "wetlands"],
+    "water communities – water housing": ["floating", "water village", "stilt", "river village"],
+    "river and wetlands": ["river", "mekong", "waterfall", "waterfalls", "lake"],
+    "cultural villages": ["village", "villages", "traditional", "homestay", "culture"],
+    "artisan towns": ["artisan", "craft", "pottery", "weaving", "silver", "market"],
+    "historical sites": ["history", "historical", "museum", "war", "heritage", "monument"],
+    "rock formation": ["rock", "karst", "cliff", "cliffs", "gorge"],
+    "rural countryside": ["countryside", "rice", "paddy", "terraces", "farm"],
+}
+
+
+def _category_for_query(q: str) -> str | None:
+    """Return a database category whose keyword vibes match the question."""
+    ql = (q or "").lower()
+    if not ql:
+        return None
+    for cat, words in _CATEGORY_KEYWORDS.items():
+        if any(w in ql for w in words):
+            return cat
+    return None
+
+
+def personalize_visa_query(question: str, user_country: str) -> str:
+    """Build a better web-search query for visa questions when we know the
+    traveller's home country, e.g. 'visa requirements for citizens of Spain
+    visiting Vietnam'. Returns '' when the question isn't visa-related, we
+    don't know the traveller's country, or the question already names a
+    home nationality (spanish, american, ...) other than the destination."""
+    q = (question or "").strip()
+    country = (user_country or "").strip()
+    if not q or not country:
+        return ""
+    if not _VISA_RE.search(q):
+        return ""
+    # _NATIONALITY_RE also matches destination names (vietnam, indonesia...),
+    # so only bail when the named country is a home nationality, not the
+    # destination the traveller is asking about.
+    m = _NATIONALITY_RE.search(q)
+    if m and not _DESTINATION_RE.search(m.group(1)):
+        return ""
+    dm = _DESTINATION_RE.search(q)
+    dest = dm.group(1) if dm else "southeast asia"
+    return f"visa requirements for citizens of {country} visiting {dest}"
+
 
 def is_database_question(q: str, places: List[Dict[str, Any]]) -> bool:
     """True when the local place database can answer the question well (greetings,
@@ -775,6 +855,10 @@ def is_database_question(q: str, places: List[Dict[str, Any]]) -> bool:
     # Prices, taxi fares, exchange rates, flight status... belong to the web.
     if _LIVE_TOPIC_RE.search(ql):
         return False
+    # "Recommend a beach / best temple / where to dive..." should answer from
+    # the place database, not a worldwide web result.
+    if _category_for_query(ql):
+        return True
     return _find_place(ql, places) is not None
 
 
